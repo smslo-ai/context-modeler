@@ -114,4 +114,17 @@ jsdom cannot test the most important user flows: adding a node and seeing it app
 
 ---
 
-*This document was generated at session close on 2026-03-29.*
+## F. User Feedback (Session Close, 2026-03-29)
+
+> *"The live site feels excellent. The debugging/iterating is not (to my 'feel') performance related. Super smooth."*
+
+**Interpretation:** Performance is not the issue with the add/edit/iterate UX — the app feels fast. The friction is in the *workflow* of debugging and iterating (no node edit, no undo, reset is all-or-nothing). This confirms the gap is **CRUD completeness**, not rendering speed.
+
+**Implication for Phase 5 planning:**
+- Prioritize **node edit capability** (UX-7.3) before AI features — it affects every demo interaction
+- The smooth performance baseline means AI streaming responses (token-by-token) will feel natural, not laggy
+- No need to optimize bundle size or add lazy loading before Phase 5
+
+---
+
+*This document was generated at session close on 2026-03-29. User feedback appended same session.*
