@@ -4,10 +4,36 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>context-modeler</title>
+    <meta name="description" content="Map your workplace as a connected system — model workflows, systems, and personas to visualize context flow and friction." />
+    <title>Context-Aware Workplace Modeler — Shane Slosar</title>
+    <meta property="og:title" content="Context-Aware Workplace Modeler" />
+    <meta property="og:description" content="Map your workplace as a connected system — workflows, tools, and people. A portfolio project by Shane Slosar." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://smslo-ai.github.io/context-modeler/" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Context-Aware Workplace Modeler" />
+    <meta name="twitter:description" content="Map your workplace as a connected system — workflows, tools, and people." />
   </head>
   <body>
-    <div id="app"></div>
+    <header id="app-header" role="banner">
+      <!-- Populated by components/nav.js in Wave 4 -->
+    </header>
+
+    <main id="app-main" role="main">
+      <div id="view-dashboard" aria-label="Dashboard view">
+        <!-- Populated by views/dashboard.js in Wave 4 -->
+      </div>
+
+      <div id="view-input-studio" class="hidden" aria-label="Input Studio view">
+        <!-- Populated by views/input-studio.js in Wave 4 -->
+      </div>
+    </main>
+
+    <!-- AI panel container — locked until Phase 5 -->
+    <aside id="ai-panel" class="hidden" aria-label="AI Analysis panel" aria-hidden="true">
+      <!-- Populated in Phase 5 -->
+    </aside>
+
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
