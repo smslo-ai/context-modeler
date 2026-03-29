@@ -1,0 +1,39 @@
+# -------------------------------------------------------
+# .gitignore — Tell Git which files NOT to track.
+#
+# HOW TO USE:
+#   Add a line for any file or folder you don't want
+#   saved in GitHub (e.g., passwords, temp files, etc.)
+#
+# SYNTAX:
+#   filename.ext   — ignore one specific file
+#   *.log          — ignore ALL files ending in .log
+#   build/         — ignore an entire folder
+# -------------------------------------------------------
+
+# ── OS files (created automatically by your computer) ──
+.DS_Store          # macOS folder thumbnails
+Thumbs.db          # Windows folder thumbnails
+desktop.ini        # Windows folder settings
+
+# ── Editor / IDE files ──
+.vscode/           # VS Code workspace settings
+.idea/             # JetBrains IDE settings
+*.swp              # Vim swap files
+
+# ── Secrets & credentials — NEVER commit these! ──
+.env               # Environment variables / API keys
+*.pem              # Private keys
+*.key              # Secret key files
+
+# ── Build output & dependencies ──
+node_modules/      # JavaScript packages (re-install with npm install)
+__pycache__/       # Python bytecode cache
+*.pyc              # Compiled Python files
+dist/              # Built/compiled output
+build/             # Another common build folder
+
+# ── Logs & temp files ──
+*.log
+*.tmp
+*.bak
