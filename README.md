@@ -1,89 +1,115 @@
-# [PROJECT NAME]
+# Context-Aware Workplace Modeler
 
-> ✏️ _One sentence that explains what this project does — write it here!_
+> An interactive single-page application that models your workplace through three lenses -- Business Workflows, Systems & Infrastructure, and User Personas -- and visualizes how they relate.
 
 | | |
 |---|---|
-| 👤 **Author** | [YOUR NAME] |
-| 📅 **Started** | [YEAR] |
-| 🏷️ **Version** | v0.1 |
-| 📄 **License** | MIT |
+| **Author** | [Shane Slosar](https://github.com/shaneslo) |
+| **Organization** | [smslo-ai](https://github.com/smslo-ai) |
+| **Started** | 2026 |
+| **Version** | v0.1 (Phase 1 -- Build from Spec) |
+| **License** | MIT |
 
 ---
 
-## 🚀 What Does It Do?
+## What Is This?
 
-<!--
-  Write 2–3 sentences here explaining your project.
-  Pretend you're telling a friend who has never seen it before!
--->
+Think of it as a "digital twin" of your work life. You define the workflows you deal with, the tools and systems you use, and the personas of people on your team. The app maps how they connect and shows where cognitive friction lives -- where the wrong tool meets the wrong task.
 
-[Describe your project here. What problem does it solve? Who is it for?]
+Three simulation modes (Morning Triage, Deep Focus, Firefighting) let you see how the same workplace feels under different conditions. A friction heatmap highlights which workflow-system combinations cause the most pain.
 
----
-
-## 🛠️ How To Use It
-
-<!--
-  List the steps someone needs to follow to run or use your project.
-  Keep each step short and clear.
--->
-
-1. [First step — e.g., "Download the project"]
-2. [Second step — e.g., "Open the folder"]
-3. [Third step — e.g., "Run the main file"]
+Built as a portfolio project demonstrating context engineering and workplace architecture thinking.
 
 ---
 
-## ⚙️ Options & Settings
+## Tech Stack
 
-<!--
-  If your project has any settings the user can change, list them here.
-  Delete this whole section if there are no settings yet.
--->
-
-| Setting | Default Value | What It Does |
-|---------|---------------|--------------|
-| `[OPTION_NAME]` | `[default]` | [Short description] |
+| Tool | Purpose |
+|------|---------|
+| **Vanilla JavaScript** | Application logic (no framework) |
+| **Vite** | Build tool and dev server |
+| **Tailwind CSS v4** | Styling |
+| **Chart.js** | Radar and bubble chart visualizations |
+| **DOMPurify** | HTML sanitization |
 
 ---
 
-## 📁 Project Structure
+## Getting Started
 
-```
-[PROJECT NAME]/
-├── README.md        ← You are here! Start reading here.
-├── LICENSE          ← The rules for how others can use this project.
-├── .gitignore       ← Tells Git which files NOT to save.
-└── [your files]     ← Add your own files here!
+```bash
+# Clone the repo
+git clone https://github.com/smslo-ai/context-modeler.git
+cd context-modeler
+
+# Install dependencies
+npm install
+
+# Start the dev server
+npm run dev
 ```
 
----
+Open [http://localhost:5173](http://localhost:5173) in your browser.
 
-## ✅ DO This
+### Other Commands
 
-- **Keep the README up to date** — update it whenever something changes.
-- **Use clear names** for your files and folders (e.g., `game.py`, not `stuff2_final.py`).
-- **Commit often** — save your work in small steps so it's easy to undo mistakes.
-- **Ask for help** when you're stuck. Everyone does!
-
-## 🚫 DON'T Do This
-
-- **Don't delete files you don't understand** — ask first, delete later.
-- **Don't share passwords, secret keys, or personal info** in your code.
-- **Don't copy code without reading it** — make sure you know what it does.
-- **Don't commit huge files** (videos, installers, etc.) — use a link instead.
+```bash
+npm run build     # Production build to dist/
+npm run preview   # Preview production build locally
+npx vitest        # Run unit tests
+```
 
 ---
 
-## 🙋 How To Contribute
+## Project Structure
 
-Want to help improve this project? Here's how:
-
-1. **Fork** this repo (click the Fork button on GitHub to make your own copy).
-2. **Make your changes** in your copy.
-3. **Open a Pull Request** so the changes can be reviewed and merged.
+```
+context-modeler/
+|-- PLAN.md              # Phased build plan (v3.0)
+|-- SPEC.md              # Implementation-ready specification
+|-- index.html           # Single HTML entry point
+|-- src/
+|   |-- main.js          # Entry point
+|   |-- style.css        # Global styles + Tailwind
+|   |-- constants/       # Event name constants
+|   |-- data/            # Default ontology data, context map, friction rules
+|   |-- state/           # Central store + localStorage persistence
+|   |-- views/           # Dashboard and Input Studio renderers
+|   |-- components/      # Triad explorer, heatmap, charts, nav, modals
+|   +-- utils/           # Sanitization, validation, friction calculation
+|-- OLD_prototype/       # Reference material (screenshots, spec doc, infographic)
++-- .github/workflows/   # GitHub Actions deploy pipeline
+```
 
 ---
 
-*Made with ❤️ by [YOUR NAME]*
+## Project Status
+
+See [PLAN.md](PLAN.md) for the full phased roadmap.
+
+| Phase | Status |
+|-------|--------|
+| Phase 0 -- Setup | Complete |
+| Phase 1 -- Build from Spec | In Progress |
+| Phase 2 -- Wire Interactions | Upcoming |
+| Phase 3 -- Deployment | Upcoming |
+| Phase 4A-D -- Polish & Portfolio | Upcoming |
+| Phase 5 -- AI Features | Future (see PLAN.md Part 7) |
+
+---
+
+## Documentation
+
+| Document | Purpose |
+|----------|---------|
+| [PLAN.md](PLAN.md) | Build roadmap, phasing, PR strategy, risk register |
+| [SPEC.md](SPEC.md) | Complete implementation spec -- data model, views, interactions, CSS system |
+| [AUDIT_SECURITY_A11Y.md](AUDIT_SECURITY_A11Y.md) | Security and accessibility audit findings |
+| [AUDIT_UX.md](AUDIT_UX.md) | UX review findings |
+| [REVIEW_PRODUCT.md](REVIEW_PRODUCT.md) | Product manager review of the plan |
+| [REVIEW_ENGINEERING.md](REVIEW_ENGINEERING.md) | Senior engineer review of the plan |
+
+---
+
+## License
+
+MIT
