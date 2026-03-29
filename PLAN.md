@@ -260,7 +260,7 @@ Every change follows this cycle:
 Start with a verb. Keep it short.
 
 - ✅ `Add input sanitization to prevent XSS`
-- ✅ `Fix heatmap using random values`
+- ✅ `Fix heatmap randomness to make values deterministic`
 - ✅ `Remove hardcoded API key from client-side code`
 - ❌ `stuff`
 - ❌ `updated things`
