@@ -1,24 +1,39 @@
 # Context-Aware Workplace Modeler
 
-> An interactive single-page application that models your workplace through three lenses -- Business Workflows, Systems & Infrastructure, and User Personas -- and visualizes how they relate.
+> Map your workplace as a connected system — model workflows, tools, and people to visualize context flow and friction.
+
+**[→ Live Demo](https://smslo-ai.github.io/context-modeler/)**
 
 | | |
 |---|---|
 | **Author** | [Shane Slosar](https://github.com/shaneslo) |
 | **Organization** | [smslo-ai](https://github.com/smslo-ai) |
 | **Started** | 2026 |
-| **Version** | v0.1 (Phase 1 -- Build from Spec) |
+| **Version** | v1.0 (Portfolio-ready — Phases 1–4D complete) |
 | **License** | MIT |
 
 ---
 
 ## What Is This?
 
-Think of it as a "digital twin" of your work life. You define the workflows you deal with, the tools and systems you use, and the personas of people on your team. The app maps how they connect and shows where cognitive friction lives -- where the wrong tool meets the wrong task.
+Think of it as a "digital twin" of your work life. You define the workflows you deal with, the tools and systems you use, and the personas of people on your team. The app maps how they connect and shows where cognitive friction lives — where the wrong tool meets the wrong task.
 
 Three simulation modes (Morning Triage, Deep Focus, Firefighting) let you see how the same workplace feels under different conditions. A friction heatmap highlights which workflow-system combinations cause the most pain.
 
-Built as a portfolio project demonstrating context engineering and workplace architecture thinking.
+Built as a portfolio project by Shane Slosar — a financial operations professional building AI fluency — demonstrating context engineering and workplace architecture thinking.
+
+---
+
+## Features
+
+- **Ontology Explorer** — Three-column view of Workflows, Systems, and Personas with connection visualization
+- **Friction Heatmap** — Semantic `<table>` showing workflow × system cognitive friction scores
+- **Simulation Modes** — Morning Triage / Deep Focus / Firefighting context switching
+- **Input Studio** — Add your own workflows, systems, and user personas
+- **Data Export/Import** — Download and upload your ontology as JSON
+- **Onboarding Tour** — 3-step guided intro for first-time visitors (replay with `?`)
+- **Fully Accessible** — WCAG 2.1 AA, keyboard navigable, screen reader tested
+- **Mobile Responsive** — Tab switcher on mobile, touch-friendly targets
 
 ---
 
@@ -84,16 +99,20 @@ context-modeler/
 
 ## Project Status
 
-See [PLAN.md](PLAN.md) for the full phased roadmap.
-
 | Phase | Status |
 |-------|--------|
-| Phase 0 -- Setup | Complete |
-| Phase 1 -- Build from Spec | In Progress |
-| Phase 2 -- Wire Interactions | Upcoming |
-| Phase 3 -- Deployment | Upcoming |
-| Phase 4A-D -- Polish & Portfolio | Upcoming |
-| Phase 5 -- AI Features | Future (see PLAN.md Part 7) |
+| Phase 0 — Setup | ✅ Complete |
+| Phase 1 — Build from Spec (R1–R6) | ✅ Complete |
+| Phase 2 — Interaction Wiring | ✅ Complete |
+| Phase 3 — Deployment Pipeline | ✅ Complete — [Live on GitHub Pages](https://smslo-ai.github.io/context-modeler/) |
+| Phase 4A — Responsive & Mobile | ✅ Complete |
+| Phase 4B — Interaction Feedback | ✅ Complete |
+| Phase 4C — Accessibility (WCAG 2.1 AA) | ✅ Complete |
+| Phase 4D — Portfolio Story & Onboarding | ✅ Complete |
+| Phase 5 — AI Features | 🔜 Planned (see PLAN.md Part 7) |
+
+**Test coverage:** 91 tests passing across 11 test files  
+**Bundle size:** 97KB gzipped (300KB JS + 38KB CSS)
 
 ---
 

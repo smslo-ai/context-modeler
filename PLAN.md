@@ -522,17 +522,17 @@ Every feature from the spec maps to a phase task. This table ensures nothing fal
 
 | Phase | Goal | PRs | Depends On | Status |
 |---|---|---|---|---|
-| **Pre-Flight** | Install deps, configure Vite base, create event constants | -- | Phase 0 | |
-| **0 -- Setup** | Tools + repo | -- | -- | Complete |
-| **1 -- Build From Spec** | Static views + hero copy rendering from spec | #1 | Pre-Flight | In Progress |
-| **2 -- Wire Interactions** | All interactions + security foundations + unit tests | #2, #3, #4 | Phase 1 | |
-| **3 -- Deployment** | Live on the internet | #5 | Phase 1 | |
-| **4A -- Responsive** | Works on mobile/tablet | #6 | Phase 2 | |
-| **4B -- Feedback** | Clear interaction feedback + cascading delete | #7 | Phase 2 | |
-| **4C -- Accessibility** | WCAG 2.1 AA | #8 | Phase 4A | |
-| **4D -- Portfolio Story** | 10-second comprehension | #9 | Phase 4B | |
-| | **PORTFOLIO-READY MILESTONE** | | | |
-| **5 -- AI Features** | Smart analysis via serverless (see Part 7 decision) | #10-13 | Phase 4D + Part 7 decision | |
+| **Pre-Flight** | Install deps, configure Vite base, create event constants | -- | Phase 0 | ✅ Complete |
+| **0 -- Setup** | Tools + repo | -- | -- | ✅ Complete |
+| **1 -- Build From Spec** | Static views + hero copy rendering from spec | #1 | Pre-Flight | ✅ Complete |
+| **2 -- Wire Interactions** | All interactions + security foundations + unit tests | #2, #3, #4 | Phase 1 | ✅ Complete |
+| **3 -- Deployment** | Live on the internet | #5 | Phase 1 | ✅ Complete — [Live](https://smslo-ai.github.io/context-modeler/) |
+| **4A -- Responsive** | Works on mobile/tablet | #6 | Phase 2 | ✅ Complete |
+| **4B -- Feedback** | Clear interaction feedback + cascading delete | #7 | Phase 2 | ✅ Complete |
+| **4C -- Accessibility** | WCAG 2.1 AA | #8 | Phase 4A | ✅ Complete |
+| **4D -- Portfolio Story** | 10-second comprehension | #9 | Phase 4B | ✅ Complete |
+| | **✅ PORTFOLIO-READY MILESTONE REACHED** | | | |
+| **5 -- AI Features** | Smart analysis via serverless (see Part 7 decision) | #10-13 | Phase 4D + Part 7 decision | 🔜 Pending architecture decision |
 
 **Total PRs:** ~9 for portfolio-ready, ~13 with AI features.
 
