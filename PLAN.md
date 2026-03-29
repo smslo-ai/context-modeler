@@ -152,7 +152,7 @@ context-modeler/
 | Step | What | Deliverable | Status |
 |---|---|---|---|
 | 1.1 | ~~Create repo from template~~ | ~~Repo with `.gitignore`, `LICENSE`, `README`~~ | ✅ Done (Phase 0) |
-| 1.2 | Initialize Vite + Tailwind + Chart.js | `package.json`, `vite.config.js`, `tailwind.config.js` | ⬜ Next |
+| 1.2 | Initialize Vite + Tailwind + Chart.js | `package.json`, `vite.config.js`, `tailwind.config.js` | ✅ Done |
 | 1.3 | Extract clean HTML from Cocoa-encoded file | `index.html` with proper structure | ⬜ |
 | 1.4 | Split monolith into file structure (Part 3) | All files in `src/` | ⬜ |
 | 1.5 | Verify it runs locally with `npm run dev` | Working app in browser | ⬜ |
