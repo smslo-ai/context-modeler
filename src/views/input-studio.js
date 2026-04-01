@@ -6,9 +6,9 @@ import { exportOntologyData, importOntologyData } from '../utils/data-io.js'
 function generateId(prefix, name, existingIds) {
   const slug = name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '').slice(0, 40)
   let id = `${prefix}-${slug}`
-  let n = 2
+  let deduplicateSuffix = 2
   while (existingIds.includes(id)) {
-    id = `${prefix}-${slug}-${n++}`
+    id = `${prefix}-${slug}-${deduplicateSuffix++}`
   }
   return id
 }
@@ -31,13 +31,13 @@ function buildCheckboxList(items, nameKey = 'name') {
 }
 
 function renderSystemCheckboxes(container, systems) {
-  const el = container.querySelector('#wf-system-checkboxes')
-  if (el) { el.textContent = ''; el.appendChild(buildCheckboxList(systems)) }
+  const systemCheckboxContainer = container.querySelector('#wf-system-checkboxes')
+  if (systemCheckboxContainer) { systemCheckboxContainer.textContent = ''; systemCheckboxContainer.appendChild(buildCheckboxList(systems)) }
 }
 
 function renderSysLinkCheckboxes(container, workflows, personas) {
-  const el = container.querySelector('#sys-link-checkboxes')
-  if (el) { el.textContent = ''; el.appendChild(buildCheckboxList([...workflows, ...personas])) }
+  const linkCheckboxContainer = container.querySelector('#sys-link-checkboxes')
+  if (linkCheckboxContainer) { linkCheckboxContainer.textContent = ''; linkCheckboxContainer.appendChild(buildCheckboxList([...workflows, ...personas])) }
 }
 
 export function initInputStudio(store) {
@@ -265,9 +265,9 @@ export function initInputStudio(store) {
 
   // Refresh checkboxes when nodes are added/removed
   const refreshCheckboxes = () => {
-    const { workflows: wf, systems: sys, personas: pe } = store.getState().ontologyData
-    renderSystemCheckboxes(container, sys)
-    renderSysLinkCheckboxes(container, wf, pe)
+    const { workflows: latestWorkflows, systems: latestSystems, personas: latestPersonas } = store.getState().ontologyData
+    renderSystemCheckboxes(container, latestSystems)
+    renderSysLinkCheckboxes(container, latestWorkflows, latestPersonas)
   }
   store.subscribe(EVENTS.NODE_ADDED, refreshCheckboxes)
   store.subscribe(EVENTS.NODE_REMOVED, refreshCheckboxes)

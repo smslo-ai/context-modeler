@@ -24,57 +24,57 @@ export function initHeatmap(store) {
     const matrix = buildFrictionMatrix(workflows, systems, frictionRules)
 
     // Build semantic <table>
-    const table = document.createElement('table')
-    table.className = 'w-full border-collapse text-xs'
-    table.setAttribute('role', 'grid')
-    table.setAttribute('aria-label', 'Cognitive Friction Heatmap — rows are systems, columns are workflows')
+    const frictionTable = document.createElement('table')
+    frictionTable.className = 'w-full border-collapse text-xs'
+    frictionTable.setAttribute('role', 'grid')
+    frictionTable.setAttribute('aria-label', 'Cognitive Friction Heatmap — rows are systems, columns are workflows')
 
     // <thead> with workflow column headers
     const thead = document.createElement('thead')
-    const headerRow = document.createElement('tr')
+    const tableHeaderRow = document.createElement('tr')
 
     // Corner cell
-    const cornerCell = document.createElement('th')
-    cornerCell.scope = 'col'
-    cornerCell.className = 'p-2 text-left font-semibold text-slate-500 min-w-[140px]'
-    cornerCell.textContent = 'System \\ Workflow'
-    headerRow.appendChild(cornerCell)
+    const tableCornerCell = document.createElement('th')
+    tableCornerCell.scope = 'col'
+    tableCornerCell.className = 'p-2 text-left font-semibold text-slate-500 min-w-[140px]'
+    tableCornerCell.textContent = 'System \\ Workflow'
+    tableHeaderRow.appendChild(tableCornerCell)
 
     workflows.forEach(wf => {
       const th = document.createElement('th')
       th.scope = 'col'
       th.className = 'p-2 text-center font-semibold text-slate-700 min-w-[90px] whitespace-nowrap'
       th.textContent = wf.name
-      headerRow.appendChild(th)
+      tableHeaderRow.appendChild(th)
     })
-    thead.appendChild(headerRow)
-    table.appendChild(thead)
+    thead.appendChild(tableHeaderRow)
+    frictionTable.appendChild(thead)
 
     // <tbody> with system rows and friction cells
     const tbody = document.createElement('tbody')
     systems.forEach((system, sysIdx) => {
-      const row = document.createElement('tr')
-      row.className = 'border-t border-slate-100'
+      const systemRow = document.createElement('tr')
+      systemRow.className = 'border-t border-slate-100'
 
       // Row header: system name
-      const rowHeader = document.createElement('th')
-      rowHeader.scope = 'row'
-      rowHeader.className = 'p-2 text-left font-medium text-slate-700 bg-slate-50 min-w-[120px] whitespace-nowrap'
-      rowHeader.textContent = system.name
-      row.appendChild(rowHeader)
+      const systemRowHeader = document.createElement('th')
+      systemRowHeader.scope = 'row'
+      systemRowHeader.className = 'p-2 text-left font-medium text-slate-700 bg-slate-50 min-w-[120px] whitespace-nowrap'
+      systemRowHeader.textContent = system.name
+      systemRow.appendChild(systemRowHeader)
 
       // Friction cells
       workflows.forEach((wf, wfIdx) => {
         const score = matrix[sysIdx][wfIdx]
-        const colorClass = getFrictionColor(score)
-        const pct = Math.round(score * 100)
+        const frictionColorClass = getFrictionColor(score)
+        const frictionPercent = Math.round(score * 100)
 
         const td = document.createElement('td')
-        td.className = `p-2 text-center cursor-pointer transition-opacity hover:opacity-80 ${colorClass}`
-        td.textContent = `${pct}%`
+        td.className = `p-2 text-center cursor-pointer transition-opacity hover:opacity-80 ${frictionColorClass}`
+        td.textContent = `${frictionPercent}%`
         td.setAttribute('data-workflow', wf.id)
         td.setAttribute('data-system', system.id)
-        td.setAttribute('aria-label', `${wf.name} vs ${system.name}: ${pct}% friction`)
+        td.setAttribute('aria-label', `${wf.name} vs ${system.name}: ${frictionPercent}% friction`)
         td.setAttribute('tabindex', '0')
         td.setAttribute('role', 'gridcell')
 
@@ -92,14 +92,14 @@ export function initHeatmap(store) {
           }
         })
 
-        row.appendChild(td)
+        systemRow.appendChild(td)
       })
-      tbody.appendChild(row)
+      tbody.appendChild(systemRow)
     })
-    table.appendChild(tbody)
+    frictionTable.appendChild(tbody)
 
     container.innerHTML = ''
-    container.appendChild(table)
+    container.appendChild(frictionTable)
 
     // Heatmap explainer text (once only)
     if (!container.querySelector('.heatmap-explainer')) {
