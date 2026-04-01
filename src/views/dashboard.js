@@ -260,9 +260,11 @@ export function initDashboard(store) {
   }
 
   // Wire simulation mode buttons
-  container.querySelectorAll('.mode-card').forEach(btn => {
+  // Cache mode card refs once so click handler and DATA_RESET subscriber skip repeated DOM queries
+  const modeCards = Array.from(container.querySelectorAll('.mode-card'))
+  modeCards.forEach(btn => {
     btn.addEventListener('click', () => {
-      container.querySelectorAll('.mode-card').forEach(b => {
+      modeCards.forEach(b => {
         b.classList.remove('mode-card-active', 'border-indigo-500', 'bg-indigo-50')
         b.classList.add('border-transparent', 'bg-slate-50')
       })
@@ -274,7 +276,7 @@ export function initDashboard(store) {
 
   // Sync mode button active state when mode changes externally (e.g. DATA_RESET)
   store.subscribe(EVENTS.DATA_RESET, () => {
-    container.querySelectorAll('.mode-card').forEach(b => {
+    modeCards.forEach(b => {
       const isActive = b.dataset.mode === 'morning-triage'
       b.classList.toggle('mode-card-active', isActive)
       b.classList.toggle('border-indigo-500', isActive)

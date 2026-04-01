@@ -130,9 +130,10 @@ export function initNav(store) {
   })
 
   // Subscribe to VIEW_CHANGED to update active button
+  // Cache view-nav button refs once so the subscribe callback skips DOM queries on every call
+  const viewNavBtns = Array.from(header.querySelectorAll('.nav-btn[data-view]'))
   store.subscribe(EVENTS.VIEW_CHANGED, (state) => {
-    header.querySelectorAll('.nav-btn').forEach(btn => {
-      if (!btn.dataset.view) return  // skip About/Help buttons
+    viewNavBtns.forEach(btn => {
       const isActive = btn.dataset.view === state.currentView
       btn.classList.toggle('nav-btn-active', isActive)
       btn.classList.toggle('bg-indigo-600', isActive)

@@ -38,14 +38,38 @@ export function validateOntologyData(data) {
   return true
 }
 
+// Module-level timer and pending data for debounced saves
+let _saveTimer = null
+let _pendingData = null
+
 /**
  * Persist ontology data to localStorage.
+ * Calls are debounced (300 ms) so that rapid successive mutations
+ * (e.g. adding several nodes in quick succession) result in a single
+ * write, keeping the main thread free during bursts of activity.
+ *
+ * A beforeunload listener flushes any pending write synchronously so
+ * data is never lost when the user navigates away or closes the tab.
+ *
  * Silently handles QuotaExceededError by dispatching a DOM event so
  * any toast listener in the UI can surface the error without crashing.
  *
  * @param {object} data - validated ontology data object
  */
 export function saveToStorage(data) {
+  _pendingData = data
+  clearTimeout(_saveTimer)
+  _saveTimer = setTimeout(() => {
+    _flushSave()
+  }, 300)
+}
+
+/** @internal Synchronously write any pending data to localStorage. */
+function _flushSave() {
+  if (_pendingData === null) return
+  const data = _pendingData
+  _pendingData = null
+  clearTimeout(_saveTimer)
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
     window.dispatchEvent(new CustomEvent('data-saved'))
@@ -54,6 +78,11 @@ export function saveToStorage(data) {
       window.dispatchEvent(new CustomEvent('storage-quota-exceeded'))
     }
   }
+}
+
+// Guarantee the latest state is written before the page unloads
+if (typeof window !== 'undefined') {
+  window.addEventListener('beforeunload', _flushSave)
 }
 
 /**

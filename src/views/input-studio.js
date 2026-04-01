@@ -5,9 +5,10 @@ import { exportOntologyData, importOntologyData } from '../utils/data-io.js'
 
 function generateId(prefix, name, existingIds) {
   const slug = name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '').slice(0, 40)
+  const idSet = new Set(existingIds)
   let id = `${prefix}-${slug}`
   let deduplicateSuffix = 2
-  while (existingIds.includes(id)) {
+  while (idSet.has(id)) {
     id = `${prefix}-${slug}-${deduplicateSuffix++}`
   }
   return id

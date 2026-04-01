@@ -51,6 +51,22 @@ export function initTriadExplorer(store) {
 
   if (!colWorkflows || !colSystems || !colPersonas) return
 
+  // Attach delegated event handlers once per column — avoids O(n) per-card listener setup on every render
+  ;[colWorkflows, colSystems, colPersonas].forEach(col => {
+    col.addEventListener('click', (e) => {
+      const card = e.target.closest('[data-node-id]')
+      if (!card) return
+      store.dispatch(EVENTS.NODE_SELECTED, { id: card.dataset.nodeId, type: card.dataset.nodeType })
+    })
+    col.addEventListener('keydown', (e) => {
+      if (e.key !== 'Enter' && e.key !== ' ') return
+      const card = e.target.closest('[data-node-id]')
+      if (!card) return
+      e.preventDefault()
+      store.dispatch(EVENTS.NODE_SELECTED, { id: card.dataset.nodeId, type: card.dataset.nodeType })
+    })
+  })
+
   function applySimVisuals(items, nodes, mode, modeRules) {
     items.forEach((item, i) => {
       const node = nodes[i]
@@ -71,8 +87,6 @@ export function initTriadExplorer(store) {
     colWorkflows.innerHTML = ''
     workflows.forEach(wf => {
       const card = renderNodeCard(wf, 'workflow')
-      card.addEventListener('click', () => store.dispatch(EVENTS.NODE_SELECTED, { id: wf.id, type: 'workflow' }))
-      card.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click() } })
       if (selectedNode?.id === wf.id) card.classList.add('bg-indigo-50', 'ring-1', 'ring-indigo-300')
       colWorkflows.appendChild(card)
     })
@@ -81,8 +95,6 @@ export function initTriadExplorer(store) {
     colSystems.innerHTML = ''
     systems.forEach(sys => {
       const card = renderNodeCard(sys, 'system')
-      card.addEventListener('click', () => store.dispatch(EVENTS.NODE_SELECTED, { id: sys.id, type: 'system' }))
-      card.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click() } })
       if (selectedNode?.id === sys.id) card.classList.add('bg-indigo-50', 'ring-1', 'ring-indigo-300')
       colSystems.appendChild(card)
     })
@@ -91,8 +103,6 @@ export function initTriadExplorer(store) {
     colPersonas.innerHTML = ''
     personas.forEach(persona => {
       const card = renderNodeCard(persona, 'persona')
-      card.addEventListener('click', () => store.dispatch(EVENTS.NODE_SELECTED, { id: persona.id, type: 'persona' }))
-      card.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); card.click() } })
       if (selectedNode?.id === persona.id) card.classList.add('bg-indigo-50', 'ring-1', 'ring-indigo-300')
       colPersonas.appendChild(card)
     })

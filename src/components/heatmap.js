@@ -5,6 +5,29 @@ export function initHeatmap(store) {
   const container = document.getElementById('heatmap-grid')
   if (!container) return
 
+  // Attach delegated event handlers once on the persistent container element,
+  // not on the table (which is recreated on every render).
+  container.addEventListener('click', (e) => {
+    const td = e.target.closest('td[data-workflow][data-system]')
+    if (!td) return
+    const wfId = td.dataset.workflow
+    const sysId = td.dataset.system
+    const score = parseFloat(td.dataset.score)
+    store.dispatch(EVENTS.NODE_SELECTED, {
+      id: wfId,
+      type: 'workflow',
+      frictionPair: { workflowId: wfId, systemId: sysId, score },
+    })
+  })
+
+  container.addEventListener('keydown', (e) => {
+    if (e.key !== 'Enter' && e.key !== ' ') return
+    const td = e.target.closest('td[data-workflow][data-system]')
+    if (!td) return
+    e.preventDefault()
+    td.click()
+  })
+
   function render() {
     const { ontologyData } = store.getState()
     const { workflows, systems, frictionRules } = ontologyData
@@ -63,7 +86,7 @@ export function initHeatmap(store) {
       systemRowHeader.textContent = system.name
       systemRow.appendChild(systemRowHeader)
 
-      // Friction cells
+      // Friction cells — data-score stores the value for the delegated click handler
       workflows.forEach((wf, wfIdx) => {
         const score = matrix[sysIdx][wfIdx]
         const frictionColorClass = getFrictionColor(score)
@@ -74,23 +97,10 @@ export function initHeatmap(store) {
         td.textContent = `${frictionPercent}%`
         td.setAttribute('data-workflow', wf.id)
         td.setAttribute('data-system', system.id)
+        td.setAttribute('data-score', score)
         td.setAttribute('aria-label', `${wf.name} vs ${system.name}: ${frictionPercent}% friction`)
         td.setAttribute('tabindex', '0')
         td.setAttribute('role', 'gridcell')
-
-        td.addEventListener('click', () => {
-          store.dispatch(EVENTS.NODE_SELECTED, {
-            id: wf.id,
-            type: 'workflow',
-            frictionPair: { workflowId: wf.id, systemId: system.id, score },
-          })
-        })
-        td.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter' || e.key === ' ') {
-            e.preventDefault()
-            td.click()
-          }
-        })
 
         systemRow.appendChild(td)
       })
