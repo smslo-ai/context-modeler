@@ -294,16 +294,16 @@ export function initDashboard(store) {
 
     if (!state.selectedNode || !panel) return
 
-    const { id } = state.selectedNode
+    const { id: selectedNodeId } = state.selectedNode
     const { contextMap, workflows, systems, personas } = state.ontologyData
 
     // Find node name
-    const allNodes = [...workflows, ...systems, ...personas]
-    const node = allNodes.find(n => n.id === id)
-    const connections = contextMap[id] || []
+    const allOntologyNodes = [...workflows, ...systems, ...personas]
+    const matchedNode = allOntologyNodes.find(n => n.id === selectedNodeId)
+    const nodeConnections = contextMap[selectedNodeId] || []
 
-    if (nodeName) nodeName.textContent = node?.name ?? id
-    if (connCount) connCount.textContent = connections.length
+    if (nodeName) nodeName.textContent = matchedNode?.name ?? selectedNodeId
+    if (connCount) connCount.textContent = nodeConnections.length
 
     panel.classList.remove('hidden')
     panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' })
@@ -332,26 +332,26 @@ export function initDashboard(store) {
     const { workflowId, systemId, score } = state.selectedNode.frictionPair
     const { workflows, systems } = state.ontologyData
 
-    const wf = workflows.find(w => w.id === workflowId)
-    const sys = systems.find(s => s.id === systemId)
-    if (!wf || !sys) return
+    const selectedWorkflow = workflows.find(w => w.id === workflowId)
+    const selectedSystem = systems.find(s => s.id === systemId)
+    if (!selectedWorkflow || !selectedSystem) return
 
-    const pct = Math.round(score * 100)
-    const level = score >= 0.75 ? 'High Friction'
+    const frictionPercent = Math.round(score * 100)
+    const frictionLevel = score >= 0.75 ? 'High Friction'
       : score >= 0.55 ? 'Elevated'
       : score >= 0.35 ? 'Moderate'
       : 'Low Friction'
 
     const modal = document.getElementById('friction-modal')
-    const wfEl = document.getElementById('friction-modal-workflow')
-    const sysEl = document.getElementById('friction-modal-system')
-    const scoreEl = document.getElementById('friction-modal-score')
-    const levelEl = document.getElementById('friction-modal-level')
+    const workflowNameEl = document.getElementById('friction-modal-workflow')
+    const systemNameEl = document.getElementById('friction-modal-system')
+    const frictionScoreEl = document.getElementById('friction-modal-score')
+    const frictionLevelEl = document.getElementById('friction-modal-level')
 
-    if (wfEl) wfEl.textContent = wf.name
-    if (sysEl) sysEl.textContent = sys.name
-    if (scoreEl) scoreEl.textContent = `${pct}%`
-    if (levelEl) levelEl.textContent = level
+    if (workflowNameEl) workflowNameEl.textContent = selectedWorkflow.name
+    if (systemNameEl) systemNameEl.textContent = selectedSystem.name
+    if (frictionScoreEl) frictionScoreEl.textContent = `${frictionPercent}%`
+    if (frictionLevelEl) frictionLevelEl.textContent = frictionLevel
 
     modal?.classList.remove('hidden')
 
@@ -407,11 +407,11 @@ export function initDashboard(store) {
 
   // Mode status label subscription
   store.subscribe(EVENTS.MODE_CHANGED, (state) => {
-    const label = document.getElementById('mode-status-label')
-    if (label) {
-      const text = modeLabels[state.currentMode] ?? ''
-      label.textContent = text
-      label.classList.toggle('hidden', !text)
+    const modeStatusLabel = document.getElementById('mode-status-label')
+    if (modeStatusLabel) {
+      const modeStatusText = modeLabels[state.currentMode] ?? ''
+      modeStatusLabel.textContent = modeStatusText
+      modeStatusLabel.classList.toggle('hidden', !modeStatusText)
     }
   })
 

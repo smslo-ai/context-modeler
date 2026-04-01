@@ -198,11 +198,11 @@ export function createStore(initialData) {
   // ── Internal helpers ─────────────────────────────────────────────────────
 
   function _notify(eventName) {
-    const cbs = listeners[eventName]
-    if (!cbs) return
+    const eventCallbacks = listeners[eventName]
+    if (!eventCallbacks) return
     // Pass a frozen snapshot so listeners cannot accidentally mutate state
     const snapshot = getState()
-    cbs.forEach(cb => cb(snapshot))
+    eventCallbacks.forEach(cb => cb(snapshot))
   }
 
   return { getState, dispatch, subscribe }

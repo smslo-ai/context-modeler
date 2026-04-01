@@ -2,45 +2,45 @@ import { EVENTS } from '../constants/events.js'
 import { getSimulationVisuals } from '../utils/heuristics.js'
 
 export function renderNodeCard(node, nodeType) {
-  const item = document.createElement('div')
-  item.className = 'triad-item p-4 cursor-pointer hover:bg-slate-50 transition-all duration-200'
-  item.setAttribute('data-node-id', node.id)
-  item.setAttribute('data-node-type', nodeType)
-  item.setAttribute('tabindex', '0')
-  item.setAttribute('role', 'button')
+  const nodeCardEl = document.createElement('div')
+  nodeCardEl.className = 'triad-item p-4 cursor-pointer hover:bg-slate-50 transition-all duration-200'
+  nodeCardEl.setAttribute('data-node-id', node.id)
+  nodeCardEl.setAttribute('data-node-type', nodeType)
+  nodeCardEl.setAttribute('tabindex', '0')
+  nodeCardEl.setAttribute('role', 'button')
 
-  const header = document.createElement('div')
-  header.className = 'flex items-center justify-between'
+  const nodeCardHeaderEl = document.createElement('div')
+  nodeCardHeaderEl.className = 'flex items-center justify-between'
 
-  const nameSpan = document.createElement('span')
-  nameSpan.className = 'font-medium text-sm text-slate-800'
-  nameSpan.textContent = node.name  // textContent is XSS-safe
+  const nodeNameEl = document.createElement('span')
+  nodeNameEl.className = 'font-medium text-sm text-slate-800'
+  nodeNameEl.textContent = node.name  // textContent is XSS-safe
 
-  header.appendChild(nameSpan)
+  nodeCardHeaderEl.appendChild(nodeNameEl)
 
   // Badge: workflows show frequency, systems show category, personas have no badge
   if (nodeType === 'workflow' && node.frequency) {
-    const badge = document.createElement('span')
-    badge.className = 'text-xs font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded uppercase'
-    badge.textContent = node.frequency
-    header.appendChild(badge)
+    const metaBadgeEl = document.createElement('span')
+    metaBadgeEl.className = 'text-xs font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded uppercase'
+    metaBadgeEl.textContent = node.frequency
+    nodeCardHeaderEl.appendChild(metaBadgeEl)
   } else if (nodeType === 'system' && node.category) {
-    const badge = document.createElement('span')
-    badge.className = 'text-xs font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded uppercase'
-    badge.textContent = node.category
-    header.appendChild(badge)
+    const metaBadgeEl = document.createElement('span')
+    metaBadgeEl.className = 'text-xs font-medium text-slate-500 bg-slate-100 px-2 py-0.5 rounded uppercase'
+    metaBadgeEl.textContent = node.category
+    nodeCardHeaderEl.appendChild(metaBadgeEl)
   }
 
-  item.appendChild(header)
+  nodeCardEl.appendChild(nodeCardHeaderEl)
 
   if (node.description) {
-    const desc = document.createElement('p')
-    desc.className = 'text-xs text-slate-400 mt-1'
-    desc.textContent = node.description  // textContent is XSS-safe
-    item.appendChild(desc)
+    const descriptionEl = document.createElement('p')
+    descriptionEl.className = 'text-xs text-slate-400 mt-1'
+    descriptionEl.textContent = node.description  // textContent is XSS-safe
+    nodeCardEl.appendChild(descriptionEl)
   }
 
-  return item
+  return nodeCardEl
 }
 
 export function initTriadExplorer(store) {

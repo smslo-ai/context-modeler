@@ -22,9 +22,9 @@
  */
 export function calculateFriction(workflow, system, frictionRules) {
   if (!workflow?.id || !system?.id) return 0.5
-  const key = `${workflow.id}::${system.id}`
-  const rules = frictionRules ?? {}
-  return key in rules ? rules[key] : 0.5
+  const frictionLookupKey = `${workflow.id}::${system.id}`
+  const rulesMap = frictionRules ?? {}
+  return frictionLookupKey in rulesMap ? rulesMap[frictionLookupKey] : 0.5
 }
 
 /**
@@ -58,21 +58,21 @@ export function getFrictionColor(score) {
  * @returns {{ opacity: number, highlighted: boolean, dimmed: boolean, className: string }}
  */
 export function getSimulationVisuals(node, mode, modeRules) {
-  const NORMAL = { opacity: 1, highlighted: false, dimmed: false, className: '' }
+  const DEFAULT_SIMULATION_VISUALS = { opacity: 1, highlighted: false, dimmed: false, className: '' }
 
-  if (!mode || !node?.id) return NORMAL
+  if (!mode || !node?.id) return DEFAULT_SIMULATION_VISUALS
 
-  const rule = modeRules?.[mode]
-  if (!rule) return NORMAL
+  const activeSimulationRule = modeRules?.[mode]
+  if (!activeSimulationRule) return DEFAULT_SIMULATION_VISUALS
 
-  if (rule.dimmed?.includes(node.id)) {
+  if (activeSimulationRule.dimmed?.includes(node.id)) {
     return { opacity: 0.3, highlighted: false, dimmed: true, className: 'opacity-30' }
   }
-  if (rule.highlighted?.includes(node.id)) {
+  if (activeSimulationRule.highlighted?.includes(node.id)) {
     return { opacity: 1, highlighted: true, dimmed: false, className: 'ring-2 ring-indigo-500' }
   }
 
-  return NORMAL
+  return DEFAULT_SIMULATION_VISUALS
 }
 
 /**
