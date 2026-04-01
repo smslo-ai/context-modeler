@@ -7,7 +7,7 @@
 | **Author** | [Shane Slosar](https://github.com/shaneslo) |
 | **Organization** | [smslo-ai](https://github.com/smslo-ai) |
 | **Started** | 2026 |
-| **Version** | v0.1 (Phase 1 -- Build from Spec) |
+| **Version** | v1.0 (Portfolio-Ready) |
 | **License** | MIT |
 
 ---
@@ -88,11 +88,12 @@ See [PLAN.md](PLAN.md) for the full phased roadmap.
 
 | Phase | Status |
 |-------|--------|
-| Phase 0 -- Setup | Complete |
-| Phase 1 -- Build from Spec | In Progress |
-| Phase 2 -- Wire Interactions | Upcoming |
-| Phase 3 -- Deployment | Upcoming |
-| Phase 4A-D -- Polish & Portfolio | Upcoming |
+| Phase 0 -- Setup | ✅ Complete |
+| Phase 1 -- Build from Spec | ✅ Complete |
+| Phase 2 -- Wire Interactions | ✅ Complete |
+| Phase 3 -- Deployment | ✅ Complete |
+| Phase 4A-D -- Polish & Portfolio | ✅ Complete |
+| **Portfolio-Ready Milestone** | **✅ 91 tests · WCAG 2.1 AA** |
 | Phase 5 -- AI Features | Future (see PLAN.md Part 7) |
 
 ---

@@ -339,3 +339,34 @@ Rate limiting via Upstash Redis, origin checks, DOMPurify allowlist for AI respo
 | Security | Complete for portfolio scope; add dev-mode CSP bypass |
 
 **Bottom line:** Fix the three required changes (vite base URL, install DOMPurify, define event constants), then proceed with Phase 1 implementation. The plan is solid.
+
+---
+
+## POST-IMPLEMENTATION STATUS (2026-04-01)
+
+**Project shipped portfolio-ready.** 91 tests passing (vitest), WCAG 2.1 AA confirmed.
+
+### Required Changes — All Resolved
+
+| RC | Item | Outcome |
+|---|---|---|
+| RC-1 | `base: '/context-modeler/'` in vite.config.js | ✅ Implemented |
+| RC-2 | DOMPurify installed, wired through `utils/sanitize.js` | ✅ Implemented |
+| RC-3 | `src/constants/events.js` with all event name constants | ✅ Implemented |
+
+### Selected Recommendations — Implemented
+
+- **REC-4** (semantic `<table>` heatmap): Implemented. Rows = systems, columns = workflows.
+- **REC-5** (cascading delete logic): Implemented in `store.js`.
+- **REC-7** (vitest): 91 tests across 11 files covering utils, state, components, and views.
+- Chart.js tree-shaken imports in use. CSP injected via Vite plugin (production-only).
+
+### Code Review: PRs #7, #8, #10 (2026-04-01)
+
+**Reviewer:** Code Review Agent · **Result: No issues found.**
+
+- **PR #8 (refactor — rename variables):** Pure mechanical renames across 8 files. No logic touched. Safe.
+- **PR #10 (security — harden CI):** `npm audit --omit=dev --audit-level=high` scoping is correct. `save-exact=true` in `.npmrc` correctly applies only to future installs (not `npm ci`). Axios confirmed absent from dependency tree.
+- **PR #7 (perf — debounce + event delegation):** Debounced `saveToStorage` is race-safe (JS is single-threaded). `beforeunload` flush correctly prevents data loss on tab close. Event delegation on heatmap and triad-explorer survives `container.innerHTML = ''` re-renders. Nav and dashboard element caches captured at correct DOM lifecycle moments. `generateId` Set deduplication is O(1) and correct.
+
+**Pre-existing cosmetic issue (not a regression):** The `hover:bg-slate-200` class is not stripped from the active nav button, causing a visual de-highlight on hover. Predates all three PRs — out of scope for this review.
