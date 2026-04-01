@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import { validateOntologyData, saveToStorage, loadFromStorage } from '../../src/state/storage.js'
 import { getDefaultData } from '../../src/data/defaults.js'
 
@@ -44,10 +44,15 @@ describe('validateOntologyData', () => {
 describe('saveToStorage / loadFromStorage', () => {
   beforeEach(() => {
     localStorage.clear()
+    vi.useFakeTimers()
+  })
+  afterEach(() => {
+    vi.useRealTimers()
   })
   it('round-trips data correctly', () => {
     const data = getDefaultData()
     saveToStorage(data)
+    vi.runAllTimers()   // flush the debounce so the write actually happens
     const loaded = loadFromStorage()
     expect(loaded.workflows).toHaveLength(5)
     expect(loaded.systems).toHaveLength(5)
