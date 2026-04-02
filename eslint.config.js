@@ -47,6 +47,12 @@ export default tseslint.config(
     },
   },
   {
+    files: ['src/**/*.test.{ts,tsx}'],
+    rules: {
+      '@typescript-eslint/no-non-null-assertion': 'off',
+    },
+  },
+  {
     ignores: ['dist/', 'src_vanilla/', 'node_modules/', '*.config.*'],
   }
 )
