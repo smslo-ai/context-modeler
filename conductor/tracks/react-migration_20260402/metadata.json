@@ -1,0 +1,16 @@
+{
+  "id": "react-migration_20260402",
+  "title": "React + TypeScript Migration",
+  "type": "chore",
+  "status": "pending",
+  "created": "2026-04-02T00:00:00Z",
+  "updated": "2026-04-02T00:00:00Z",
+  "phases": {
+    "total": 6,
+    "completed": 0
+  },
+  "tasks": {
+    "total": 67,
+    "completed": 0
+  }
+}

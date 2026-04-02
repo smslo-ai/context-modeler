@@ -1,26 +1,34 @@
 # Tech Stack
 
-## Primary Language
+## Primary Languages
 
-- **JavaScript (ES6 modules)** -- Vanilla JS, no TypeScript (type hints via JSDoc where helpful)
+- **TypeScript 5.x** -- strict mode enabled (`strict: true` in tsconfig). No `any` types.
+- **TSX** -- React component markup
 
 ## Frontend
 
 | Technology | Version | Purpose |
 |-----------|---------|---------|
-| Vite | ^8.0.1 | Dev server, bundler, ES module resolution |
-| Tailwind CSS | ^4.2.2 | Utility-first styling via `@tailwindcss/vite` plugin |
-| Chart.js | ^4.5.1 | Radar chart (maturity), bubble chart (responsibility mapping) |
-| DOMPurify | ^3.3.3 | XSS sanitization for all dynamic DOM content |
-| marked | ^17.0.5 | Markdown-to-HTML rendering (Phase 5 AI responses) |
+| React | 19 | UI framework (functional components, hooks) |
+| Vite | ^8.x | Dev server, bundler, ES module resolution |
+| Tailwind CSS | v4 | Utility-first styling via `@tailwindcss/vite` plugin |
+| Framer Motion | v12+ | Animation (`motion/react` import path) |
+| shadcn/ui | latest | Accessible component primitives (Dialog, Tabs, Select, Button, Input, Toast, Card, Tooltip, Badge) |
+| Chart.js | ^4.x | Radar chart (maturity), bubble chart (responsibility mapping) -- tree-shaken imports |
+| DOMPurify | ^3.x | XSS sanitization for all dynamic DOM content |
+| marked | ^17.x | Markdown-to-HTML rendering (Phase 5 AI responses) |
+
+## State Management
+
+React Context + `useReducer` via single `AppContext`. No external state library. Components consume via `useApp()` hook.
 
 ## Backend
 
-None. Frontend-only SPA. Phase 5 may introduce serverless functions (Vercel) for AI proxy.
+None. Frontend-only SPA. Phase 5 may introduce serverless functions for AI proxy.
 
 ## Database
 
-None. Browser localStorage with `context-modeler:` key prefix and schema validation on load.
+None. Browser localStorage via `StorageAdapter` interface (swappable for backend later). Key prefix: `context-modeler:`.
 
 ## Infrastructure
 
@@ -29,24 +37,44 @@ None. Browser localStorage with `context-modeler:` key prefix and schema validat
 | GitHub Pages | Static hosting (free) |
 | GitHub Actions | CI/CD -- auto-deploy on push to `main` |
 
-## Dev Dependencies
+## Quality Tooling
 
-| Package | Version | Purpose |
-|---------|---------|---------|
-| Vitest | ^4.1.2 | Unit test runner (ESM-native) |
-| @vitest/coverage-v8 | ^4.1.2 | Code coverage reporting |
-| jsdom | ^29.0.1 | DOM environment for tests |
-| @types/dompurify | ^3.0.5 | Type definitions for DOMPurify |
+| Tool | Purpose |
+|------|---------|
+| ESLint v9 (flat config) | `@typescript-eslint`, `react-hooks`, `jsx-a11y`, `react` plugins |
+| Prettier | Formatting + `prettier-plugin-tailwindcss` for class sorting |
+| Vitest | Unit + component tests with `@testing-library/react` + `@testing-library/jest-dom` |
+| Husky + lint-staged | Pre-commit: ESLint + Prettier + `tsc --noEmit` on staged files |
+| Playwright | E2E smoke tests |
 
-## Uncommitted Dependencies (in working tree)
+### Key Lint Rules
 
-| Package | Version | Notes |
-|---------|---------|-------|
-| playwright | 1.59.0 | E2E testing -- not yet integrated |
+- `no-explicit-any` -- error
+- `react-hooks/exhaustive-deps` -- error
+- `jsx-a11y/no-noninteractive-element-interactions` -- error
+- `no-console` -- warn in dev, error in build
+
+## npm Scripts
+
+```json
+{
+  "dev": "vite",
+  "build": "tsc --noEmit && vite build",
+  "preview": "vite preview",
+  "test": "vitest run",
+  "test:watch": "vitest",
+  "test:coverage": "vitest run --coverage",
+  "lint": "eslint src/",
+  "lint:fix": "eslint src/ --fix",
+  "format": "prettier --write src/",
+  "typecheck": "tsc --noEmit",
+  "validate": "npm run typecheck && npm run lint && npm run test"
+}
+```
 
 ## Build Configuration
 
-- `vite.config.js`: `base: '/context-modeler/'` (required for GitHub Pages subpath)
+- `vite.config.ts`: `base: '/context-modeler/'` (required for GitHub Pages subpath)
 - CSP meta tag injected via Vite plugin (production only; Vite HMR needs inline scripts in dev)
 - Chart.js uses tree-shaken imports (specific controllers/elements, not full library)
 
@@ -55,3 +83,12 @@ None. Browser localStorage with `context-modeler:` key prefix and schema validat
 - Node: v24, npm 11
 - Shell: zsh
 - Platform: macOS (Darwin)
+
+## Migration Notes
+
+This stack replaces the original vanilla JS implementation. The design spec is at `docs/superpowers/specs/2026-04-02-react-migration-design.md`. Key architectural decisions:
+
+- **Services layer** (`services/`) abstracts data access behind `StorageAdapter` interface -- swap localStorage for Supabase/Firebase later without touching components
+- **shadcn/ui** replaces hand-built modals, tabs, toasts, and form inputs
+- **Framer Motion** provides entrance animations, hover states, and layout transitions
+- **Dark-first design** with navy/amber/teal palette (see design spec for token values)

@@ -26,16 +26,19 @@
       "Security-first",
       "Accessibility-first"
     ],
-    "primary_languages": ["JavaScript (ES6 modules)"],
-    "frontend_framework": "None (Vanilla JS)",
+    "primary_languages": ["TypeScript 5.x (strict mode)", "TSX"],
+    "frontend_framework": "React 19",
+    "ui_components": "shadcn/ui",
+    "animation": "Framer Motion v12+",
     "backend_framework": "None (frontend only, Phase 5 deferred)",
-    "database": "None (localStorage)",
+    "database": "None (localStorage via StorageAdapter interface)",
     "infrastructure": "GitHub Pages via GitHub Actions",
     "tdd_strictness": "moderate",
     "commit_strategy": "conventional",
     "code_review": "required_nontrivial",
-    "verification_checkpoints": "after_phase",
-    "style_languages": ["javascript"]
+    "verification_checkpoints": "after_phase_with_validate_gate",
+    "style_languages": ["typescript", "tsx"],
+    "design_system": "Dark-first (navy/amber/teal), see docs/superpowers/specs/2026-04-02-react-migration-design.md"
   },
   "files_created": [
     "conductor/index.md",
@@ -50,5 +53,7 @@
     "conductor/setup_state.json"
   ],
   "started_at": "2026-04-02T00:00:00Z",
-  "last_updated": "2026-04-02T00:00:00Z"
+  "last_updated": "2026-04-02T00:00:00Z",
+  "reinitialized_at": "2026-04-02T00:00:00Z",
+  "reinitialization_reason": "Migration from vanilla JS to React 19 + TypeScript"
 }

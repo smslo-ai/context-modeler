@@ -29,4 +29,4 @@ Born from a Gemini Canvas prototyping session (Jan-Mar 2026). The prototype was 
 
 ## Current Status
 
-Portfolio-ready through Phase 4D. Live on GitHub Pages. 91 passing tests, WCAG 2.1 AA compliance. Phase 5 (AI features) is the next frontier -- requires architecture decision (pre-written responses vs. serverless AI).
+Migrating from vanilla JS to React 19 + TypeScript (strict mode). The vanilla JS version is portfolio-ready with 91 passing tests and WCAG 2.1 AA compliance. The migration adds a dark-first design system (navy/amber/teal), Framer Motion animations, shadcn/ui components, and a services layer ready for backend integration. Design spec approved at `docs/superpowers/specs/2026-04-02-react-migration-design.md`.
