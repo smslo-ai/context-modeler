@@ -4,25 +4,29 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**Context-Aware Workplace Modeler** -- a public portfolio SPA that models a workplace through three lenses (Business Workflows, Systems & Infrastructure, User Personas) and visualizes their relationships. Vanilla JS + Vite + Tailwind CSS v4 + Chart.js. No framework.
+**Context-Aware Workplace Modeler** -- a public portfolio SPA that models a workplace through three lenses (Business Workflows, Systems & Infrastructure, User Personas) and visualizes their relationships. React 19 + TypeScript (strict) + Vite 8 + Tailwind CSS v4 + shadcn/ui + Framer Motion + Chart.js.
 
 **Owner:** Shane Slosar (@shaneslo) at [smslo-ai](https://github.com/smslo-ai). Shane is a financial operations professional building AI fluency -- explain technical concepts clearly.
 
 ## Commands
 
 ```bash
-npm run dev            # Start Vite dev server (http://localhost:5173)
-npm run build          # Production build to dist/
-npm run preview        # Preview production build locally
-npm test               # Run all tests once
-npm run test:watch     # Run tests in watch mode
-npm run test:coverage  # Run tests with coverage report
-npx vitest run tests/state/store.test.js  # Run a single test file
+npm run dev              # Vite dev server (http://localhost:5173)
+npm run build            # typecheck + production build to dist/
+npm run preview          # Preview production build
+npm test                 # Run all tests once (vitest)
+npm run test:watch       # Tests in watch mode
+npm run test:coverage    # Tests with coverage report
+npm run lint             # ESLint check
+npm run lint:fix         # ESLint auto-fix
+npm run format           # Prettier format
+npm run typecheck        # tsc --noEmit
+npm run validate         # typecheck + lint + test (use before committing)
 ```
 
 ## Testing
 
-Vitest config lives inside `vite.config.js` (no separate vitest.config). Environment is jsdom with globals enabled (describe/it/expect available without imports). Test files mirror `src/` structure under `tests/`.
+Vitest config lives inside `vite.config.ts`. Environment is jsdom with globals enabled. Tests are co-located with source files (`*.test.ts` next to `*.ts` in `src/`). 61 tests currently, 90%+ coverage on services/utils.
 
 ## Key Documents (read before making changes)
 
@@ -39,29 +43,31 @@ Vitest config lives inside `vite.config.js` (no separate vitest.config). Environ
 
 ## Architecture
 
-Two-view SPA with no router. Views toggle via CSS `hidden` class on `#view-dashboard` and `#view-input-studio`.
+Two-view SPA with no router. Views toggle via CSS `hidden` class (not conditional rendering -- preserves DOM state).
 
-**Module dependency direction:** `main.js` -> `views/` -> `components/` -> `state/store.js` -> `state/storage.js` -> `data/`. Never import upward.
+**Module dependency direction:** `main.tsx` -> `App.tsx` -> `context/` -> `hooks/` -> `services/` -> `data/`. Never import upward.
 
-**State management:** Custom event emitter in `store.js`. All state mutations call `notify(eventName)`. Components subscribe to events from `src/constants/events.js`. Event names are constants -- never use string literals for event subscriptions.
+**State management:** `useReducer` in `src/context/AppContext.tsx`. `AppProvider` wraps the app; `useApp()` hook exposes state + dispatch. Actions: SET_VIEW, SET_MODE, SELECT_NODE, ADD_NODE, REMOVE_NODE, RESET_DATA, SET_ONTOLOGY_DATA.
 
-**Store public API:** `createStore(initialData)` returns `{ getState(), dispatch(eventName, payload), subscribe(eventName, callback) }`. Subscribers receive a frozen state snapshot.
+**Services layer:** `src/services/` -- storage (localStorage adapter), ontology (CRUD + cascading deletes), friction (heatmap matrix). Services are pure functions, not hooks.
 
-**Data model:** Three parallel arrays (workflows[], systems[], personas[]) in `ontologyData`, cross-referenced by string ID. The `contextMap` (adjacency list) and `frictionRules` (keyed by `workflowId::systemId`) are separate files in `data/`. Node IDs are restricted to `[a-z0-9-]` with type prefixes: `wf-` (workflows), `sys-` (systems), `usr-` (personas).
+**Hooks:** `src/hooks/` -- useOntology (wraps ontology service + dispatch), useSimulation, useLocalStorage.
+
+**Data model:** Three parallel arrays (workflows[], systems[], personas[]) in `ontologyData`, cross-referenced by string ID. The `contextMap` (adjacency list) and `frictionRules` (keyed by `workflowId::systemId`) live in `src/data/defaults.ts`. Node IDs are restricted to `[a-z0-9-]`.
 
 **Heatmap:** Rendered as a semantic `<table>` element (not CSS grid divs). Rows = systems, columns = workflows, cells = friction scores.
 
 ## Critical Constraints
 
-- **DOMPurify is mandatory** for all dynamic content insertion into the DOM. Use the wrapper in `utils/sanitize.js`. Never set element content directly with user-provided or dynamic strings without sanitizing first.
+- **DOMPurify is mandatory** for all dynamic content insertion into the DOM. Use the wrapper in `src/utils/sanitize.ts`. Never set element content directly with user-provided or dynamic strings without sanitizing first.
 - **CSP meta tag is production-only.** Injected via Vite plugin (Vite HMR needs inline scripts in dev).
-- **`base: '/context-modeler/'` in vite.config.js** is required for GitHub Pages. Change to `'/'` if using a custom domain.
+- **`base: '/context-modeler/'` in vite.config.ts** is required for GitHub Pages. Change to `'/'` if using a custom domain.
 - **localStorage keys are prefixed** `context-modeler:` to avoid collisions with other repos on the same GitHub Pages origin.
 - **Chart.js uses tree-shaken imports.** Import only the specific controllers/elements needed (RadarController, BubbleController, etc.), not the full library.
 - **AI buttons are locked** (disabled with tooltip) until Phase 5. Do not show "coming soon" toasts -- they harm portfolio impression.
 - **Cascading deletes:** When removing a node, clean references from contextMap, frictionRules, and all linked arrays on other nodes. This is the highest-risk logic in the project.
-- **Storage saves are debounced** (300ms) to batch rapid mutations. `beforeunload` flushes pending saves synchronously.
-- **Node limits:** 100 nodes max per array (enforced in `state/storage.js` validation), 50 nodes max per type on import (enforced in `utils/data-io.js`).
+- **Storage saves are debounced** (300ms) to batch rapid mutations. Validation in `src/services/storage.service.ts`.
+- **Node limits:** 100 nodes max per array, validated on load.
 
 ## Branch + Commit Conventions
 
@@ -79,6 +85,14 @@ This contains reference material only:
 
 Do NOT attempt to extract or reverse-engineer code from the infographic HTML. Build from `SPEC.md`.
 
-## Phase Awareness
+## shadcn/ui Gotcha
 
-Check `PLAN.md` Part 4 summary table for current phase status before making changes. Each phase has explicit dependencies. Key milestone: **end of Phase 4D = portfolio-ready**. Phase 5 (AI features) requires a separate architecture decision (see PLAN.md Part 7).
+After `npx shadcn@latest add <component>`, fix imports in generated files: change `@/lib/utils` to `@/utils/cn`. Delete `src/lib/utils.ts` if created.
+
+## Conductor
+
+Project uses Conductor for track management. Active track: `conductor/tracks/react-migration_20260402/`. Check `plan.md` for task status before starting work. `src_vanilla/` contains the archived vanilla JS version (reference only during migration).
+
+## Migration Status
+
+Phases 1-2 complete (scaffold + data layer, 61 tests). Phase 3 (Shell & Navigation) is next. Check `conductor/tracks/react-migration_20260402/plan.md` for current task status. Design spec: `docs/superpowers/specs/2026-04-02-react-migration-design.md`. Design preview: `design-preview.html`.
