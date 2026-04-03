@@ -1,3 +1,4 @@
+import { motion, useReducedMotion } from 'motion/react'
 import { useApp } from '@/context/AppContext'
 import { useOntology } from '@/hooks/useOntology'
 import { LockedAiButton } from './LockedAiButton'
@@ -6,6 +7,8 @@ import { sanitizeHTML } from '@/utils/sanitize'
 export function InsightPanel() {
   const { selectedNode } = useApp()
   const { workflows, systems, personas, contextMap } = useOntology()
+
+  const prefersReduced = useReducedMotion()
 
   if (!selectedNode) return null
 
@@ -21,7 +24,14 @@ export function InsightPanel() {
   const connections = contextMap[selectedNode.id] ?? []
 
   return (
-    <aside aria-live="polite" aria-label="Node details" className="modern-box mt-6 p-6">
+    <motion.aside
+      initial={prefersReduced ? undefined : { opacity: 0, y: 10 }}
+      animate={prefersReduced ? undefined : { opacity: 1, y: 0 }}
+      transition={prefersReduced ? undefined : { duration: 0.3 }}
+      aria-live="polite"
+      aria-label="Node details"
+      className="modern-box mt-6 p-6"
+    >
       <h3 className="text-foreground font-[family-name:var(--font-display)] text-lg font-bold">
         {sanitizeHTML(node.name)}
       </h3>
@@ -36,6 +46,6 @@ export function InsightPanel() {
         <LockedAiButton label="Analyze Logic" className="bg-indigo-600/20" />
         <LockedAiButton label="Generate Prompt" className="bg-emerald-600/20" />
       </div>
-    </aside>
+    </motion.aside>
   )
 }
