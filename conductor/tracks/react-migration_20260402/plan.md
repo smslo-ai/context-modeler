@@ -4,7 +4,7 @@
 **Spec:** [spec.md](./spec.md)
 **Design Spec:** `docs/superpowers/specs/2026-04-02-react-migration-design.md`
 **Created:** 2026-04-02
-**Status:** [ ] Not Started
+**Status:** [~] In Progress
 
 ## Overview
 
@@ -18,28 +18,28 @@ Set up the React + TypeScript project, quality tooling, and design system founda
 
 ### Tasks
 
-- [ ] Task 1.1: Archive vanilla JS source to `src_vanilla/` (rename `src/` -> `src_vanilla/`, create fresh `src/`)
-- [ ] Task 1.2: Install React 19, TypeScript 5.x, `@types/react`, `@types/react-dom`
-- [ ] Task 1.3: Create `tsconfig.json` with strict mode, JSX react-jsx, path aliases
-- [ ] Task 1.4: Convert `vite.config.js` to `vite.config.ts` (keep `base`, CSP plugin, Tailwind plugin, test config)
-- [ ] Task 1.5: Install and configure ESLint v9 flat config (`@typescript-eslint`, `react-hooks`, `jsx-a11y`, `react`)
-- [ ] Task 1.6: Install and configure Prettier with `prettier-plugin-tailwindcss`
-- [ ] Task 1.7: Install and configure Husky + lint-staged (ESLint + Prettier + `tsc --noEmit` on staged files)
-- [ ] Task 1.8: Initialize shadcn/ui (`npx shadcn@latest init`) -- configure for dark theme, New York style
-- [ ] Task 1.9: Install Framer Motion (`motion` package, v12+)
-- [ ] Task 1.10: Create `src/index.css` with Tailwind imports, design system tokens (palette, typography, utility classes from design spec)
-- [ ] Task 1.11: Create entry files: `src/main.tsx` (ReactDOM.createRoot), `src/App.tsx` (placeholder)
-- [ ] Task 1.12: Update `index.html` -- replace vanilla JS body with `<div id="root"></div>`, update script to `/src/main.tsx`
-- [ ] Task 1.13: Create `src/utils/cn.ts` (clsx + tailwind-merge utility)
-- [ ] Task 1.14: Update `package.json` scripts to match design spec (build, lint, format, typecheck, validate)
-- [ ] Task 1.15: Install test dependencies (`@testing-library/react`, `@testing-library/jest-dom`, `@testing-library/user-event`)
+- [x] Task 1.1: Archive vanilla JS source to `src_vanilla/` (rename `src/` -> `src_vanilla/`, create fresh `src/`)
+- [x] Task 1.2: Install React 19, TypeScript 5.x, `@types/react`, `@types/react-dom`
+- [x] Task 1.3: Create `tsconfig.json` with strict mode, JSX react-jsx, path aliases
+- [x] Task 1.4: Convert `vite.config.js` to `vite.config.ts` (keep `base`, CSP plugin, Tailwind plugin, test config)
+- [x] Task 1.5: Install and configure ESLint v9 flat config (`@typescript-eslint`, `react-hooks`, `jsx-a11y`, `react`)
+- [x] Task 1.6: Install and configure Prettier with `prettier-plugin-tailwindcss`
+- [x] Task 1.7: Install and configure Husky + lint-staged (ESLint + Prettier + `tsc --noEmit` on staged files)
+- [x] Task 1.8: Initialize shadcn/ui (`npx shadcn@latest init`) -- configure for dark theme, New York style
+- [x] Task 1.9: Install Framer Motion (`motion` package, v12+)
+- [x] Task 1.10: Create `src/index.css` with Tailwind imports, design system tokens (palette, typography, utility classes from design spec)
+- [x] Task 1.11: Create entry files: `src/main.tsx` (ReactDOM.createRoot), `src/App.tsx` (placeholder)
+- [x] Task 1.12: Update `index.html` -- replace vanilla JS body with `<div id="root"></div>`, update script to `/src/main.tsx`
+- [x] Task 1.13: Create `src/utils/cn.ts` (clsx + tailwind-merge utility)
+- [x] Task 1.14: Update `package.json` scripts to match design spec (build, lint, format, typecheck, validate)
+- [x] Task 1.15: Install test dependencies (`@testing-library/react`, `@testing-library/jest-dom`, `@testing-library/user-event`)
 
 ### Verification
 
-- [ ] `npm run dev` starts and renders the App placeholder with dark background + correct fonts
-- [ ] `npm run validate` passes (typecheck + lint + test with no tests yet = pass)
-- [ ] `npm run build` produces clean output
-- [ ] Pre-commit hook fires on `git commit` (test with a dummy commit, then reset)
+- [x] `npm run dev` starts and renders the App placeholder with dark background + correct fonts
+- [x] `npm run validate` passes (typecheck + lint + test with no tests yet = pass)
+- [x] `npm run build` produces clean output
+- [x] Pre-commit hook fires on `git commit` (test with a dummy commit, then reset)
 
 ---
 
@@ -49,27 +49,27 @@ Build the data layer: TypeScript interfaces, services, context provider, and hoo
 
 ### Tasks
 
-- [ ] Task 2.1: Create `src/types.ts` -- all interfaces/enums (OntologyData, Workflow, System, Persona, FrictionRule, ContextMap, SimulationMode, SelectedNode, AppAction)
-- [ ] Task 2.2: Create `src/services/types.ts` -- service-layer types (StorageAdapter interface, service return types)
-- [ ] Task 2.3: Create `src/services/storage.service.ts` -- localStorage adapter implementing StorageAdapter, same `context-modeler:` key prefix and schema
-- [ ] Task 2.4: Create `src/services/ontology.service.ts` -- CRUD for workflows, systems, personas (add, update, delete with cascading cleanup)
-- [ ] Task 2.5: Create `src/services/friction.service.ts` -- heatmap computation, friction scoring
-- [ ] Task 2.6: Create `src/utils/heuristics.ts` -- port friction scoring and simulation visual logic from `src_vanilla/utils/heuristics.js`
-- [ ] Task 2.7: Create `src/utils/sanitize.ts` -- DOMPurify wrapper (port from `src_vanilla/utils/sanitize.js`)
-- [ ] Task 2.8: Create `src/data/defaults.ts` -- sample ontology data (port from `src_vanilla/data/defaults.js`)
-- [ ] Task 2.9: Create `src/context/AppContext.tsx` -- AppProvider with useReducer, useApp() hook
-- [ ] Task 2.10: Create `src/hooks/useOntology.ts` -- hook wrapping ontology service
-- [ ] Task 2.11: Create `src/hooks/useSimulation.ts` -- simulation mode logic
-- [ ] Task 2.12: Create `src/hooks/useLocalStorage.ts` -- typed localStorage hook
-- [ ] Task 2.13: Write unit tests for services (storage, ontology, friction) -- target 90%+ coverage
-- [ ] Task 2.14: Write unit tests for utils (heuristics, sanitize, cn)
-- [ ] Task 2.15: Write unit test verifying localStorage data round-trip compatibility with vanilla JS format
+- [x] Task 2.1: Create `src/types.ts` -- all interfaces/enums (OntologyData, Workflow, System, Persona, FrictionRule, ContextMap, SimulationMode, SelectedNode, AppAction)
+- [x] Task 2.2: Create `src/services/types.ts` -- service-layer types (StorageAdapter interface, service return types)
+- [x] Task 2.3: Create `src/services/storage.service.ts` -- localStorage adapter implementing StorageAdapter, same `context-modeler:` key prefix and schema
+- [x] Task 2.4: Create `src/services/ontology.service.ts` -- CRUD for workflows, systems, personas (add, update, delete with cascading cleanup)
+- [x] Task 2.5: Create `src/services/friction.service.ts` -- heatmap computation, friction scoring
+- [x] Task 2.6: Create `src/utils/heuristics.ts` -- port friction scoring and simulation visual logic from `src_vanilla/utils/heuristics.js`
+- [x] Task 2.7: Create `src/utils/sanitize.ts` -- DOMPurify wrapper (port from `src_vanilla/utils/sanitize.js`)
+- [x] Task 2.8: Create `src/data/defaults.ts` -- sample ontology data (port from `src_vanilla/data/defaults.js`)
+- [x] Task 2.9: Create `src/context/AppContext.tsx` -- AppProvider with useReducer, useApp() hook
+- [x] Task 2.10: Create `src/hooks/useOntology.ts` -- hook wrapping ontology service
+- [x] Task 2.11: Create `src/hooks/useSimulation.ts` -- simulation mode logic
+- [x] Task 2.12: Create `src/hooks/useLocalStorage.ts` -- typed localStorage hook
+- [x] Task 2.13: Write unit tests for services (storage, ontology, friction) -- target 90%+ coverage
+- [x] Task 2.14: Write unit tests for utils (heuristics, sanitize, cn)
+- [x] Task 2.15: Write unit test verifying localStorage data round-trip compatibility with vanilla JS format
 
 ### Verification
 
-- [ ] `npm run validate` passes
-- [ ] Services tests cover CRUD, cascading deletes, friction computation
-- [ ] Data round-trip test confirms vanilla JS localStorage data loads correctly in React
+- [x] `npm run validate` passes
+- [x] Services tests cover CRUD, cascading deletes, friction computation
+- [x] Data round-trip test confirms vanilla JS localStorage data loads correctly in React
 
 ---
 

@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Design System Preview — Context Modeler</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            display: ['Outfit', 'system-ui', 'sans-serif'],
+          },
+          colors: {
+            background: '#1B2632',
+            surface: '#2C3B4D',
+            'surface-elevated': '#354A61',
+            muted: '#3D5568',
+            foreground: '#EEE9DF',
+            'foreground-muted': '#B8C5D4',
+            'foreground-subtle': '#8A9BB0',
+            primary: '#FFB162',
+            'primary-hover': '#FFC480',
+            secondary: '#3B9B8F',
+            'secondary-hover': '#4DB8AA',
+            destructive: '#A35139',
+            'destructive-hover': '#C0624A',
+            accent: '#317371',
+            oatmeal: '#C9C1B1',
+            palladian: '#EEE9DF',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #1B2632;
+      background-image:
+        radial-gradient(at 0% 0%, rgba(59,155,143,0.08) 0px, transparent 50%),
+        radial-gradient(at 100% 0%, rgba(255,177,98,0.06) 0px, transparent 50%),
+        radial-gradient(at 100% 100%, rgba(163,81,57,0.05) 0px, transparent 50%);
+      background-attachment: fixed;
+    }
+    .modern-box {
+      background: rgba(44,59,77,0.8);
+      border-radius: 1rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      backdrop-filter: blur(20px);
+    }
+    .modern-box-sm {
+      background: rgba(44,59,77,0.6);
+      border-radius: 0.75rem;
+      border: 1px solid rgba(255,255,255,0.06);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+      backdrop-filter: blur(12px);
+    }
+    .modern-input {
+      background: rgba(61,85,104,0.3);
+      border-radius: 0.75rem;
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .friction-low { background: rgba(59,155,143,0.3); color: #5EECD8; transition: all 0.2s ease; }
+    .friction-moderate { background: rgba(255,177,98,0.3); color: #FFD09B; transition: all 0.2s ease; }
+    .friction-elevated { background: rgba(212,120,74,0.35); color: #FFB88A; transition: all 0.2s ease; }
+    .friction-high { background: rgba(163,81,57,0.4); color: #FF9B7A; transition: all 0.2s ease; }
+
+    .friction-low:hover { background: rgba(59,155,143,0.5); color: #8FFFF0; transform: scale(1.03); box-shadow: 0 0 12px rgba(59,155,143,0.3); }
+    .friction-moderate:hover { background: rgba(255,177,98,0.5); color: #FFE0B8; transform: scale(1.03); box-shadow: 0 0 12px rgba(255,177,98,0.3); }
+    .friction-elevated:hover { background: rgba(212,120,74,0.55); color: #FFCCA6; transform: scale(1.03); box-shadow: 0 0 12px rgba(212,120,74,0.3); }
+    .friction-high:hover { background: rgba(163,81,57,0.6); color: #FFB89E; transform: scale(1.03); box-shadow: 0 0 12px rgba(163,81,57,0.4); }
+
+    .friction-cell-active { outline: 2px solid rgba(255,177,98,0.5); outline-offset: -1px; }
+    .glow-primary { box-shadow: 0 0 20px rgba(255,177,98,0.15); }
+    .glow-secondary { box-shadow: 0 0 20px rgba(59,155,143,0.15); }
+  </style>
+</head>
+<body class="font-sans text-foreground min-h-screen p-6 md:p-10">
+
+  <!-- Mode Toggle -->
+  <div class="fixed top-4 right-4 z-50 flex gap-2">
+    <button onclick="document.documentElement.classList.toggle('dark'); document.body.style.backgroundColor = document.documentElement.classList.contains('dark') ? '#1B2632' : '#EEE9DF'"
+            class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-surface border border-white/10 text-foreground-muted hover:text-primary transition-colors">
+      Toggle Light/Dark
+    </button>
+  </div>
+
+  <div class="max-w-6xl mx-auto space-y-10">
+
+    <!-- Header -->
+    <header class="text-center pt-4 pb-2">
+      <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-primary mb-3">Design System Preview</p>
+      <h1 class="font-display text-4xl font-bold text-foreground mb-2">Context-Aware Workplace Modeler</h1>
+      <p class="text-foreground-muted text-lg max-w-xl mx-auto">React + TypeScript + Tailwind v4 — Dark-first design system</p>
+    </header>
+
+    <!-- Color Palette -->
+    <section class="modern-box p-8">
+      <h2 class="font-display text-xl font-semibold text-foreground mb-6">Color Palette</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        <div>
+          <div class="h-20 rounded-xl bg-background border border-white/10 mb-2"></div>
+          <p class="text-xs font-semibold text-foreground">Background</p>
+          <p class="text-[10px] text-foreground-subtle font-mono">#1B2632</p>
+        </div>
+        <div>
+          <div class="h-20 rounded-xl bg-surface border border-white/10 mb-2"></div>
+          <p class="text-xs font-semibold text-foreground">Surface</p>
+          <p class="text-[10px] text-foreground-subtle font-mono">#2C3B4D</p>
+        </div>
+        <div>
+          <div class="h-20 rounded-xl bg-surface-elevated border border-white/10 mb-2"></div>
+          <p class="text-xs font-semibold text-foreground">Elevated</p>
+          <p class="text-[10px] text-foreground-subtle font-mono">#354A61</p>
+        </div>
+        <div>
+          <div class="h-20 rounded-xl bg-primary mb-2"></div>
+          <p class="text-xs font-semibold text-foreground">Primary</p>
+          <p class="text-[10px] text-foreground-subtle font-mono">#FFB162</p>
+        </div>
+        <div>
+          <div class="h-20 rounded-xl bg-secondary mb-2"></div>
+          <p class="text-xs font-semibold text-foreground">Secondary</p>
+          <p class="text-[10px] text-foreground-subtle font-mono">#3B9B8F</p>
+        </div>
+        <div>
+          <div class="h-20 rounded-xl bg-destructive mb-2"></div>
+          <p class="text-xs font-semibold text-foreground">Destructive</p>
+          <p class="text-[10px] text-foreground-subtle font-mono">#A35139</p>
+        </div>
+      </div>
+      <!-- Accent row -->
+      <div class="grid grid-cols-3 md:grid-cols-6 gap-4 mt-4">
+        <div>
+          <div class="h-12 rounded-lg bg-muted mb-1"></div>
+          <p class="text-[10px] text-foreground-subtle">Muted</p>
+        </div>
+        <div>
+          <div class="h-12 rounded-lg bg-oatmeal mb-1"></div>
+          <p class="text-[10px] text-foreground-subtle">Oatmeal</p>
+        </div>
+        <div>
+          <div class="h-12 rounded-lg bg-palladian mb-1"></div>
+          <p class="text-[10px] text-foreground-subtle">Palladian</p>
+        </div>
+        <div>
+          <div class="h-12 rounded-lg bg-primary-hover mb-1"></div>
+          <p class="text-[10px] text-foreground-subtle">Primary Hover</p>
+        </div>
+        <div>
+          <div class="h-12 rounded-lg bg-secondary-hover mb-1"></div>
+          <p class="text-[10px] text-foreground-subtle">Secondary Hover</p>
+        </div>
+        <div>
+          <div class="h-12 rounded-lg bg-accent mb-1"></div>
+          <p class="text-[10px] text-foreground-subtle">Accent</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Typography -->
+    <section class="modern-box p-8">
+      <h2 class="font-display text-xl font-semibold text-foreground mb-6">Typography</h2>
+      <div class="space-y-4">
+        <div>
+          <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-foreground-subtle mb-1">Display / Outfit</p>
+          <p class="font-display text-3xl font-bold text-foreground">Map your workplace as a connected system</p>
+        </div>
+        <div>
+          <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-foreground-subtle mb-1">Heading / Outfit</p>
+          <p class="font-display text-xl font-semibold text-foreground">Context Ontology Explorer</p>
+        </div>
+        <div>
+          <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-foreground-subtle mb-1">Body / Inter</p>
+          <p class="text-base text-foreground-muted leading-relaxed">Traditional workflows are static. A Context-Aware Workplace dynamically adapts based on the intersection of three dimensions.</p>
+        </div>
+        <div>
+          <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-foreground-subtle mb-1">Label</p>
+          <p class="text-[10px] font-bold uppercase tracking-[0.2em] text-foreground-subtle">Digital Workspace Architecture</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Nav Bar -->
+    <section class="modern-box overflow-hidden">
+      <div class="px-6 py-4 flex items-center justify-between border-b border-white/5">
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-primary/20 flex items-center justify-center">
+            <span class="text-primary font-display font-bold text-sm">C</span>
+          </div>
+          <div>
+            <p class="font-display font-semibold text-sm text-foreground">Context Modeler</p>
+            <p class="text-[10px] text-foreground-subtle">by Shane Slosar</p>
+          </div>
+        </div>
+        <nav class="flex items-center gap-1">
+          <button class="px-4 py-2 rounded-lg text-sm font-medium bg-primary/15 text-primary">Dashboard</button>
+          <button class="px-4 py-2 rounded-lg text-sm font-medium text-foreground-muted hover:text-foreground hover:bg-white/5 transition-colors">Input Studio</button>
+          <button class="px-3 py-2 rounded-lg text-sm font-medium text-foreground-muted hover:text-foreground hover:bg-white/5 transition-colors">About</button>
+        </nav>
+      </div>
+    </section>
+
+    <!-- Buttons -->
+    <section class="modern-box p-8">
+      <h2 class="font-display text-xl font-semibold text-foreground mb-6">Buttons</h2>
+      <div class="flex flex-wrap gap-3">
+        <button class="px-5 py-2.5 rounded-xl bg-primary text-background font-semibold text-sm active:scale-[0.98] transition-all hover:bg-primary-hover glow-primary">
+          Primary Action
+        </button>
+        <button class="px-5 py-2.5 rounded-xl bg-secondary text-white font-semibold text-sm active:scale-[0.98] transition-all hover:bg-secondary-hover glow-secondary">
+          Secondary
+        </button>
+        <button class="px-5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-foreground font-medium text-sm active:scale-[0.98] transition-all hover:bg-white/10">
+          Outline
+        </button>
+        <button class="px-5 py-2.5 rounded-xl text-foreground-muted font-medium text-sm hover:text-foreground hover:bg-white/5 transition-colors">
+          Ghost
+        </button>
+        <button class="px-5 py-2.5 rounded-xl bg-destructive text-white font-semibold text-sm active:scale-[0.98] transition-all hover:bg-destructive-hover">
+          Destructive
+        </button>
+        <button class="px-5 py-2.5 rounded-xl bg-primary/50 text-background/60 font-semibold text-sm cursor-not-allowed" disabled>
+          Disabled
+        </button>
+      </div>
+    </section>
+
+    <!-- Cards: Triad Explorer Mock -->
+    <section>
+      <div class="flex items-center justify-between mb-4">
+        <div>
+          <h2 class="font-display text-2xl font-bold text-foreground">Context Ontology Explorer</h2>
+          <p class="text-sm text-foreground-muted mt-1">Interactive mapping of Workflows, Systems, and Users.</p>
+        </div>
+        <span class="text-sm font-medium text-secondary bg-secondary/15 px-3 py-1 rounded-full">14 Nodes</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <!-- Workflows Column -->
+        <div class="modern-box overflow-hidden">
+          <div class="px-4 py-3 border-b border-white/5 flex items-center justify-between">
+            <h3 class="font-display font-semibold text-sm text-foreground">Business Workflows</h3>
+            <span class="text-[10px] font-bold text-primary bg-primary/15 px-2 py-0.5 rounded uppercase tracking-wider">Demand</span>
+          </div>
+          <div class="divide-y divide-white/5">
+            <div class="p-4 hover:bg-white/5 cursor-pointer transition-colors border-l-2 border-primary/60">
+              <div class="flex items-center justify-between">
+                <span class="font-medium text-sm text-foreground">Q3 Financial Reporting</span>
+                <span class="text-[10px] font-medium text-foreground-subtle bg-white/5 px-2 py-0.5 rounded uppercase">Critical</span>
+              </div>
+              <p class="text-xs text-foreground-muted mt-1">Quarterly close + stakeholder deck</p>
+            </div>
+            <div class="p-4 hover:bg-white/5 cursor-pointer transition-colors border-l-2 border-transparent">
+              <div class="flex items-center justify-between">
+                <span class="font-medium text-sm text-foreground">Vendor Onboarding</span>
+                <span class="text-[10px] font-medium text-foreground-subtle bg-white/5 px-2 py-0.5 rounded uppercase">Routine</span>
+              </div>
+              <p class="text-xs text-foreground-muted mt-1">New vendor setup + compliance check</p>
+            </div>
+            <div class="p-4 bg-primary/5 border-l-2 border-primary cursor-pointer ring-1 ring-primary/20">
+              <div class="flex items-center justify-between">
+                <span class="font-medium text-sm text-primary">Cost Basis Reconciliation</span>
+                <span class="text-[10px] font-medium text-primary/70 bg-primary/10 px-2 py-0.5 rounded uppercase">Critical</span>
+              </div>
+              <p class="text-xs text-foreground-muted mt-1">Daily position matching + break resolution</p>
+            </div>
+            <div class="p-4 hover:bg-white/5 cursor-pointer transition-colors opacity-30 border-l-2 border-transparent">
+              <div class="flex items-center justify-between">
+                <span class="font-medium text-sm text-foreground">Team Standups</span>
+                <span class="text-[10px] font-medium text-foreground-subtle bg-white/5 px-2 py-0.5 rounded uppercase">Daily</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Systems Column -->
+        <div class="modern-box overflow-hidden">
+          <div class="px-4 py-3 border-b border-white/5 flex items-center justify-between">
+            <h3 class="font-display font-semibold text-sm text-foreground">Systems & Infra</h3>
+            <span class="text-[10px] font-bold text-secondary bg-secondary/15 px-2 py-0.5 rounded uppercase tracking-wider">Supply</span>
+          </div>
+          <div class="divide-y divide-white/5">
+            <div class="p-4 hover:bg-white/5 cursor-pointer transition-colors border-l-2 border-secondary/60">
+              <div class="flex items-center justify-between">
+                <span class="font-medium text-sm text-foreground">Power BI Dashboard</span>
+                <span class="text-[10px] font-medium text-foreground-subtle bg-white/5 px-2 py-0.5 rounded uppercase">Reporting</span>
+              </div>
+            </div>
+            <div class="p-4 hover:bg-white/5 cursor-pointer transition-colors border-l-2 border-transparent">
+              <div class="flex items-center justify-between">
+                <span class="font-medium text-sm text-foreground">SharePoint Document Hub</span>
+                <span class="text-[10px] font-medium text-foreground-subtle bg-white/5 px-2 py-0.5 rounded uppercase">Storage</span>
+              </div>
+            </div>
+            <div class="p-4 hover:bg-white/5 cursor-pointer transition-colors border-l-2 border-transparent opacity-30">
+              <div class="flex items-center justify-between">
+                <span class="font-medium text-sm text-foreground">Slack</span>
+                <span class="text-[10px] font-medium text-foreground-subtle bg-white/5 px-2 py-0.5 rounded uppercase">Comms</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Personas Column -->
+        <div class="modern-box overflow-hidden">
+          <div class="px-4 py-3 border-b border-white/5 flex items-center justify-between">
+            <h3 class="font-display font-semibold text-sm text-foreground">Users & Personas</h3>
+            <span class="text-[10px] font-bold text-destructive bg-destructive/15 px-2 py-0.5 rounded uppercase tracking-wider">State</span>
+          </div>
+          <div class="divide-y divide-white/5">
+            <div class="p-4 hover:bg-white/5 cursor-pointer transition-colors border-l-2 border-destructive/40">
+              <div class="flex items-center justify-between">
+                <span class="font-medium text-sm text-foreground">Sarah (Finance Analyst)</span>
+                <span class="text-[10px] font-medium text-destructive/80 bg-destructive/10 px-2 py-0.5 rounded uppercase">Firefighter</span>
+              </div>
+              <p class="text-xs text-foreground-muted mt-1">High stress, reactive mode</p>
+            </div>
+            <div class="p-4 hover:bg-white/5 cursor-pointer transition-colors border-l-2 border-transparent">
+              <div class="flex items-center justify-between">
+                <span class="font-medium text-sm text-foreground">Mike (IT Ops Lead)</span>
+                <span class="text-[10px] font-medium text-foreground-subtle bg-white/5 px-2 py-0.5 rounded uppercase">Architect</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Simulation Modes -->
+    <section class="modern-box p-6">
+      <h3 class="text-[10px] font-bold text-foreground-subtle uppercase tracking-[0.2em] mb-4">Simulation Control</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <button class="flex items-center p-4 rounded-xl border-2 border-primary/40 bg-primary/5 text-left transition-all glow-primary">
+          <span class="text-2xl mr-3">&#x1F305;</span>
+          <div>
+            <div class="font-semibold text-sm text-foreground">Morning Triage</div>
+            <div class="text-xs text-foreground-muted">High Speed / Low Depth</div>
+          </div>
+        </button>
+        <button class="flex items-center p-4 rounded-xl border-2 border-white/5 bg-white/[0.02] text-left transition-all hover:bg-white/5 hover:border-white/10">
+          <span class="text-2xl mr-3">&#x1F9E0;</span>
+          <div>
+            <div class="font-semibold text-sm text-foreground">Deep Focus</div>
+            <div class="text-xs text-foreground-muted">Low Distraction / High Depth</div>
+          </div>
+        </button>
+        <button class="flex items-center p-4 rounded-xl border-2 border-white/5 bg-white/[0.02] text-left transition-all hover:bg-white/5 hover:border-white/10">
+          <span class="text-2xl mr-3">&#x1F525;</span>
+          <div>
+            <div class="font-semibold text-sm text-foreground">Firefighting</div>
+            <div class="text-xs text-foreground-muted">Critical / Reactive</div>
+          </div>
+        </button>
+      </div>
+    </section>
+
+    <!-- Friction Heatmap Mock -->
+    <section class="modern-box p-6">
+      <h2 class="font-display text-xl font-semibold text-foreground mb-1">Cognitive Friction Heatmap</h2>
+      <p class="text-sm text-foreground-muted mb-5">Workflow-system compatibility analysis</p>
+      <div class="overflow-x-auto">
+        <table class="w-full text-xs border-collapse">
+          <thead>
+            <tr>
+              <th class="p-3 text-left font-semibold text-foreground-muted">System \ Workflow</th>
+              <th class="p-3 text-center font-semibold text-foreground">Q3 Reporting</th>
+              <th class="p-3 text-center font-semibold text-foreground">Vendor Onboard</th>
+              <th class="p-3 text-center font-semibold text-foreground">Cost Basis</th>
+              <th class="p-3 text-center font-semibold text-foreground">Standups</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="border-t border-white/5">
+              <th class="p-3 text-left font-medium text-foreground bg-white/[0.02]">Power BI</th>
+              <td class="p-3 text-center rounded-lg friction-low font-semibold cursor-pointer">22%</td>
+              <td class="p-3 text-center rounded-lg friction-elevated font-semibold cursor-pointer">68%</td>
+              <td class="p-3 text-center rounded-lg friction-low font-semibold cursor-pointer">15%</td>
+              <td class="p-3 text-center rounded-lg friction-high font-semibold cursor-pointer">85%</td>
+            </tr>
+            <tr class="border-t border-white/5">
+              <th class="p-3 text-left font-medium text-foreground bg-white/[0.02]">SharePoint</th>
+              <td class="p-3 text-center rounded-lg friction-moderate font-semibold cursor-pointer">45%</td>
+              <td class="p-3 text-center rounded-lg friction-low font-semibold cursor-pointer">28%</td>
+              <td class="p-3 text-center rounded-lg friction-high font-semibold cursor-pointer">78%</td>
+              <td class="p-3 text-center rounded-lg friction-moderate font-semibold cursor-pointer">42%</td>
+            </tr>
+            <tr class="border-t border-white/5">
+              <th class="p-3 text-left font-medium text-foreground bg-white/[0.02]">Slack</th>
+              <td class="p-3 text-center rounded-lg friction-elevated font-semibold cursor-pointer">62%</td>
+              <td class="p-3 text-center rounded-lg friction-moderate font-semibold cursor-pointer">50%</td>
+              <td class="p-3 text-center rounded-lg friction-elevated font-semibold cursor-pointer">71%</td>
+              <td class="p-3 text-center rounded-lg friction-low font-semibold cursor-pointer">12%</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="flex flex-wrap items-center gap-4 mt-4 text-xs text-foreground-subtle">
+        <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded friction-low inline-block"></span> <span class="text-foreground-muted">Low (0-34%)</span></div>
+        <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded friction-moderate inline-block"></span> <span class="text-foreground-muted">Moderate (35-54%)</span></div>
+        <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded friction-elevated inline-block"></span> <span class="text-foreground-muted">Elevated (55-74%)</span></div>
+        <div class="flex items-center gap-1.5"><span class="w-3 h-3 rounded friction-high inline-block"></span> <span class="text-foreground-muted">High (75-100%)</span></div>
+      </div>
+    </section>
+
+    <!-- Form / Input Studio Mock -->
+    <section class="modern-box p-6">
+      <h2 class="font-display text-xl font-semibold text-foreground mb-5">Input Studio</h2>
+      <!-- Tabs -->
+      <div class="flex border-b border-white/5 mb-6">
+        <button class="flex-1 py-3 text-sm font-medium text-center border-b-2 border-primary text-primary">1. Workflows</button>
+        <button class="flex-1 py-3 text-sm font-medium text-center text-foreground-muted hover:text-foreground transition-colors">2. Systems</button>
+        <button class="flex-1 py-3 text-sm font-medium text-center text-foreground-muted hover:text-foreground transition-colors">3. Users</button>
+      </div>
+      <div class="space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-[10px] font-bold uppercase tracking-[0.15em] text-foreground-subtle mb-2">Workflow Name *</label>
+            <input type="text" placeholder="e.g. Q3 Financial Reporting"
+                   class="modern-input w-full px-4 py-2.5 text-sm text-foreground placeholder:text-foreground-subtle/50 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all">
+          </div>
+          <div>
+            <label class="block text-[10px] font-bold uppercase tracking-[0.15em] text-foreground-subtle mb-2">Category</label>
+            <select class="modern-input w-full px-4 py-2.5 text-sm text-foreground focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all appearance-none">
+              <option>Critical (High Urgency)</option>
+              <option>Routine</option>
+              <option>Strategic</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label class="block text-[10px] font-bold uppercase tracking-[0.15em] text-foreground-subtle mb-2">Description</label>
+          <textarea rows="2" placeholder="Brief description of this workflow"
+                    class="modern-input w-full px-4 py-2.5 text-sm text-foreground placeholder:text-foreground-subtle/50 focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all resize-none"></textarea>
+        </div>
+        <button class="w-full py-3 rounded-xl bg-primary text-background font-semibold text-sm active:scale-[0.98] transition-all hover:bg-primary-hover glow-primary">
+          + Add Workflow Node
+        </button>
+      </div>
+    </section>
+
+    <!-- Insight Panel Mock -->
+    <section class="modern-box p-6 border-l-4 border-primary">
+      <div class="flex items-start justify-between">
+        <div>
+          <h3 class="text-[10px] font-bold text-foreground-subtle uppercase tracking-[0.2em] mb-2">Active Context Analysis</h3>
+          <p class="text-lg font-semibold text-foreground">Selected: <span class="text-primary">Cost Basis Reconciliation</span></p>
+          <p class="text-sm text-foreground-muted mt-1">Detected <span class="font-bold text-foreground">5</span> direct connections in the graph.</p>
+        </div>
+        <div class="flex flex-col gap-2 ml-4">
+          <button class="px-4 py-2 rounded-lg text-sm font-medium bg-white/5 border border-white/10 text-foreground-muted cursor-not-allowed opacity-50">
+            Analyze Logic (AI)
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Toast Examples -->
+    <section class="modern-box p-6">
+      <h2 class="font-display text-xl font-semibold text-foreground mb-4">Toasts</h2>
+      <div class="flex flex-col gap-3 max-w-xs">
+        <div class="flex items-center gap-3 px-4 py-3 rounded-xl bg-secondary/15 border border-secondary/20 text-sm">
+          <span class="text-secondary font-bold">&#10003;</span>
+          <span class="text-foreground">Node added: Q3 Reporting</span>
+        </div>
+        <div class="flex items-center gap-3 px-4 py-3 rounded-xl bg-destructive/15 border border-destructive/20 text-sm">
+          <span class="text-destructive font-bold">&#10005;</span>
+          <span class="text-foreground">Name is required.</span>
+        </div>
+        <div class="flex items-center gap-3 px-4 py-3 rounded-xl bg-primary/15 border border-primary/20 text-sm">
+          <span class="text-primary font-bold">i</span>
+          <span class="text-foreground">Data imported successfully.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Badges -->
+    <section class="modern-box p-6">
+      <h2 class="font-display text-xl font-semibold text-foreground mb-4">Badges</h2>
+      <div class="flex flex-wrap gap-3">
+        <span class="text-[10px] font-bold text-primary bg-primary/15 px-2.5 py-1 rounded-full uppercase tracking-wider">Demand</span>
+        <span class="text-[10px] font-bold text-secondary bg-secondary/15 px-2.5 py-1 rounded-full uppercase tracking-wider">Supply</span>
+        <span class="text-[10px] font-bold text-destructive bg-destructive/15 px-2.5 py-1 rounded-full uppercase tracking-wider">State</span>
+        <span class="text-[10px] font-bold text-foreground-muted bg-white/5 px-2.5 py-1 rounded-full uppercase tracking-wider">Routine</span>
+        <span class="text-[10px] font-bold text-primary bg-primary/15 px-2.5 py-1 rounded-full uppercase tracking-wider">Critical</span>
+        <span class="text-[10px] font-bold text-secondary bg-secondary/15 px-2.5 py-1 rounded-full uppercase tracking-wider">Reporting</span>
+      </div>
+    </section>
+
+    <!-- Footer spacer -->
+    <div class="h-8"></div>
+  </div>
+
+  <script>
+    // Heatmap cell click-to-select demo
+    document.querySelectorAll('td[class*="friction-"]').forEach(cell => {
+      cell.addEventListener('click', () => {
+        document.querySelectorAll('.friction-cell-active').forEach(c => c.classList.remove('friction-cell-active'));
+        cell.classList.add('friction-cell-active');
+      });
+    });
+
+    // Node card hover demo - add subtle left-border glow on hover
+    document.querySelectorAll('.triad-item, [class*="border-l-2"]').forEach(card => {
+      if (!card.closest('table')) {
+        card.style.transition = 'all 0.15s ease';
+      }
+    });
+  </script>
+</body>
+</html>
