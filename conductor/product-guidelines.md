@@ -37,5 +37,5 @@ Dashboard shows the overview; Input Studio allows deep editing. Simulation modes
 
 - This is a **portfolio piece**, not a SaaS product
 - No user accounts, authentication, or multi-device sync
-- No dark mode (explicitly cut; post-launch enhancement if requested)
+- Dark mode is the primary theme (dark-first); light mode is deferred
 - AI features are Phase 5 -- buttons exist but are locked with tooltips

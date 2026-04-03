@@ -18,6 +18,8 @@ Navigation hub for project context.
 
 ## Active Tracks
 
+- [ ] [React + TypeScript Migration](./tracks/react-migration_20260402/index.md) -- Full migration to React 19 + TS strict + dark-first design system (6 phases, 67 tasks)
+
 <!-- Auto-populated by /conductor:new-track -->
 
 ## Getting Started
