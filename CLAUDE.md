@@ -11,12 +11,18 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ```bash
-npm run dev       # Start Vite dev server (http://localhost:5173)
-npm run build     # Production build to dist/
-npm run preview   # Preview production build locally
-npx vitest        # Run unit tests (once installed per Pre-Flight PF-2)
-npx vitest run    # Run tests once (no watch)
+npm run dev            # Start Vite dev server (http://localhost:5173)
+npm run build          # Production build to dist/
+npm run preview        # Preview production build locally
+npm test               # Run all tests once
+npm run test:watch     # Run tests in watch mode
+npm run test:coverage  # Run tests with coverage report
+npx vitest run tests/state/store.test.js  # Run a single test file
 ```
+
+## Testing
+
+Vitest config lives inside `vite.config.js` (no separate vitest.config). Environment is jsdom with globals enabled (describe/it/expect available without imports). Test files mirror `src/` structure under `tests/`.
 
 ## Key Documents (read before making changes)
 
@@ -26,6 +32,10 @@ npx vitest run    # Run tests once (no watch)
 | `SPEC.md` | Implementation-ready specification -- every data structure, view, interaction, component | Before building any feature |
 | `AUDIT_SECURITY_A11Y.md` | 24 security + accessibility findings with severity ratings | Before any DOM manipulation, form, or modal work |
 | `AUDIT_UX.md` | 27 UX findings (4 critical) | Before any responsive, empty state, or onboarding work |
+| `TEST_PLAN.md` | Testing strategy and coverage targets | Before writing or restructuring tests |
+| `REFACTORING_PLAN.md` | Refactoring roadmap | Before any major restructuring |
+| `REVIEW_ENGINEERING.md` | Senior engineer review of the plan | For architectural context |
+| `REVIEW_PRODUCT.md` | Product manager review | For prioritization context |
 
 ## Architecture
 
@@ -35,7 +45,9 @@ Two-view SPA with no router. Views toggle via CSS `hidden` class on `#view-dashb
 
 **State management:** Custom event emitter in `store.js`. All state mutations call `notify(eventName)`. Components subscribe to events from `src/constants/events.js`. Event names are constants -- never use string literals for event subscriptions.
 
-**Data model:** Three parallel arrays (workflows[], systems[], personas[]) in `ontologyData`, cross-referenced by string ID. The `contextMap` (adjacency list) and `frictionRules` (keyed by `workflowId::systemId`) are separate files in `data/`. Node IDs are restricted to `[a-z0-9-]`.
+**Store public API:** `createStore(initialData)` returns `{ getState(), dispatch(eventName, payload), subscribe(eventName, callback) }`. Subscribers receive a frozen state snapshot.
+
+**Data model:** Three parallel arrays (workflows[], systems[], personas[]) in `ontologyData`, cross-referenced by string ID. The `contextMap` (adjacency list) and `frictionRules` (keyed by `workflowId::systemId`) are separate files in `data/`. Node IDs are restricted to `[a-z0-9-]` with type prefixes: `wf-` (workflows), `sys-` (systems), `usr-` (personas).
 
 **Heatmap:** Rendered as a semantic `<table>` element (not CSS grid divs). Rows = systems, columns = workflows, cells = friction scores.
 
@@ -48,6 +60,8 @@ Two-view SPA with no router. Views toggle via CSS `hidden` class on `#view-dashb
 - **Chart.js uses tree-shaken imports.** Import only the specific controllers/elements needed (RadarController, BubbleController, etc.), not the full library.
 - **AI buttons are locked** (disabled with tooltip) until Phase 5. Do not show "coming soon" toasts -- they harm portfolio impression.
 - **Cascading deletes:** When removing a node, clean references from contextMap, frictionRules, and all linked arrays on other nodes. This is the highest-risk logic in the project.
+- **Storage saves are debounced** (300ms) to batch rapid mutations. `beforeunload` flushes pending saves synchronously.
+- **Node limits:** 100 nodes max per array (enforced in `state/storage.js` validation), 50 nodes max per type on import (enforced in `utils/data-io.js`).
 
 ## Branch + Commit Conventions
 
