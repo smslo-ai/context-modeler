@@ -26,7 +26,7 @@ describe('NodeList', () => {
     render(<NodeList nodes={mockNodes} onDelete={onDelete} />)
 
     const deleteButtons = screen.getAllByRole('button', { name: /delete/i })
-    await user.click(deleteButtons[0])
+    await user.click(deleteButtons[0]!)
 
     const confirmButton = screen.getByRole('button', { name: /confirm delete/i })
     await user.click(confirmButton)
@@ -41,7 +41,7 @@ describe('NodeList', () => {
     render(<NodeList nodes={mockNodes} onDelete={onDelete} />)
 
     const deleteButtons = screen.getAllByRole('button', { name: /delete/i })
-    await user.click(deleteButtons[0])
+    await user.click(deleteButtons[0]!)
 
     const cancelButton = screen.getByRole('button', { name: /cancel/i })
     await user.click(cancelButton)
