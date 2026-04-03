@@ -1,6 +1,7 @@
 import { AppProvider, useApp } from '@/context/AppContext'
 import { Nav } from '@/components/nav/Nav'
 import { Toast } from '@/components/shared/Toast'
+import { Dashboard } from '@/components/dashboard/Dashboard'
 
 function Shell() {
   const { currentView } = useApp()
@@ -18,7 +19,7 @@ function Shell() {
           aria-hidden={currentView !== 'dashboard'}
           className={currentView !== 'dashboard' ? 'hidden' : undefined}
         >
-          <DashboardPlaceholder />
+          <Dashboard />
         </div>
         <div
           id="panel-input-studio"
@@ -32,19 +33,6 @@ function Shell() {
       </main>
 
       <Toast />
-    </div>
-  )
-}
-
-function DashboardPlaceholder() {
-  return (
-    <div className="modern-box p-8 text-center">
-      <h2 className="text-foreground font-[family-name:var(--font-display)] text-2xl font-bold">
-        Dashboard
-      </h2>
-      <p className="text-foreground-muted mt-2">
-        Triad explorer, heatmap, charts, and simulation controls go here (Phase 4).
-      </p>
     </div>
   )
 }
