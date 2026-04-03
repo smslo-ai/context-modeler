@@ -79,20 +79,20 @@ Build the app shell: Nav, view routing (Dashboard <-> Input Studio), toast syste
 
 ### Tasks
 
-- [ ] Task 3.1: Install shadcn/ui components: Button, Toast (Sonner)
-- [ ] Task 3.2: Create `src/components/nav/Nav.tsx` -- top nav with view switcher, about button, simulation mode selector
-- [ ] Task 3.3: Create `src/components/shared/Toast.tsx` -- Sonner wrapper
-- [ ] Task 3.4: Update `src/App.tsx` -- AppProvider wrapping Nav + view routing (CSS `hidden` toggle on Dashboard/InputStudio placeholders)
-- [ ] Task 3.5: Wire dark-mode background gradient from design spec onto body
-- [ ] Task 3.6: Add Outfit + Inter font imports (Google Fonts)
-- [ ] Task 3.7: Implement About modal using shadcn Dialog
+- [x] Task 3.1: Install shadcn/ui components: Button, Dialog, Toast (Sonner)
+- [x] Task 3.2: Create `src/components/nav/Nav.tsx` -- top nav with view switcher, about button
+- [x] Task 3.3: Create `src/components/shared/Toast.tsx` -- Sonner wrapper
+- [x] Task 3.4: Update `src/App.tsx` -- AppProvider wrapping Nav + view routing (CSS `hidden` toggle on Dashboard/InputStudio placeholders)
+- [x] Task 3.5: Wire dark-mode background gradient from design spec onto body (already done in Phase 1)
+- [x] Task 3.6: Add Outfit + Inter font imports (already done in Phase 1)
+- [x] Task 3.7: Implement About modal using shadcn Dialog
 
 ### Verification
 
-- [ ] Dev server shows nav bar with dark theme
-- [ ] Clicking Dashboard / Input Studio toggles views
-- [ ] Toast notifications appear on actions
-- [ ] About modal opens and closes
+- [x] Dev server shows nav bar with dark theme
+- [x] Clicking Dashboard / Input Studio toggles views
+- [x] Toast notifications appear on actions
+- [x] About modal opens and closes
 
 ---
 
