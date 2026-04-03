@@ -102,31 +102,31 @@ Build all dashboard components: hero banner, triad explorer, heatmap, charts, in
 
 ### Tasks
 
-- [ ] Task 4.1: Install shadcn/ui components: Card, Tooltip, Badge, Dialog, Tabs
-- [ ] Task 4.2: Create `src/components/dashboard/Dashboard.tsx` -- layout container
-- [ ] Task 4.3: Create `src/components/dashboard/TriadExplorer.tsx` -- 3-column layout (workflows, systems, personas) with mobile tab switcher
-- [ ] Task 4.4: Create `src/components/dashboard/NodeCard.tsx` -- individual node card with selection, badges, linked items
-- [ ] Task 4.5: Create `src/components/dashboard/Heatmap.tsx` -- semantic `<table>` with friction gradient
-- [ ] Task 4.6: Create `src/components/dashboard/HeatmapCell.tsx` -- individual cell with hover glow, click handler
-- [ ] Task 4.7: Create `src/components/dashboard/FrictionModal.tsx` -- detail modal on cell click (shadcn Dialog)
-- [ ] Task 4.8: Create `src/components/dashboard/SimulationControl.tsx` -- mode switcher (Morning Triage, Deep Focus, Firefighting)
-- [ ] Task 4.9: Create `src/components/dashboard/InsightPanel.tsx` -- node detail panel (sidebar)
-- [ ] Task 4.10: Create `src/components/dashboard/Charts.tsx` -- Chart.js wrappers (Radar + Bubble)
-- [ ] Task 4.11: Create `src/components/dashboard/Roadmap.tsx` -- implementation roadmap cards
-- [ ] Task 4.12: Add hero banner with welcome state for first-time visitors
-- [ ] Task 4.13: Add locked AI buttons (disabled, tooltip: "Coming in Phase 5")
-- [ ] Task 4.14: Add Framer Motion entrance animations to cards, panels, and modals
-- [ ] Task 4.15: Write component tests for NodeCard, HeatmapCell, SimulationControl interactions
+- [x] Task 4.1: Install shadcn/ui components: Card, Tooltip, Badge, Dialog, Tabs
+- [x] Task 4.2: Create `src/components/dashboard/Dashboard.tsx` -- layout container
+- [x] Task 4.3: Create `src/components/dashboard/TriadExplorer.tsx` -- 3-column layout (workflows, systems, personas) with mobile tab switcher
+- [x] Task 4.4: Create `src/components/dashboard/NodeCard.tsx` -- individual node card with selection, badges, linked items
+- [x] Task 4.5: Create `src/components/dashboard/Heatmap.tsx` -- semantic `<table>` with friction gradient
+- [x] Task 4.6: Create `src/components/dashboard/HeatmapCell.tsx` -- individual cell with hover glow, click handler
+- [x] Task 4.7: Create `src/components/dashboard/FrictionModal.tsx` -- detail modal on cell click (shadcn Dialog)
+- [x] Task 4.8: Create `src/components/dashboard/SimulationControl.tsx` -- mode switcher (Morning Triage, Deep Focus, Firefighting)
+- [x] Task 4.9: Create `src/components/dashboard/InsightPanel.tsx` -- node detail panel (sidebar)
+- [x] Task 4.10: Create `src/components/dashboard/Charts.tsx` -- Chart.js wrappers (Radar + Bubble)
+- [x] Task 4.11: Create `src/components/dashboard/Roadmap.tsx` -- implementation roadmap cards
+- [x] Task 4.12: Add hero banner with welcome state for first-time visitors
+- [x] Task 4.13: Add locked AI buttons (disabled, tooltip: "Coming in Phase 5")
+- [x] Task 4.14: Add Framer Motion entrance animations to cards, panels, and modals
+- [x] Task 4.15: Write component tests for NodeCard, HeatmapCell, SimulationControl interactions
 
 ### Verification
 
-- [ ] Dashboard renders with sample data, matches design-preview.html palette
-- [ ] Triad explorer shows 3 columns (tabs on mobile)
-- [ ] Clicking a node selects it and shows insight panel
-- [ ] Heatmap cells show friction gradient, click opens modal
-- [ ] Simulation modes dim/highlight appropriate nodes
-- [ ] Charts render with correct data
-- [ ] AI buttons are visible but disabled
+- [x] Dashboard renders with sample data, matches design-preview.html palette
+- [x] Triad explorer shows 3 columns (tabs on mobile)
+- [x] Clicking a node selects it and shows insight panel
+- [x] Heatmap cells show friction gradient, click opens modal
+- [x] Simulation modes dim/highlight appropriate nodes
+- [x] Charts render with correct data
+- [x] AI buttons are visible but disabled
 
 ---
 
@@ -136,15 +136,15 @@ Build the Input Studio: 3-tab form (Workflows, Systems, Users), export/import JS
 
 ### Tasks
 
-- [ ] Task 5.1: Install shadcn/ui components: Input, Textarea, Select, Tabs
-- [ ] Task 5.2: Create `src/components/input-studio/InputStudio.tsx` -- tab container
-- [ ] Task 5.3: Create `src/components/input-studio/WorkflowForm.tsx` -- add/edit workflow form
-- [ ] Task 5.4: Create `src/components/input-studio/SystemForm.tsx` -- add/edit system form
-- [ ] Task 5.5: Create `src/components/input-studio/UserForm.tsx` -- add/edit persona form
-- [ ] Task 5.6: Implement export JSON (download file)
-- [ ] Task 5.7: Implement import JSON (file picker, validation, merge/replace)
-- [ ] Task 5.8: Implement data reset with confirmation dialog
-- [ ] Task 5.9: Write component tests for form validation, export/import round-trip
+- [x] Task 5.1: Install shadcn/ui components: Input, Textarea, Select, Tabs
+- [x] Task 5.2: Create `src/components/input-studio/InputStudio.tsx` -- tab container
+- [x] Task 5.3: Create `src/components/input-studio/WorkflowForm.tsx` -- add/edit workflow form
+- [x] Task 5.4: Create `src/components/input-studio/SystemForm.tsx` -- add/edit system form
+- [x] Task 5.5: Create `src/components/input-studio/PersonaForm.tsx` -- add/edit persona form
+- [x] Task 5.6: Implement export JSON (download file)
+- [x] Task 5.7: Implement import JSON (file picker, validation)
+- [x] Task 5.8: Implement data reset with confirmation dialog
+- [x] Task 5.9: Write component tests for form validation, export/import, integration
 
 ### Verification
 
