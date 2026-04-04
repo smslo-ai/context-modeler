@@ -148,11 +148,11 @@ Build the Input Studio: 3-tab form (Workflows, Systems, Users), export/import JS
 
 ### Verification
 
-- [ ] Can add a workflow in Input Studio, see it appear in Dashboard triad explorer
-- [ ] Can edit and delete nodes
-- [ ] Export produces valid JSON, import restores it
-- [ ] Reset clears data after confirmation
-- [ ] Form validation prevents invalid submissions
+- [x] Can add a workflow in Input Studio, see it appear in Dashboard triad explorer
+- [x] Can edit and delete nodes
+- [x] Export produces valid JSON, import restores it
+- [x] Reset clears data after confirmation
+- [x] Form validation prevents invalid submissions
 
 ---
 
