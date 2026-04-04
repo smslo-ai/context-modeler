@@ -28,7 +28,7 @@ npx vitest -t "builds matrix"                      # Run tests matching name
 
 ## Testing
 
-Vitest config lives inside `vite.config.ts`. Environment is jsdom with globals enabled. Tests are co-located with source files (`*.test.ts` next to `*.ts` in `src/`). 111 tests across 13 files, 90%+ coverage on services/utils.
+Vitest config lives inside `vite.config.ts`. Environment is jsdom with globals enabled. Tests are co-located with source files (`*.test.ts` next to `*.ts` in `src/`). 151 tests across 17 files, 90%+ coverage on services/utils.
 
 ## Key Documents (read before making changes)
 
@@ -86,7 +86,7 @@ Two-view SPA with no router. Views toggle via CSS `hidden` class (not conditiona
 - Commits: Start with a verb, keep short ("Add input sanitization to prevent XSS")
 - Never push directly to `main` -- always use PRs with squash merge
 - PR targets ~9 for portfolio-ready milestone, ~13 with AI features
-- **CI (GitHub Actions):** Push/PR to `main` triggers: `npm audit --audit-level=high` -> `npm test` -> `vite build`. Node 22. Concurrency limited to one deploy at a time.
+- **CI (GitHub Actions):** Push/PR to `main` triggers: `npm audit --audit-level=high` -> `npm test` -> `vite build`. Node 24. Concurrency limited to one deploy at a time.
 - **Formatting:** Prettier (no semicolons, single quotes, trailing commas, 100-char width). Tailwind class sorting via `prettier-plugin-tailwindcss`. Pre-commit hook runs lint-staged on `src/` files.
 
 ## shadcn/ui Gotcha
