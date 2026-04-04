@@ -1,3 +1,5 @@
+> **Note (2026-04-04):** Testing structure has changed. Tests are now co-located with source files in `src/` using React Testing Library + Vitest. 151 tests across 17 files, 90%+ coverage on services/utils. See `vite.config.ts` for current test config.
+
 # Test Plan: Context-Aware Workplace Modeler
 
 **Version:** 1.0

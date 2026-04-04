@@ -32,18 +32,21 @@ Vitest config lives inside `vite.config.ts`. Environment is jsdom with globals e
 
 ## Key Documents (read before making changes)
 
-All planning and review docs live in `docs/`.
+### Current (read before making changes)
 
 | File | What | When to Read |
 |------|------|-------------|
-| `docs/PLAN.md` (v3.0) | Phased build plan with 9 phases, pre-flight checklist, PR strategy | Before starting any phase |
-| `docs/SPEC.md` | Implementation-ready specification -- every data structure, view, interaction, component | Before building any feature |
-| `docs/AUDIT_SECURITY_A11Y.md` | 24 security + accessibility findings with severity ratings | Before any DOM manipulation, form, or modal work |
-| `docs/AUDIT_UX.md` | 27 UX findings (4 critical) | Before any responsive, empty state, or onboarding work |
-| `docs/TEST_PLAN.md` | Testing strategy and coverage targets | Before writing or restructuring tests |
-| `docs/REFACTORING_PLAN.md` | Refactoring roadmap | Before any major restructuring |
-| `docs/REVIEW_ENGINEERING.md` | Senior engineer review of the plan | For architectural context |
-| `docs/REVIEW_PRODUCT.md` | Product manager review | For prioritization context |
+| `conductor/tracks/react-migration_20260402/plan.md` | React migration phases 1-6 (complete) | Before starting any new work |
+| `docs/superpowers/specs/2026-04-02-react-migration-design.md` | Design spec: palette, typography, components, animations | Before building any UI |
+| `conductor/product.md` | Product definition and data sovereignty constraints | Before architecture decisions |
+| `conductor/tech-stack.md` | Current tech stack and rationale | Before adding dependencies |
+| `docs/AUDIT_SECURITY_A11Y.md` | Security + a11y findings (partially stale, see header) | Before DOM manipulation, forms, modals |
+| `docs/AUDIT_UX.md` | UX findings (partially stale, see header) | Before responsive or empty state work |
+| `docs/TEST_PLAN.md` | Testing strategy (partially stale, see header) | Before restructuring tests |
+
+### Archived (historical reference only)
+
+Pre-React vanilla JS planning docs are in `docs/archived/`. They use different phase numbering and reference infrastructure (Vercel, serverless) that was never adopted.
 
 ## Architecture
 

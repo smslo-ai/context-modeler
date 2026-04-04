@@ -1,3 +1,5 @@
+> **Note (2026-04-04):** Written against the vanilla JS spec. Many findings were addressed in the React 19 + TypeScript migration. Re-audit recommended against the current React implementation.
+
 # Context-Aware Workplace Modeler -- UX Architecture Audit
 
 **Auditor:** ArchitectUX Agent
