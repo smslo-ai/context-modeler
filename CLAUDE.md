@@ -89,14 +89,6 @@ Two-view SPA with no router. Views toggle via CSS `hidden` class (not conditiona
 - **CI (GitHub Actions):** Push/PR to `main` triggers: `npm audit --audit-level=high` -> `npm test` -> `vite build`. Node 22. Concurrency limited to one deploy at a time.
 - **Formatting:** Prettier (no semicolons, single quotes, trailing commas, 100-char width). Tailwind class sorting via `prettier-plugin-tailwindcss`. Pre-commit hook runs lint-staged on `src/` files.
 
-## legacy/ Directory
-
-Archived code and prototype material. Do NOT import from or build on these files.
-
-- `legacy/OLD_prototype/` -- static infographic HTML, original spec RTF, 18 screenshots from Gemini Canvas
-- `legacy/src_vanilla/` -- archived vanilla JS version (reference only)
-- `legacy/tests_vanilla/` -- archived vanilla JS tests
-
 ## shadcn/ui Gotcha
 
 After `npx shadcn@latest add <component>`:
@@ -108,8 +100,8 @@ After `npx shadcn@latest add <component>`:
 
 ## Conductor
 
-Project uses Conductor for track management. Active track: `conductor/tracks/react-migration_20260402/`. Check `plan.md` for task status before starting work. `legacy/src_vanilla/` contains the archived vanilla JS version (reference only).
+Project uses Conductor for track management. Active track: `conductor/tracks/react-migration_20260402/`. Check `plan.md` for task status before starting work.
 
 ## Migration Status
 
-Phases 1-5 complete and verified (scaffold + data layer + shell & navigation + dashboard view + input studio). 111 tests across 13 files. Phase 5 E2E verified against live site. Phase 6 (Polish & Verification) is next. Live: https://smslo-ai.github.io/context-modeler/. Check `conductor/tracks/react-migration_20260402/plan.md` for current task status. Design spec: `docs/superpowers/specs/2026-04-02-react-migration-design.md`. Design preview: `docs/design-preview.html`.
+Phases 1-6 complete (scaffold + data layer + shell & navigation + dashboard view + input studio + polish). 151 tests across 17 files, 90%+ coverage. Live: https://smslo-ai.github.io/context-modeler/. Check `conductor/tracks/react-migration_20260402/plan.md` for current task status. Design spec: `docs/superpowers/specs/2026-04-02-react-migration-design.md`. Design preview: `docs/design-preview.html`.

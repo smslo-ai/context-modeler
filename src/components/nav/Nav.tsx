@@ -14,7 +14,7 @@ export function Nav() {
 
   return (
     <header className="modern-box sticky top-0 z-50 overflow-hidden">
-      <div className="flex items-center justify-between border-b border-white/5 px-6 py-4">
+      <div className="flex items-center justify-between border-b border-white/5 px-3 py-4 sm:px-4 md:px-6">
         {/* Logo */}
         <div className="flex items-center gap-3">
           <div className="bg-primary/20 flex h-9 w-9 items-center justify-center rounded-full">
@@ -40,6 +40,7 @@ export function Nav() {
                 role="tab"
                 aria-selected={currentView === view.key}
                 aria-controls={`panel-${view.key}`}
+                tabIndex={currentView === view.key ? 0 : -1}
                 onClick={() => dispatch({ type: 'SET_VIEW', payload: view.key })}
                 className={
                   currentView === view.key

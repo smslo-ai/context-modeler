@@ -43,7 +43,7 @@ export function NodeCard({ node, nodeType }: NodeCardProps) {
       }}
       aria-pressed={isSelected}
       className={cn(
-        'modern-box-sm w-full p-3 text-left transition-all',
+        'modern-box-sm w-full cursor-pointer border border-white/8 p-3 text-left transition-all hover:border-white/16 hover:shadow-lg',
         visuals.className,
         isSelected && 'ring-primary bg-surface-elevated/80 ring-2',
       )}
