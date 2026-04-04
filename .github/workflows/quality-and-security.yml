@@ -10,6 +10,9 @@ permissions:
   contents: read
   statuses: write
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   quality_and_security:
     runs-on: ubuntu-latest
