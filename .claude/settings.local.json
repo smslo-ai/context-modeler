@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm test:*)",
+      "WebFetch(domain:smslo-ai.github.io)",
+      "Bash(npm install:*)",
+      "Read(//Users/shaneslo/**)",
+      "Read(//Users/shaneslo/.config/git/**)",
+      "Bash(npm ls:*)",
+      "Bash(npm uninstall:*)",
+      "Skill(commit-commands:commit)",
+      "Bash(ls -la /Users/shaneslo/Projects/smslo-ai/context-modeler/tailwind.config.* /Users/shaneslo/Projects/smslo-ai/context-modeler/src/style.css)",
+      "WebFetch(domain:github.com)",
+      "Bash(cat /Users/shaneslo/Projects/smslo-ai/context-modeler/.github/workflows/*.yml)"
+    ]
+  }
+}
