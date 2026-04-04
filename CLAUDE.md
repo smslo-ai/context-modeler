@@ -46,7 +46,7 @@ Vitest config lives inside `vite.config.ts`. Environment is jsdom with globals e
 
 ### Archived (historical reference only)
 
-Pre-React vanilla JS planning docs are in `docs/archived/`. They use different phase numbering and reference infrastructure (Vercel, serverless) that was never adopted.
+Pre-React vanilla JS planning docs were removed. They are preserved in git history (pre-April 2026 commits) and used different phase numbering and infrastructure (Vercel, serverless) that was never adopted.
 
 ## Architecture
 
