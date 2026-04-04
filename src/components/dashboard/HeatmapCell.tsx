@@ -19,13 +19,11 @@ export function HeatmapCell({
   onClick,
 }: HeatmapCellProps) {
   return (
-    <td
-      data-workflow={workflowId}
-      data-system={systemId}
-      className={getFrictionColor(score)}
-    >
+    <td className={getFrictionColor(score)}>
       <button
         type="button"
+        data-workflow={workflowId}
+        data-system={systemId}
         aria-label={`${workflowName} and ${systemName}: ${Math.round(score * 100)}% friction`}
         onClick={onClick}
         className={cn(
