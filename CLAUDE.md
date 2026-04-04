@@ -74,7 +74,7 @@ Two-view SPA with no router. Views toggle via CSS `hidden` class (not conditiona
 - **`base: '/context-modeler/'` in vite.config.ts** is required for GitHub Pages. Change to `'/'` if using a custom domain.
 - **localStorage keys are prefixed** `context-modeler:` to avoid collisions with other repos on the same GitHub Pages origin.
 - **Chart.js uses tree-shaken imports.** Import only the specific controllers/elements needed (RadarController, BubbleController, etc.), not the full library.
-- **AI buttons are locked** (disabled with tooltip) until Phase 5. Do not show "coming soon" toasts -- they harm portfolio impression.
+- **AI buttons are locked** (disabled with tooltip) until Phase 7+. Do not show "coming soon" toasts -- they harm portfolio impression.
 - **Cascading deletes:** When removing a node, clean references from contextMap, frictionRules, and all linked arrays on other nodes. This is the highest-risk logic in the project.
 - **Storage saves are debounced** (300ms) to batch rapid mutations. Validation in `src/services/storage.service.ts`.
 - **Node limits:** 100 nodes max per array, validated on load.
@@ -112,4 +112,4 @@ Project uses Conductor for track management. Active track: `conductor/tracks/rea
 
 ## Migration Status
 
-Phases 1-5 complete (scaffold + data layer + shell & navigation + dashboard view + input studio, 111 tests). Phase 6 (Polish & Verification) is next. Check `conductor/tracks/react-migration_20260402/plan.md` for current task status. Design spec: `docs/superpowers/specs/2026-04-02-react-migration-design.md`. Design preview: `docs/design-preview.html`.
+Phases 1-5 complete and verified (scaffold + data layer + shell & navigation + dashboard view + input studio). 111 tests across 13 files. Phase 5 E2E verified against live site. Phase 6 (Polish & Verification) is next. Live: https://smslo-ai.github.io/context-modeler/. Check `conductor/tracks/react-migration_20260402/plan.md` for current task status. Design spec: `docs/superpowers/specs/2026-04-02-react-migration-design.md`. Design preview: `docs/design-preview.html`.
