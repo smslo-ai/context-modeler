@@ -1,10 +1,15 @@
-import { useCallback } from 'react'
-import { useApp } from '../context/AppContext'
-import type { Workflow, System, Persona, NodeType } from '../types'
-import { localStorageAdapter } from '../services/storage.service'
+import { useCallback, useEffect } from 'react'
+import { useApp } from '@/context/AppContext'
+import type { Workflow, System, Persona, NodeType } from '@/types'
+import { localStorageAdapter } from '@/services/storage.service'
 
 export function useOntology() {
   const { ontologyData, dispatch } = useApp()
+
+  // Auto-save whenever ontologyData changes -- eliminates stale-closure bugs
+  useEffect(() => {
+    localStorageAdapter.save(ontologyData)
+  }, [ontologyData])
 
   const addNode = useCallback(
     (nodeType: NodeType, node: Workflow | System | Persona) => {
@@ -24,10 +29,6 @@ export function useOntology() {
     dispatch({ type: 'RESET_DATA' })
   }, [dispatch])
 
-  const saveData = useCallback(() => {
-    localStorageAdapter.save(ontologyData)
-  }, [ontologyData])
-
   return {
     ontologyData,
     workflows: ontologyData.workflows,
@@ -39,6 +40,5 @@ export function useOntology() {
     addNode,
     removeNode,
     resetData,
-    saveData,
   }
 }

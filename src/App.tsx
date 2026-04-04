@@ -2,6 +2,7 @@ import { AppProvider, useApp } from '@/context/AppContext'
 import { Nav } from '@/components/nav/Nav'
 import { Toast } from '@/components/shared/Toast'
 import { Dashboard } from '@/components/dashboard/Dashboard'
+import { InputStudio } from '@/components/input-studio/InputStudio'
 
 function Shell() {
   const { currentView } = useApp()
@@ -28,24 +29,11 @@ function Shell() {
           aria-hidden={currentView !== 'input-studio'}
           className={currentView !== 'input-studio' ? 'hidden' : undefined}
         >
-          <InputStudioPlaceholder />
+          <InputStudio />
         </div>
       </main>
 
       <Toast />
-    </div>
-  )
-}
-
-function InputStudioPlaceholder() {
-  return (
-    <div className="modern-box p-8 text-center">
-      <h2 className="text-foreground font-[family-name:var(--font-display)] text-2xl font-bold">
-        Input Studio
-      </h2>
-      <p className="text-foreground-muted mt-2">
-        Workflow, system, and persona forms go here (Phase 5).
-      </p>
     </div>
   )
 }
