@@ -9,6 +9,7 @@
 | **Started** | 2026 |
 | **Version** | v2.0 (React Migration) |
 | **License** | MIT |
+| **Live Site** | [smslo-ai.github.io/context-modeler](https://smslo-ai.github.io/context-modeler/) |
 
 ---
 
@@ -107,11 +108,11 @@ Migrating from vanilla JS to React 19 + TypeScript. See [docs/PLAN.md](docs/PLAN
 | Phase 2 | Data layer (types, services, context, hooks) | Complete |
 | Phase 3 | App shell (nav, view routing, toast, about modal) | Complete |
 | Phase 4 | Dashboard view (triad explorer, heatmap, charts, simulation) | Complete |
-| Phase 5 | Input Studio (forms, validation, CRUD) | Complete |
+| Phase 5 | Input Studio (forms, validation, CRUD) | Complete (verified) |
 | Phase 6 | Polish & Verification | Next |
 | Phase 7+ | AI features, onboarding | Future |
 
-**Current:** 111 tests passing across 13 files, full interactive dashboard + input studio.
+**Current:** 111 tests passing across 13 files. Phase 5 E2E verified against live deployment.
 
 ---
 
