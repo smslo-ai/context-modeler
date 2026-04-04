@@ -13,10 +13,12 @@ export function LockedAiButton({ label, className }: LockedAiButtonProps) {
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button disabled variant="secondary" className={cn('gap-2', className)}>
-            <Lock className="h-4 w-4" />
-            {label}
-          </Button>
+          <span className="inline-flex" tabIndex={0}>
+            <Button disabled variant="secondary" className={cn('gap-2', className)}>
+              <Lock className="h-4 w-4" />
+              {label}
+            </Button>
+          </span>
         </TooltipTrigger>
         <TooltipContent>
           <p>Coming in Phase 5</p>

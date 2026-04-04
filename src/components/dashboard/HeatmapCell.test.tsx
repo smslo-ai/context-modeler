@@ -30,14 +30,14 @@ describe('HeatmapCell', () => {
 
   it('applies low friction color for score < 0.35', () => {
     renderCell(0.2)
-    const cell = screen.getByRole('button')
-    expect(cell.className).toContain('bg-secondary/30')
+    const td = screen.getByRole('button').closest('td')!
+    expect(td.className).toContain('bg-secondary/30')
   })
 
   it('applies high friction color for score >= 0.75', () => {
     renderCell(0.9)
-    const cell = screen.getByRole('button')
-    expect(cell.className).toContain('bg-destructive/40')
+    const td = screen.getByRole('button').closest('td')!
+    expect(td.className).toContain('bg-destructive/40')
   })
 
   it('calls onClick on click', async () => {

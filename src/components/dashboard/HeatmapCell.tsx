@@ -19,27 +19,21 @@ export function HeatmapCell({
   onClick,
 }: HeatmapCellProps) {
   return (
-    <td
-      role="button"
-      tabIndex={0}
-      data-workflow={workflowId}
-      data-system={systemId}
-      aria-label={`${workflowName} and ${systemName}: ${Math.round(score * 100)}% friction`}
-      onClick={onClick}
-      onKeyDown={(e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault()
-          onClick()
-        }
-      }}
-      className={cn(
-        'cursor-pointer px-2 py-3 text-center text-xs font-semibold transition-all',
-        'hover:scale-[1.03] hover:brightness-125',
-        'focus-visible:outline-primary focus-visible:outline-2 focus-visible:outline-offset-2',
-        getFrictionColor(score),
-      )}
-    >
-      {Math.round(score * 100)}
+    <td className={getFrictionColor(score)}>
+      <button
+        type="button"
+        data-workflow={workflowId}
+        data-system={systemId}
+        aria-label={`${workflowName} and ${systemName}: ${Math.round(score * 100)}% friction`}
+        onClick={onClick}
+        className={cn(
+          'h-full w-full cursor-pointer px-2 py-3 text-center text-xs font-semibold transition-all',
+          'hover:scale-[1.03] hover:brightness-125',
+          'focus-visible:outline-primary focus-visible:outline-2 focus-visible:outline-offset-2',
+        )}
+      >
+        {Math.round(score * 100)}
+      </button>
     </td>
   )
 }
