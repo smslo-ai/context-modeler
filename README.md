@@ -112,7 +112,7 @@ Migrating from vanilla JS to React 19 + TypeScript. See [docs/PLAN.md](docs/PLAN
 | Phase 6 | Polish & Verification | Next |
 | Phase 7+ | AI features, onboarding | Future |
 
-**Current:** 111 tests passing across 13 files. Phase 5 E2E verified against live deployment.
+**Current:** 151 tests passing across 17 files. Phase 6 complete -- React migration verified against live deployment.
 
 ---
 

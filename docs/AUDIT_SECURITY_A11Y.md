@@ -1,3 +1,5 @@
+> **Note (2026-04-04):** Written against the vanilla JS spec. DOMPurify and CSP findings remain relevant. Phase 5 serverless guidance (SEC-07, Vercel rate limiting) is deferred -- no serverless infrastructure was adopted.
+
 # Security & Accessibility Audit: Context-Aware Workplace Modeler
 
 **Audit Date:** 2026-03-29
