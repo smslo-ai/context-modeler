@@ -4,7 +4,7 @@
 **Spec:** [spec.md](./spec.md)
 **Design Spec:** `docs/superpowers/specs/2026-04-02-react-migration-design.md`
 **Created:** 2026-04-02
-**Status:** [~] In Progress
+**Status:** [x] Complete (Phases 1-6)
 
 ## Overview
 
@@ -162,36 +162,36 @@ Onboarding tour, accessibility audit, final visual QA, coverage check, and build
 
 ### Tasks
 
-- [ ] Task 6.1: Create `src/components/shared/Onboarding.tsx` -- multi-step tour for first-time visitors
-- [ ] Task 6.2: Accessibility audit -- keyboard navigation, ARIA labels, focus trapping in modals, screen reader testing
-- [ ] Task 6.3: Visual QA -- compare every view against docs/design-preview.html, fix discrepancies
-- [ ] Task 6.4: Responsive QA -- test at mobile, tablet, desktop breakpoints
-- [ ] Task 6.5: Run `npm run test:coverage` -- verify 80%+ overall, 90%+ services/utils. Write additional tests if needed.
-- [ ] Task 6.6: Run Lighthouse -- verify accessibility score >= 95. Fix any issues.
-- [ ] Task 6.7: Grep for `any` types -- zero tolerance. Fix any found.
-- [ ] Task 6.8: Clean up: remove `src_vanilla/` if no longer needed, update `.gitignore` if needed
-- [ ] Task 6.9: Final `npm run validate` + `npm run build` -- clean output, no warnings
+- [x] Task 6.1: Create `src/components/shared/Onboarding.tsx` -- multi-step tour for first-time visitors
+- [x] Task 6.2: Accessibility audit -- keyboard navigation, ARIA labels, focus trapping in modals, screen reader testing
+- [x] Task 6.3: Visual QA -- compare every view against docs/design-preview.html, fix discrepancies
+- [x] Task 6.4: Responsive QA -- test at mobile, tablet, desktop breakpoints
+- [x] Task 6.5: Run `npm run test:coverage` -- verify 80%+ overall, 90%+ services/utils. Write additional tests if needed.
+- [x] Task 6.6: Run Lighthouse -- verify accessibility score >= 95. Fix any issues.
+- [x] Task 6.7: Grep for `any` types -- zero tolerance. Fix any found.
+- [x] Task 6.8: Clean up: remove `src_vanilla/` if no longer needed, update `.gitignore` if needed
+- [x] Task 6.9: Final `npm run validate` + `npm run build` -- clean output, no warnings
 
 ### Verification
 
-- [ ] All 17 features work per acceptance criteria
-- [ ] `npm run validate` passes
-- [ ] `npm run build` clean
-- [ ] Lighthouse a11y >= 95
-- [ ] No `any` types
-- [ ] 80%+ coverage
-- [ ] Pre-commit hooks block bad commits
+- [x] All 17 features work per acceptance criteria
+- [x] `npm run validate` passes
+- [x] `npm run build` clean
+- [x] Lighthouse a11y >= 95
+- [x] No `any` types
+- [x] 80%+ coverage
+- [x] Pre-commit hooks block bad commits
 
 ---
 
 ## Final Verification
 
-- [ ] All acceptance criteria from spec.md met
-- [ ] All tests passing (`npm run validate`)
-- [ ] Build clean (`npm run build`)
-- [ ] Visual match to docs/design-preview.html
-- [ ] localStorage data from vanilla JS loads correctly
-- [ ] Ready for PR to `main`
+- [x] All acceptance criteria from spec.md met
+- [x] All tests passing (`npm run validate`)
+- [x] Build clean (`npm run build`)
+- [x] Visual match to docs/design-preview.html
+- [x] localStorage data from vanilla JS loads correctly
+- [x] Ready for PR to `main`
 
 ---
 
