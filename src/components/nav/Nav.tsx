@@ -40,7 +40,6 @@ export function Nav() {
                 role="tab"
                 aria-selected={currentView === view.key}
                 aria-controls={`panel-${view.key}`}
-                tabIndex={currentView === view.key ? 0 : -1}
                 onClick={() => dispatch({ type: 'SET_VIEW', payload: view.key })}
                 className={
                   currentView === view.key

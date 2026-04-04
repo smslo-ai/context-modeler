@@ -101,10 +101,8 @@ describe('Onboarding', () => {
     const user = userEvent.setup()
     render(<Onboarding />)
 
-    // Click the backdrop (first child with aria-hidden)
-    const backdrop = document.querySelector('[aria-hidden="true"]')
-    expect(backdrop).toBeInTheDocument()
-    await user.click(backdrop!)
+    const backdrop = screen.getByRole('button', { name: /dismiss onboarding tour/i })
+    await user.click(backdrop)
     expect(localStorage.getItem(STORAGE_KEY)).toBe('true')
   })
 })

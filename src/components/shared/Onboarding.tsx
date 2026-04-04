@@ -114,7 +114,12 @@ export function Onboarding() {
   return (
     <>
       {/* Backdrop */}
-      <div className="fixed inset-0 z-[60] bg-black/40" onClick={dismiss} aria-hidden="true" />
+      <button
+        type="button"
+        className="fixed inset-0 z-[60] cursor-default bg-black/40"
+        onClick={dismiss}
+        aria-label="Dismiss onboarding tour"
+      />
 
       {/* Tooltip card */}
       <AnimatePresence mode="wait">
