@@ -1,14 +1,25 @@
+import { useEffect } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
+import { Sparkles, FileCode } from 'lucide-react'
 import { useApp } from '@/context/AppContext'
 import { useOntology } from '@/hooks/useOntology'
-import { LockedAiButton } from './LockedAiButton'
+import { useAI } from '@/hooks/useAI'
+import { Button } from '@/components/ui/button'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
+import { AIResponse } from './AIResponse'
 import { sanitizeHTML } from '@/utils/sanitize'
+import type { Workflow } from '@/types'
 
 export function InsightPanel() {
   const { selectedNode } = useApp()
   const { workflows, systems, personas, contextMap } = useOntology()
+  const { analyzeNode, generatePrompt, result, loading, error, reset } = useAI()
 
   const prefersReduced = useReducedMotion()
+
+  useEffect(() => {
+    reset()
+  }, [selectedNode, reset])
 
   if (!selectedNode) return null
 
@@ -22,6 +33,7 @@ export function InsightPanel() {
   if (!node) return null
 
   const connections = contextMap[selectedNode.id] ?? []
+  const isWorkflow = selectedNode.type === 'workflow'
 
   return (
     <motion.aside
@@ -43,9 +55,55 @@ export function InsightPanel() {
         AI agent recommended for deeper analysis
       </p>
       <div className="mt-4 flex flex-wrap gap-2">
-        <LockedAiButton label="Analyze Logic" className="bg-indigo-600/20" />
-        <LockedAiButton label="Generate Prompt" className="bg-emerald-600/20" />
+        <Button
+          variant="secondary"
+          size="sm"
+          className="bg-indigo-600/20 hover:bg-indigo-600/30"
+          onClick={() => analyzeNode(node, selectedNode.type)}
+          disabled={loading}
+        >
+          <Sparkles className="mr-1.5 h-3.5 w-3.5" />
+          {loading ? 'Analyzing...' : 'Analyze Logic'}
+        </Button>
+        {isWorkflow ? (
+          <Button
+            variant="secondary"
+            size="sm"
+            className="bg-emerald-600/20 hover:bg-emerald-600/30"
+            onClick={() => generatePrompt(node as Workflow)}
+            disabled={loading}
+          >
+            <FileCode className="mr-1.5 h-3.5 w-3.5" />
+            Generate Prompt
+          </Button>
+        ) : (
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <span>
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    className="bg-emerald-600/20 hover:bg-emerald-600/30"
+                    disabled
+                  >
+                    <FileCode className="mr-1.5 h-3.5 w-3.5" />
+                    Generate Prompt
+                  </Button>
+                </span>
+              </TooltipTrigger>
+              <TooltipContent>Only available for workflows</TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
+        )}
       </div>
+      <AIResponse
+        result={result}
+        loading={loading}
+        error={error}
+        onRetry={() => analyzeNode(node, selectedNode.type)}
+        variant={result?.trimStart().startsWith('{') ? 'json' : 'markdown'}
+      />
     </motion.aside>
   )
 }

@@ -62,9 +62,11 @@ Two-view SPA with no router. Views toggle via CSS `hidden` class (not conditiona
 
 **State management:** `useReducer` in `src/context/AppContext.tsx`. `AppProvider` wraps the app; `useApp()` hook exposes state + dispatch. Actions: SET_VIEW, SET_MODE, SELECT_NODE, ADD_NODE, REMOVE_NODE, RESET_DATA, SET_ONTOLOGY_DATA.
 
-**Services layer:** `src/services/` -- storage (localStorage adapter), ontology (CRUD + cascading deletes), friction (heatmap matrix). Services are pure functions, not hooks.
+**Services layer:** `src/services/` -- storage (localStorage adapter), ontology (CRUD + cascading deletes), friction (heatmap matrix), ai (context assembly + proxy calls). Services are pure functions, not hooks.
 
-**Hooks:** `src/hooks/` -- useOntology (wraps ontology service + dispatch), useSimulation, useLocalStorage.
+**AI proxy:** `api/` directory -- Vercel Functions project with a single POST endpoint (`/api/analyze`). Accepts `{ feature, context }`, forwards to Claude API via `@anthropic-ai/sdk`. Rate limited 20 req/min per IP. Has its own `package.json` and `tsconfig.json`.
+
+**Hooks:** `src/hooks/` -- useOntology (wraps ontology service + dispatch), useSimulation, useLocalStorage, useAI (wraps AI service with loading/error/result state).
 
 **Data model:** Three parallel arrays (workflows[], systems[], personas[]) in `ontologyData`, cross-referenced by string ID. The `contextMap` (adjacency list) and `frictionRules` (keyed by `workflowId::systemId`) live in `src/data/defaults.ts`. Node IDs are restricted to `[a-z0-9-]`.
 
@@ -77,7 +79,7 @@ Two-view SPA with no router. Views toggle via CSS `hidden` class (not conditiona
 - **`base: '/context-modeler/'` in vite.config.ts** is required for GitHub Pages. Change to `'/'` if using a custom domain.
 - **localStorage keys are prefixed** `context-modeler:` to avoid collisions with other repos on the same GitHub Pages origin.
 - **Chart.js uses tree-shaken imports.** Import only the specific controllers/elements needed (RadarController, BubbleController, etc.), not the full library.
-- **AI buttons are locked** (disabled with tooltip) until Phase 7+. Do not show "coming soon" toasts -- they harm portfolio impression.
+- **AI features require a running proxy.** The 3 AI buttons (Analyze Logic, Generate Prompt, Resolve Friction) call `VITE_AI_PROXY_URL/api/analyze`. Set the env var in `.env` for dev, Vercel env vars for prod. Without a proxy, buttons will show a connection error.
 - **Cascading deletes:** When removing a node, clean references from contextMap, frictionRules, and all linked arrays on other nodes. This is the highest-risk logic in the project.
 - **Storage saves are debounced** (300ms) to batch rapid mutations. Validation in `src/services/storage.service.ts`.
 - **Node limits:** 100 nodes max per array, validated on load.
@@ -107,4 +109,4 @@ Project uses Conductor for track management. Active track: `conductor/tracks/rea
 
 ## Migration Status
 
-Phases 1-6 complete (scaffold + data layer + shell & navigation + dashboard view + input studio + polish). 151 tests across 17 files, 90%+ coverage. Live: https://smslo-ai.github.io/context-modeler/. Check `conductor/tracks/react-migration_20260402/plan.md` for current task status. Design spec: `docs/superpowers/specs/2026-04-02-react-migration-design.md`. Design preview: `docs/design-preview.html`.
+Phases 1-7 complete (scaffold + data layer + shell & navigation + dashboard view + input studio + polish + AI features). 168 tests across 18 files, 90%+ coverage. Live: https://smslo-ai.github.io/context-modeler/. AI features: Node Analyzer, Friction Resolver, Prompt Generator -- all graph-aware, powered by Claude API via Vercel Functions proxy. Design spec: `docs/superpowers/specs/2026-04-02-react-migration-design.md`.
