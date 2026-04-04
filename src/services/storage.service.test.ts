@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import { validateOntologyData, localStorageAdapter } from './storage.service'
 import { getDefaultData } from '../data/defaults'
 
@@ -111,6 +111,40 @@ describe('localStorageAdapter', () => {
     expect(loaded.contextMap).toBeTruthy()
     expect(loaded.frictionRules).toBeTruthy()
     expect(loaded.modeRules).toBeTruthy()
+  })
+})
+
+describe('localStorageAdapter.save (debounce)', () => {
+  beforeEach(() => {
+    localStorage.clear()
+    vi.useFakeTimers()
+  })
+
+  afterEach(() => {
+    vi.useRealTimers()
+  })
+
+  it('debounces writes with 300ms delay', () => {
+    const data = getDefaultData()
+    localStorageAdapter.save(data)
+    // Not written yet
+    expect(localStorage.getItem('context-modeler:ontology-data')).toBeNull()
+    // After debounce
+    vi.advanceTimersByTime(300)
+    expect(localStorage.getItem('context-modeler:ontology-data')).toBeTruthy()
+  })
+
+  it('only writes once when save is called rapidly', () => {
+    const spy = vi.spyOn(Storage.prototype, 'setItem')
+    const data = getDefaultData()
+    localStorageAdapter.save(data)
+    localStorageAdapter.save(data)
+    localStorageAdapter.save(data)
+    vi.advanceTimersByTime(300)
+    // setItem is called for many things; filter to our key
+    const ourCalls = spy.mock.calls.filter(([key]) => key === 'context-modeler:ontology-data')
+    expect(ourCalls).toHaveLength(1)
+    spy.mockRestore()
   })
 })
 

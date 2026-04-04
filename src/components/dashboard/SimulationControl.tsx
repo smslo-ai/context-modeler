@@ -27,7 +27,12 @@ export function SimulationControl() {
   const { currentMode, setMode } = useSimulation()
 
   return (
-    <div role="radiogroup" aria-label="Simulation mode" className="flex flex-col gap-3">
+    <div
+      id="simulation-control"
+      role="radiogroup"
+      aria-label="Simulation mode"
+      className="flex flex-col gap-3"
+    >
       <h3 className="text-foreground-muted text-xs font-bold tracking-widest uppercase">
         Simulation Mode
       </h3>

@@ -65,7 +65,7 @@ export function Charts() {
           r: {
             beginAtZero: true,
             max: 100,
-            ticks: { color: '#8A9BB0' },
+            ticks: { color: '#9DAFC5' },
             grid: { color: 'rgba(255,255,255,0.08)' },
             pointLabels: { color: '#B8C5D4', font: { size: 11 } },
           },
@@ -114,12 +114,12 @@ export function Charts() {
         scales: {
           x: {
             title: { display: true, text: 'Linked Workflows', color: '#B8C5D4' },
-            ticks: { color: '#8A9BB0' },
+            ticks: { color: '#9DAFC5' },
             grid: { color: 'rgba(255,255,255,0.08)' },
           },
           y: {
             title: { display: true, text: 'Linked Users', color: '#B8C5D4' },
-            ticks: { color: '#8A9BB0' },
+            ticks: { color: '#9DAFC5' },
             grid: { color: 'rgba(255,255,255,0.08)' },
           },
         },
@@ -155,7 +155,7 @@ export function Charts() {
           <h3 className="text-foreground-muted mb-2 text-sm font-semibold">
             Ontology Readiness Score
           </h3>
-          <div className="h-[350px]">
+          <div className="h-[260px] sm:h-[300px] md:h-[350px]">
             <canvas
               ref={radarRef}
               role="img"
@@ -167,7 +167,7 @@ export function Charts() {
           <h3 className="text-foreground-muted mb-2 text-sm font-semibold">
             Responsibility Mapping
           </h3>
-          <div className="h-[350px]">
+          <div className="h-[260px] sm:h-[300px] md:h-[350px]">
             <canvas
               ref={bubbleRef}
               role="img"

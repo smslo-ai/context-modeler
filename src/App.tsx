@@ -1,6 +1,7 @@
 import { AppProvider, useApp } from '@/context/AppContext'
 import { Nav } from '@/components/nav/Nav'
 import { Toast } from '@/components/shared/Toast'
+import { Onboarding } from '@/components/shared/Onboarding'
 import { Dashboard } from '@/components/dashboard/Dashboard'
 import { InputStudio } from '@/components/input-studio/InputStudio'
 
@@ -9,9 +10,15 @@ function Shell() {
 
   return (
     <div className="min-h-screen">
+      <a
+        href="#main-content"
+        className="bg-primary text-background sr-only rounded px-4 py-2 font-medium focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100]"
+      >
+        Skip to main content
+      </a>
       <Nav />
 
-      <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+      <main id="main-content" className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         {/* Both views stay mounted; CSS hidden preserves DOM state */}
         <div
           id="panel-dashboard"
@@ -34,6 +41,7 @@ function Shell() {
       </main>
 
       <Toast />
+      <Onboarding />
     </div>
   )
 }
