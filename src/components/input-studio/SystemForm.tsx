@@ -40,9 +40,11 @@ function toggleId(ids: string[], id: string): string[] {
 }
 
 export function SystemForm() {
-  const { systems, workflows, personas, addNode, removeNode, saveData } = useOntology()
+  const { systems, workflows, personas, addNode, removeNode } = useOntology()
   const [form, setForm] = useState<FormState>(EMPTY_FORM)
-  const [errors, setErrors] = useState<{ name?: string; description?: string }>({})
+  const [errors, setErrors] = useState<{ name?: string; description?: string; category?: string }>(
+    {},
+  )
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -50,10 +52,13 @@ export function SystemForm() {
     const nameError = validateNodeName(form.name)
     const descError = validateDescription(form.description)
 
-    if (nameError || descError || form.category === '') {
+    const categoryError = form.category === '' ? 'Category is required.' : null
+
+    if (nameError || descError || categoryError) {
       setErrors({
         ...(nameError ? { name: nameError } : {}),
         ...(descError ? { description: descError } : {}),
+        ...(categoryError ? { category: categoryError } : {}),
       })
       return
     }
@@ -65,13 +70,12 @@ export function SystemForm() {
       id,
       name: form.name.trim(),
       category: form.category as System['category'],
-      description: form.description,
+      description: form.description.trim(),
       linkedWorkflows: form.linkedWorkflows,
       linkedUsers: form.linkedUsers,
     }
 
     addNode('system', system)
-    saveData()
     toast.success(`System "${system.name}" added.`)
     setForm(EMPTY_FORM)
     setErrors({})
@@ -79,7 +83,7 @@ export function SystemForm() {
 
   function handleDelete(id: string) {
     removeNode(id, 'system')
-    saveData()
+    toast.success('System removed')
   }
 
   return (
@@ -131,6 +135,7 @@ export function SystemForm() {
               </option>
             ))}
           </select>
+          {errors.category && <p className="text-destructive mt-1 text-xs">{errors.category}</p>}
         </div>
 
         {/* Description */}

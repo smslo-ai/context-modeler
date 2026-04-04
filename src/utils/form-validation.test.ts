@@ -17,6 +17,14 @@ describe('slugify', () => {
   it('trims leading and trailing hyphens', () => {
     expect(slugify('  --hello--  ')).toBe('hello')
   })
+
+  it('returns empty string for all-special-character input', () => {
+    expect(slugify('!!!')).toBe('')
+  })
+
+  it('returns empty string for emoji-only input', () => {
+    expect(slugify('\u{1F600}\u{1F389}')).toBe('')
+  })
 })
 
 describe('generateNodeId', () => {
@@ -58,6 +66,14 @@ describe('validateNodeName', () => {
 
   it('returns null for a valid name', () => {
     expect(validateNodeName('Valid Name')).toBeNull()
+  })
+
+  it('returns an error for all-special-character names that produce empty slugs', () => {
+    expect(validateNodeName('!!!')).not.toBeNull()
+  })
+
+  it('returns an error for emoji-only names', () => {
+    expect(validateNodeName('\u{1F600}\u{1F389}')).not.toBeNull()
   })
 })
 

@@ -16,7 +16,7 @@ import type { OntologyData } from '@/types'
 
 export function ImportExportBar() {
   const { dispatch } = useApp()
-  const { ontologyData, resetData, saveData } = useOntology()
+  const { ontologyData, resetData } = useOntology()
   const fileInputRef = useRef<HTMLInputElement>(null)
   const [resetDialogOpen, setResetDialogOpen] = useState(false)
 
@@ -49,7 +49,6 @@ export function ImportExportBar() {
           return
         }
         dispatch({ type: 'SET_ONTOLOGY_DATA', payload: parsed as OntologyData })
-        saveData()
         toast.success('Data imported')
       } catch {
         toast.error('Failed to parse JSON file')
@@ -65,7 +64,6 @@ export function ImportExportBar() {
 
   function handleConfirmReset() {
     resetData()
-    saveData()
     setResetDialogOpen(false)
     toast.success('Data reset to defaults')
   }

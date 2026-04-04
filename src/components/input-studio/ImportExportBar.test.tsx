@@ -5,7 +5,6 @@ import { ImportExportBar } from './ImportExportBar'
 
 // Mock useOntology so tests don't need AppProvider
 const mockResetData = vi.fn()
-const mockSaveData = vi.fn()
 const mockOntologyData = {
   workflows: [],
   systems: [],
@@ -19,7 +18,6 @@ vi.mock('@/hooks/useOntology', () => ({
   useOntology: () => ({
     ontologyData: mockOntologyData,
     resetData: mockResetData,
-    saveData: mockSaveData,
   }),
 }))
 
@@ -55,7 +53,6 @@ describe('ImportExportBar', () => {
     await user.click(confirmButton)
 
     expect(mockResetData).toHaveBeenCalledOnce()
-    expect(mockSaveData).toHaveBeenCalledOnce()
   })
 
   it('does NOT reset when cancelled', async () => {
@@ -67,6 +64,5 @@ describe('ImportExportBar', () => {
     await user.click(cancelButton)
 
     expect(mockResetData).not.toHaveBeenCalled()
-    expect(mockSaveData).not.toHaveBeenCalled()
   })
 })

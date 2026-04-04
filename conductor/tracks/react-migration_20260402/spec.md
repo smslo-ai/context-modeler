@@ -14,7 +14,7 @@ Migrate Context Modeler from vanilla JS + Vite to React 19 + TypeScript (strict 
 The vanilla JS version is portfolio-ready (Phase 4D complete, 91 passing tests, WCAG 2.1 AA). However, the UI is visually flat -- no animations, no dark mode, cold color palette, poor typographic hierarchy. This migration elevates it to a portfolio centerpiece while making the codebase maintainable and extensible.
 
 Design spec: `docs/superpowers/specs/2026-04-02-react-migration-design.md`
-Design preview: `design-preview.html`
+Design preview: `docs/design-preview.html`
 
 ## Motivation
 
@@ -27,7 +27,7 @@ Design preview: `design-preview.html`
 - [ ] Each of the 17 features renders, interacts, persists state, and remains accessible -- matching vanilla JS behavior with the new visual design. AI buttons remain locked/disabled with tooltips.
 - [ ] `npm run validate` passes (typecheck + lint + test)
 - [ ] `npm run build` produces clean output with no warnings
-- [ ] Dark-mode dashboard matches `design-preview.html` palette and layout
+- [ ] Dark-mode dashboard matches `docs/design-preview.html` palette and layout
 - [ ] No `any` types in codebase
 - [ ] 80%+ overall test coverage (90%+ for services/utils)
 - [ ] Lighthouse accessibility score >= 95

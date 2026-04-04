@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { toast } from 'sonner'
 import { useOntology } from '@/hooks/useOntology'
 import { generateNodeId, validateNodeName, validateDescription } from '@/utils/form-validation'
+import { Button } from '@/components/ui/button'
 import { NodeList } from '@/components/input-studio/NodeList'
 import type { Workflow } from '@/types'
 
@@ -32,7 +33,7 @@ interface FormErrors {
 }
 
 export function WorkflowForm() {
-  const { workflows, systems, addNode, removeNode, saveData } = useOntology()
+  const { workflows, systems, addNode, removeNode } = useOntology()
 
   const [name, setName] = useState('')
   const [type, setType] = useState<Workflow['type']>('routine')
@@ -64,14 +65,13 @@ export function WorkflowForm() {
       id,
       name: name.trim(),
       type,
-      description,
+      description: description.trim(),
       owner,
       frequency,
       linkedSystems,
     }
 
     addNode('workflow', workflow)
-    saveData()
     toast.success(`Workflow added: ${name.trim()}`)
 
     setName('')
@@ -84,7 +84,6 @@ export function WorkflowForm() {
 
   function handleDelete(id: string) {
     removeNode(id, 'workflow')
-    saveData()
     toast.success('Workflow removed')
   }
 
@@ -209,12 +208,9 @@ export function WorkflowForm() {
           </div>
         )}
 
-        <button
-          type="submit"
-          className="bg-primary hover:bg-primary-hover text-background w-full rounded-lg px-4 py-2 text-sm font-medium transition-colors"
-        >
+        <Button type="submit" className="bg-primary hover:bg-primary-hover text-background w-full">
           + Add Workflow Node
-        </button>
+        </Button>
       </form>
 
       <NodeList nodes={workflows} onDelete={handleDelete} />

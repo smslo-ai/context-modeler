@@ -73,8 +73,6 @@ npm run validate     # Typecheck + lint + test (use before committing)
 
 ```
 context-modeler/
-|-- PLAN.md                  # Phased build plan (v3.0)
-|-- SPEC.md                  # Implementation-ready specification
 |-- index.html               # Single HTML entry point
 |-- src/
 |   |-- main.tsx             # React entry point
@@ -87,12 +85,13 @@ context-modeler/
 |   |-- data/                # Default ontology data, context map, friction rules
 |   |-- components/
 |   |   |-- dashboard/       # Dashboard view (12 components)
+|   |   |-- input-studio/    # Input Studio (forms, CRUD, import/export)
 |   |   |-- nav/             # Navigation header
 |   |   |-- shared/          # Toast, AboutModal
 |   |   +-- ui/              # shadcn primitives (Button, Dialog, Badge, etc.)
 |   +-- utils/               # Sanitization, heuristics, class merging
-|-- src_vanilla/             # Archived vanilla JS version (reference only)
-|-- OLD_prototype/           # Reference material (screenshots, spec doc)
+|-- docs/                    # Planning docs, specs, audits, reviews
+|-- legacy/                  # Archived vanilla JS + prototype (reference only)
 +-- .github/workflows/       # GitHub Actions deploy pipeline
 ```
 
@@ -100,7 +99,7 @@ context-modeler/
 
 ## Project Status
 
-Migrating from vanilla JS to React 19 + TypeScript. See [PLAN.md](PLAN.md) for the full roadmap.
+Migrating from vanilla JS to React 19 + TypeScript. See [docs/PLAN.md](docs/PLAN.md) for the full roadmap.
 
 | Phase | Description | Status |
 |-------|-------------|--------|
@@ -108,10 +107,11 @@ Migrating from vanilla JS to React 19 + TypeScript. See [PLAN.md](PLAN.md) for t
 | Phase 2 | Data layer (types, services, context, hooks) | Complete |
 | Phase 3 | App shell (nav, view routing, toast, about modal) | Complete |
 | Phase 4 | Dashboard view (triad explorer, heatmap, charts, simulation) | Complete |
-| Phase 5 | Input Studio (forms, validation, CRUD) | Next |
-| Phase 6+ | AI features, onboarding, polish | Future |
+| Phase 5 | Input Studio (forms, validation, CRUD) | Complete |
+| Phase 6 | Polish & Verification | Next |
+| Phase 7+ | AI features, onboarding | Future |
 
-**Current:** 77 tests passing, 12 dashboard components, full interactive dashboard.
+**Current:** 111 tests passing across 13 files, full interactive dashboard + input studio.
 
 ---
 
@@ -119,13 +119,13 @@ Migrating from vanilla JS to React 19 + TypeScript. See [PLAN.md](PLAN.md) for t
 
 | Document | Purpose |
 |----------|---------|
-| [PLAN.md](PLAN.md) | Build roadmap, phasing, PR strategy, risk register |
-| [SPEC.md](SPEC.md) | Complete implementation spec -- data model, views, interactions, CSS system |
-| [AUDIT_SECURITY_A11Y.md](AUDIT_SECURITY_A11Y.md) | Security and accessibility audit findings |
-| [AUDIT_UX.md](AUDIT_UX.md) | UX review findings |
-| [REVIEW_PRODUCT.md](REVIEW_PRODUCT.md) | Product manager review of the plan |
-| [REVIEW_ENGINEERING.md](REVIEW_ENGINEERING.md) | Senior engineer review of the plan |
-| [TEST_PLAN.md](TEST_PLAN.md) | Testing strategy and coverage targets |
+| [docs/PLAN.md](docs/PLAN.md) | Build roadmap, phasing, PR strategy, risk register |
+| [docs/SPEC.md](docs/SPEC.md) | Complete implementation spec -- data model, views, interactions, CSS system |
+| [docs/AUDIT_SECURITY_A11Y.md](docs/AUDIT_SECURITY_A11Y.md) | Security and accessibility audit findings |
+| [docs/AUDIT_UX.md](docs/AUDIT_UX.md) | UX review findings |
+| [docs/REVIEW_PRODUCT.md](docs/REVIEW_PRODUCT.md) | Product manager review of the plan |
+| [docs/REVIEW_ENGINEERING.md](docs/REVIEW_ENGINEERING.md) | Senior engineer review of the plan |
+| [docs/TEST_PLAN.md](docs/TEST_PLAN.md) | Testing strategy and coverage targets |
 
 ---
 

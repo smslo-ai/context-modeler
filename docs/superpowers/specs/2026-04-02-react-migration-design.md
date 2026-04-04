@@ -4,7 +4,7 @@
 **Author:** Shane Slosar + Claude
 **Status:** Approved
 **Branch:** `chore/conductor-setup` (will branch from here)
-**Design Preview:** `design-preview.html` (project root)
+**Design Preview:** `docs/design-preview.html`
 
 ---
 

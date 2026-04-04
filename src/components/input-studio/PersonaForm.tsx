@@ -34,7 +34,7 @@ const DEFAULT_FORM: FormState = {
 }
 
 export function PersonaForm() {
-  const { personas, addNode, removeNode, saveData } = useOntology()
+  const { personas, addNode, removeNode } = useOntology()
 
   const [form, setForm] = useState<FormState>(DEFAULT_FORM)
   const [errors, setErrors] = useState<{ name?: string; description?: string }>({})
@@ -69,7 +69,6 @@ export function PersonaForm() {
     }
 
     addNode('persona', persona)
-    saveData()
     toast.success(`User added: ${persona.name}`)
     setForm(DEFAULT_FORM)
     setErrors({})
@@ -77,7 +76,6 @@ export function PersonaForm() {
 
   function handleDelete(id: string) {
     removeNode(id, 'persona')
-    saveData()
   }
 
   return (

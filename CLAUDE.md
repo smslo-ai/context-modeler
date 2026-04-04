@@ -28,20 +28,22 @@ npx vitest -t "builds matrix"                      # Run tests matching name
 
 ## Testing
 
-Vitest config lives inside `vite.config.ts`. Environment is jsdom with globals enabled. Tests are co-located with source files (`*.test.ts` next to `*.ts` in `src/`). 77 tests across 9 files, 90%+ coverage on services/utils.
+Vitest config lives inside `vite.config.ts`. Environment is jsdom with globals enabled. Tests are co-located with source files (`*.test.ts` next to `*.ts` in `src/`). 111 tests across 13 files, 90%+ coverage on services/utils.
 
 ## Key Documents (read before making changes)
 
+All planning and review docs live in `docs/`.
+
 | File | What | When to Read |
 |------|------|-------------|
-| `PLAN.md` (v3.0) | Phased build plan with 9 phases, pre-flight checklist, PR strategy | Before starting any phase |
-| `SPEC.md` | Implementation-ready specification -- every data structure, view, interaction, component | Before building any feature |
-| `AUDIT_SECURITY_A11Y.md` | 24 security + accessibility findings with severity ratings | Before any DOM manipulation, form, or modal work |
-| `AUDIT_UX.md` | 27 UX findings (4 critical) | Before any responsive, empty state, or onboarding work |
-| `TEST_PLAN.md` | Testing strategy and coverage targets | Before writing or restructuring tests |
-| `REFACTORING_PLAN.md` | Refactoring roadmap | Before any major restructuring |
-| `REVIEW_ENGINEERING.md` | Senior engineer review of the plan | For architectural context |
-| `REVIEW_PRODUCT.md` | Product manager review | For prioritization context |
+| `docs/PLAN.md` (v3.0) | Phased build plan with 9 phases, pre-flight checklist, PR strategy | Before starting any phase |
+| `docs/SPEC.md` | Implementation-ready specification -- every data structure, view, interaction, component | Before building any feature |
+| `docs/AUDIT_SECURITY_A11Y.md` | 24 security + accessibility findings with severity ratings | Before any DOM manipulation, form, or modal work |
+| `docs/AUDIT_UX.md` | 27 UX findings (4 critical) | Before any responsive, empty state, or onboarding work |
+| `docs/TEST_PLAN.md` | Testing strategy and coverage targets | Before writing or restructuring tests |
+| `docs/REFACTORING_PLAN.md` | Refactoring roadmap | Before any major restructuring |
+| `docs/REVIEW_ENGINEERING.md` | Senior engineer review of the plan | For architectural context |
+| `docs/REVIEW_PRODUCT.md` | Product manager review | For prioritization context |
 
 ## Architecture
 
@@ -87,14 +89,13 @@ Two-view SPA with no router. Views toggle via CSS `hidden` class (not conditiona
 - **CI (GitHub Actions):** Push/PR to `main` triggers: `npm audit --audit-level=high` -> `npm test` -> `vite build`. Node 22. Concurrency limited to one deploy at a time.
 - **Formatting:** Prettier (no semicolons, single quotes, trailing commas, 100-char width). Tailwind class sorting via `prettier-plugin-tailwindcss`. Pre-commit hook runs lint-staged on `src/` files.
 
-## OLD_prototype/ Directory
+## legacy/ Directory
 
-This contains reference material only:
-- `Context_Aware_Enterprise_Infographic.html` -- **static infographic** (NOT the interactive SPA). Extractable: chart data values, CSS color palette hex values.
-- `context-modeler_v0specDoc.rtf` -- original spec document from Gemini (superseded by `SPEC.md`)
-- 18 screenshots of the interactive prototype running in Gemini Canvas
+Archived code and prototype material. Do NOT import from or build on these files.
 
-Do NOT attempt to extract or reverse-engineer code from the infographic HTML. Build from `SPEC.md`.
+- `legacy/OLD_prototype/` -- static infographic HTML, original spec RTF, 18 screenshots from Gemini Canvas
+- `legacy/src_vanilla/` -- archived vanilla JS version (reference only)
+- `legacy/tests_vanilla/` -- archived vanilla JS tests
 
 ## shadcn/ui Gotcha
 
@@ -107,8 +108,8 @@ After `npx shadcn@latest add <component>`:
 
 ## Conductor
 
-Project uses Conductor for track management. Active track: `conductor/tracks/react-migration_20260402/`. Check `plan.md` for task status before starting work. `src_vanilla/` contains the archived vanilla JS version (reference only during migration).
+Project uses Conductor for track management. Active track: `conductor/tracks/react-migration_20260402/`. Check `plan.md` for task status before starting work. `legacy/src_vanilla/` contains the archived vanilla JS version (reference only).
 
 ## Migration Status
 
-Phases 1-5 complete (scaffold + data layer + shell & navigation + dashboard view + input studio, 107 tests). Phase 6 (Polish & Verification) is next. Check `conductor/tracks/react-migration_20260402/plan.md` for current task status. Design spec: `docs/superpowers/specs/2026-04-02-react-migration-design.md`. Design preview: `design-preview.html`.
+Phases 1-5 complete (scaffold + data layer + shell & navigation + dashboard view + input studio, 111 tests). Phase 6 (Polish & Verification) is next. Check `conductor/tracks/react-migration_20260402/plan.md` for current task status. Design spec: `docs/superpowers/specs/2026-04-02-react-migration-design.md`. Design preview: `docs/design-preview.html`.

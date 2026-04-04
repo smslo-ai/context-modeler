@@ -120,7 +120,7 @@ Build all dashboard components: hero banner, triad explorer, heatmap, charts, in
 
 ### Verification
 
-- [x] Dashboard renders with sample data, matches design-preview.html palette
+- [x] Dashboard renders with sample data, matches docs/design-preview.html palette
 - [x] Triad explorer shows 3 columns (tabs on mobile)
 - [x] Clicking a node selects it and shows insight panel
 - [x] Heatmap cells show friction gradient, click opens modal
@@ -164,7 +164,7 @@ Onboarding tour, accessibility audit, final visual QA, coverage check, and build
 
 - [ ] Task 6.1: Create `src/components/shared/Onboarding.tsx` -- multi-step tour for first-time visitors
 - [ ] Task 6.2: Accessibility audit -- keyboard navigation, ARIA labels, focus trapping in modals, screen reader testing
-- [ ] Task 6.3: Visual QA -- compare every view against design-preview.html, fix discrepancies
+- [ ] Task 6.3: Visual QA -- compare every view against docs/design-preview.html, fix discrepancies
 - [ ] Task 6.4: Responsive QA -- test at mobile, tablet, desktop breakpoints
 - [ ] Task 6.5: Run `npm run test:coverage` -- verify 80%+ overall, 90%+ services/utils. Write additional tests if needed.
 - [ ] Task 6.6: Run Lighthouse -- verify accessibility score >= 95. Fix any issues.
@@ -189,7 +189,7 @@ Onboarding tour, accessibility audit, final visual QA, coverage check, and build
 - [ ] All acceptance criteria from spec.md met
 - [ ] All tests passing (`npm run validate`)
 - [ ] Build clean (`npm run build`)
-- [ ] Visual match to design-preview.html
+- [ ] Visual match to docs/design-preview.html
 - [ ] localStorage data from vanilla JS loads correctly
 - [ ] Ready for PR to `main`
 

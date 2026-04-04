@@ -37,6 +37,9 @@ export function validateNodeName(name: string): string | null {
   if (trimmed.length > 100) {
     return 'Name must be 100 characters or fewer.'
   }
+  if (slugify(trimmed) === '') {
+    return 'Name must contain at least one letter or number.'
+  }
   return null
 }
 
