@@ -32,7 +32,7 @@ Built as a portfolio project demonstrating context engineering and workplace arc
 | **Tailwind CSS v4** | Styling with custom design tokens |
 | **shadcn/ui** | Accessible component primitives (Dialog, Tabs, Badge, Tooltip) |
 | **Chart.js 4** | Radar and bubble chart visualizations (tree-shaken) |
-| **Framer Motion** | Entrance animations with reduced-motion support |
+| **Motion** | Entrance animations with reduced-motion support |
 | **DOMPurify** | HTML sanitization |
 | **Vitest + Testing Library** | Unit and component testing |
 
