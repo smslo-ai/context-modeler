@@ -1,0 +1,327 @@
+{
+  "version": "1.0",
+  "exportedAt": "2026-03-29T22:14:25.372Z",
+  "ontologyData": {
+    "workflows": [
+      {
+        "id": "wf-mgmt-escalations",
+        "name": "Management Escalations",
+        "type": "critical",
+        "description": "Urgent issues requiring immediate decision.",
+        "owner": "Director / VP",
+        "frequency": "ad-hoc",
+        "linkedSystems": [
+          "sys-slack-teams",
+          "sys-exec-dashboard"
+        ]
+      },
+      {
+        "id": "wf-admin-deadlines",
+        "name": "Admin Deadlines",
+        "type": "routine",
+        "description": "Recurring compliance and timesheets.",
+        "owner": "Operations Manager",
+        "frequency": "weekly",
+        "linkedSystems": [
+          "sys-sharepoint",
+          "sys-jira"
+        ]
+      },
+      {
+        "id": "wf-system-maintenance",
+        "name": "System Maintenance",
+        "type": "operational",
+        "description": "Infrastructure updates and patching.",
+        "owner": "IT Lead",
+        "frequency": "monthly",
+        "linkedSystems": [
+          "sys-jira",
+          "sys-sharepoint"
+        ]
+      },
+      {
+        "id": "wf-cross-team-sync",
+        "name": "Cross-Team Sync",
+        "type": "routine",
+        "description": "Status updates and cross-functional alignment.",
+        "owner": "Project Manager",
+        "frequency": "weekly",
+        "linkedSystems": [
+          "sys-slack-teams",
+          "sys-jira"
+        ]
+      },
+      {
+        "id": "wf-strategic-planning",
+        "name": "Strategic Planning",
+        "type": "strategic",
+        "description": "Long-term roadmap and OKR setting.",
+        "owner": "Executive Team",
+        "frequency": "quarterly",
+        "linkedSystems": [
+          "sys-exec-dashboard",
+          "sys-ai-engine"
+        ]
+      },
+      {
+        "id": "wf-node",
+        "name": "Node",
+        "type": "strategic",
+        "description": "Test",
+        "owner": "VP",
+        "frequency": "daily",
+        "linkedSystems": [
+          "sys-sharepoint",
+          "sys-slack-teams",
+          "sys-ai-engine",
+          "sys-jira",
+          "sys-exec-dashboard"
+        ]
+      }
+    ],
+    "systems": [
+      {
+        "id": "sys-sharepoint",
+        "name": "Shared Sites (SharePoint)",
+        "category": "storage",
+        "description": "Static knowledge repository.",
+        "linkedWorkflows": [
+          "wf-admin-deadlines",
+          "wf-system-maintenance"
+        ],
+        "linkedUsers": [
+          "usr-process-admin"
+        ]
+      },
+      {
+        "id": "sys-slack-teams",
+        "name": "Comm Hub (Slack/Teams)",
+        "category": "comms",
+        "description": "Real-time context stream.",
+        "linkedWorkflows": [
+          "wf-mgmt-escalations",
+          "wf-cross-team-sync"
+        ],
+        "linkedUsers": [
+          "usr-firefighter",
+          "usr-bridge-builder"
+        ]
+      },
+      {
+        "id": "sys-ai-engine",
+        "name": "AI Context Engine",
+        "category": "intelligence",
+        "description": "Intelligent context routing layer.",
+        "linkedWorkflows": [
+          "wf-strategic-planning"
+        ],
+        "linkedUsers": [
+          "usr-deep-focus"
+        ]
+      },
+      {
+        "id": "sys-jira",
+        "name": "Project Tracker (Jira)",
+        "category": "tracking",
+        "description": "Task and sprint management.",
+        "linkedWorkflows": [
+          "wf-admin-deadlines",
+          "wf-system-maintenance",
+          "wf-cross-team-sync"
+        ],
+        "linkedUsers": [
+          "usr-process-admin",
+          "usr-firefighter"
+        ]
+      },
+      {
+        "id": "sys-exec-dashboard",
+        "name": "Exec Dashboard",
+        "category": "reporting",
+        "description": "KPI visualization and executive summaries.",
+        "linkedWorkflows": [
+          "wf-mgmt-escalations",
+          "wf-strategic-planning"
+        ],
+        "linkedUsers": [
+          "usr-deep-focus"
+        ]
+      }
+    ],
+    "personas": [
+      {
+        "id": "usr-firefighter",
+        "name": "Reactive Firefighter",
+        "state": "reactive-firefighter",
+        "description": "High stress, rapid switching."
+      },
+      {
+        "id": "usr-deep-focus",
+        "name": "Deep Focus Architect",
+        "state": "deep-focus-architect",
+        "description": "Prolonged silence needed."
+      },
+      {
+        "id": "usr-process-admin",
+        "name": "Process Admin",
+        "state": "process-admin",
+        "description": "Methodical queue clearing."
+      },
+      {
+        "id": "usr-bridge-builder",
+        "name": "Bridge Builder",
+        "state": "bridge-builder",
+        "description": "Connecting teams."
+      },
+      {
+        "id": "usr-sms",
+        "name": "SMS",
+        "state": "reactive-firefighter",
+        "description": "CEO"
+      }
+    ],
+    "contextMap": {
+      "wf-mgmt-escalations": [
+        "sys-slack-teams",
+        "sys-exec-dashboard",
+        "usr-firefighter"
+      ],
+      "wf-admin-deadlines": [
+        "sys-sharepoint",
+        "sys-jira",
+        "usr-process-admin"
+      ],
+      "wf-system-maintenance": [
+        "sys-jira",
+        "sys-sharepoint",
+        "usr-process-admin"
+      ],
+      "wf-cross-team-sync": [
+        "sys-slack-teams",
+        "sys-jira",
+        "usr-bridge-builder"
+      ],
+      "wf-strategic-planning": [
+        "sys-exec-dashboard",
+        "sys-ai-engine",
+        "usr-deep-focus"
+      ],
+      "sys-sharepoint": [
+        "wf-admin-deadlines",
+        "wf-system-maintenance",
+        "usr-process-admin"
+      ],
+      "sys-slack-teams": [
+        "wf-mgmt-escalations",
+        "wf-cross-team-sync",
+        "usr-firefighter",
+        "usr-bridge-builder"
+      ],
+      "sys-ai-engine": [
+        "wf-strategic-planning",
+        "usr-deep-focus"
+      ],
+      "sys-jira": [
+        "wf-admin-deadlines",
+        "wf-system-maintenance",
+        "wf-cross-team-sync",
+        "usr-process-admin",
+        "usr-firefighter"
+      ],
+      "sys-exec-dashboard": [
+        "wf-mgmt-escalations",
+        "wf-strategic-planning",
+        "usr-deep-focus"
+      ],
+      "usr-firefighter": [
+        "wf-mgmt-escalations",
+        "sys-slack-teams",
+        "sys-jira"
+      ],
+      "usr-deep-focus": [
+        "wf-strategic-planning",
+        "sys-ai-engine",
+        "sys-exec-dashboard"
+      ],
+      "usr-process-admin": [
+        "wf-admin-deadlines",
+        "wf-system-maintenance",
+        "sys-sharepoint",
+        "sys-jira"
+      ],
+      "usr-bridge-builder": [
+        "wf-cross-team-sync",
+        "sys-slack-teams"
+      ]
+    },
+    "frictionRules": {
+      "wf-mgmt-escalations::sys-sharepoint": 0.85,
+      "wf-mgmt-escalations::sys-slack-teams": 0.3,
+      "wf-mgmt-escalations::sys-ai-engine": 0.2,
+      "wf-mgmt-escalations::sys-jira": 0.6,
+      "wf-mgmt-escalations::sys-exec-dashboard": 0.4,
+      "wf-admin-deadlines::sys-sharepoint": 0.3,
+      "wf-admin-deadlines::sys-slack-teams": 0.5,
+      "wf-admin-deadlines::sys-ai-engine": 0.4,
+      "wf-admin-deadlines::sys-jira": 0.15,
+      "wf-admin-deadlines::sys-exec-dashboard": 0.5,
+      "wf-system-maintenance::sys-sharepoint": 0.4,
+      "wf-system-maintenance::sys-slack-teams": 0.55,
+      "wf-system-maintenance::sys-ai-engine": 0.35,
+      "wf-system-maintenance::sys-jira": 0.2,
+      "wf-system-maintenance::sys-exec-dashboard": 0.65,
+      "wf-cross-team-sync::sys-sharepoint": 0.5,
+      "wf-cross-team-sync::sys-slack-teams": 0.2,
+      "wf-cross-team-sync::sys-ai-engine": 0.45,
+      "wf-cross-team-sync::sys-jira": 0.3,
+      "wf-cross-team-sync::sys-exec-dashboard": 0.55,
+      "wf-strategic-planning::sys-sharepoint": 0.5,
+      "wf-strategic-planning::sys-slack-teams": 0.9,
+      "wf-strategic-planning::sys-ai-engine": 0.15,
+      "wf-strategic-planning::sys-jira": 0.7,
+      "wf-strategic-planning::sys-exec-dashboard": 0.25
+    },
+    "modeRules": {
+      "morning-triage": {
+        "dimmed": [
+          "wf-strategic-planning",
+          "usr-deep-focus"
+        ],
+        "highlighted": [
+          "wf-mgmt-escalations",
+          "wf-admin-deadlines",
+          "sys-slack-teams",
+          "usr-firefighter"
+        ]
+      },
+      "deep-focus": {
+        "dimmed": [
+          "sys-slack-teams",
+          "wf-mgmt-escalations",
+          "usr-firefighter",
+          "usr-bridge-builder"
+        ],
+        "highlighted": [
+          "wf-strategic-planning",
+          "sys-ai-engine",
+          "sys-exec-dashboard",
+          "usr-deep-focus"
+        ]
+      },
+      "firefighting": {
+        "dimmed": [
+          "wf-admin-deadlines",
+          "wf-strategic-planning",
+          "usr-deep-focus",
+          "usr-process-admin"
+        ],
+        "highlighted": [
+          "wf-mgmt-escalations",
+          "sys-slack-teams",
+          "sys-jira",
+          "usr-firefighter"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,516 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.5">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Helvetica; min-height: 17.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Architectural Frameworks for Context Engineering&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.jsdelivr.net/npm/chart.js"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.plot.ly/plotly-2.27.0.min.js"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&amp;display=swap" rel="stylesheet"&gt;</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Chosen Palette: Vibrant Professional (Indigo #4f46e5, Emerald #10b981, Amber #f59e0b, Rose #ef4444, Slate #0f172a) --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Application Structure Plan: The SPA is structured linearly as a persuasive narrative. Section 1 (Hook/Overview) quantifies the cost of context switching using KPIs and a Bar Chart. Section 2 (Composition) breaks down the Digital Workspace into the 'Context Triad' using a Donut Chart. Section 3 (Analysis) maps cognitive friction using a 3D-like Plotly WebGL scatter plot. Section 4 (Temporal) shows projected ROI and system accuracy over time using a Line Chart. Section 5 (Process) illustrates the Semantic Layer data flow using a pure HTML/CSS diagram. This narrative flows from problem -&gt; analysis -&gt; solution -&gt; implementation. --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Visualization &amp; Content Choices: Data Point 1 (Fragmentation) -&gt; Goal: Compare -&gt; Viz: Chart.js Bar Chart -&gt; Justification: Clearly contrasts time lost across different workflow categories (No SVG). Data Point 2 (Triad) -&gt; Goal: Inform/Composition -&gt; Viz: Chart.js Donut -&gt; Justification: Shows proportional makeup of the semantic graph (No SVG). Data Point 3 (Responsibility Mapping) -&gt; Goal: Relationships -&gt; Viz: Plotly.js scattergl -&gt; Justification: Handles 3 variables (Complexity, Value, Friction) efficiently in WebGL canvas (No SVG). Data Point 4 (Maturation) -&gt; Goal: Change -&gt; Viz: Chart.js Line -&gt; Justification: Tracks metrics over time phases (No SVG). Data Point 5 (Semantic Flow) -&gt; Goal: Organize -&gt; Viz: HTML/CSS Flowchart -&gt; Justification: Illustrates system architecture strictly adhering to constraints (No SVG/Mermaid). --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. --&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; }</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.chart-container {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>max-width: 800px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-left: auto;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-right: auto;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 350px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>max-height: 400px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>@media (min-width: 768px) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>.chart-container { height: 400px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.card-elevation {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: white;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 1rem;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: transform 0.2s ease, box-shadow 0.2s ease;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.card-elevation:hover {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform: translateY(-2px);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.section-heading {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 2.25rem;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 800;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #0f172a;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 1rem;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: inline-block;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.section-heading::after {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>content: '';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: block;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 60px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 4px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #4f46e5;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 0.5rem;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 2px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.css-arrow {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: inline-block;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-top: 10px solid transparent;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-bottom: 10px solid transparent;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-left: 15px solid #cbd5e1;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 0 10px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>@media (max-width: 768px) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>.css-arrow-mobile-down {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>border-left: 10px solid transparent;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>border-right: 10px solid transparent;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>border-top: 15px solid #cbd5e1;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>border-bottom: none;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>margin: 10px auto;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>display: block;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>.css-arrow { display: none; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body class="antialiased"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;header class="bg-slate-900 text-white pt-24 pb-32 px-4 relative overflow-hidden"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="absolute inset-0 bg-gradient-to-br from-indigo-900 via-slate-900 to-emerald-900 opacity-80"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="max-w-7xl mx-auto text-center relative z-10"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;span class="text-emerald-400 font-bold tracking-widest uppercase text-sm mb-3 block"&gt;Digital Workspace Architecture&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h1 class="text-5xl md:text-7xl font-extrabold mb-6 leading-tight"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>Architecting the &lt;span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 to-emerald-400"&gt;Context-Aware&lt;/span&gt; Enterprise</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p class="text-xl text-slate-300 max-w-3xl mx-auto leading-relaxed"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>A quantitative analysis of fragmented digital workflows and the transition toward semantic knowledge graphs and context engineering.</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/header&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="max-w-7xl mx-auto px-4 -mt-16 relative z-20 mb-24"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="grid grid-cols-1 md:grid-cols-3 gap-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="card-elevation p-8 text-center border-t-4 border-indigo-500"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="text-5xl font-extrabold text-indigo-600 mb-2"&gt;2.8h&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="text-sm font-bold text-slate-400 uppercase tracking-wide"&gt;Daily Time Loss&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="text-slate-600 mt-2 text-sm"&gt;Average hours lost per employee navigating disjointed enterprise applications.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="card-elevation p-8 text-center border-t-4 border-rose-500"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="text-5xl font-extrabold text-rose-500 mb-2"&gt;42%&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="text-sm font-bold text-slate-400 uppercase tracking-wide"&gt;Cognitive Friction&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="text-slate-600 mt-2 text-sm"&gt;Measured increase in task error rates directly correlated to context switching.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="card-elevation p-8 text-center border-t-4 border-emerald-500"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="text-5xl font-extrabold text-emerald-500 mb-2"&gt;10x&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="text-sm font-bold text-slate-400 uppercase tracking-wide"&gt;Ontology ROI&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="text-slate-600 mt-2 text-sm"&gt;Projected efficiency multiplier when implementing a unified semantic graph layer.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;main class="max-w-7xl mx-auto px-4 space-y-32 pb-32"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;section&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="lg:col-span-5"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h2 class="section-heading"&gt;The Fragmentation Crisis&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-lg text-slate-600 mb-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>Before architecting a Context Engine, we must quantify the current state of digital decay. The "User-Adapted" model forces employees to act as the integration layer between tools.</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-slate-600 mb-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>This visualization breaks down the cumulative hours lost per week categorized by the type of workflow. Strategic tasks suffer the highest degradation due to the intense focus required being shattered by interrupt-driven communication systems.</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="bg-indigo-50 p-4 rounded-lg border-l-4 border-indigo-500"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;strong class="text-indigo-900 block mb-1"&gt;Key Takeaway&lt;/strong&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="text-indigo-800 text-sm"&gt;Strategic and Collaborative workflows generate the highest cognitive friction, highlighting the urgent need for contextual boundaries.&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="lg:col-span-7"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="card-elevation p-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="chart-container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;canvas id="fragmentationChart"&gt;&lt;/canvas&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;section class="bg-white rounded-2xl p-8 md:p-12 shadow-sm border border-slate-200"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="lg:col-span-7 order-2 lg:order-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="chart-container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;canvas id="triadChart"&gt;&lt;/canvas&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="lg:col-span-5 order-1 lg:order-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h2 class="section-heading"&gt;The Context Triad&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-lg text-slate-600 mb-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>A robust Knowledge Graph for the enterprise must map three distinct, often conflicting, dimensions. Without mapping all three, AI models lack the necessary grounding to infer intent.</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;ul class="space-y-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;strong class="text-indigo-600 block text-lg mb-1"&gt;&amp;#9632; Business Workflows (Demand)&lt;/strong&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-slate-600 text-sm"&gt;The explicit objectives of the business. Includes management escalations, strategic planning cycles, and routine administrative deadlines.&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;strong class="text-emerald-500 block text-lg mb-1"&gt;&amp;#9632; Systems &amp; Infrastructure (Supply)&lt;/strong&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-slate-600 text-sm"&gt;The tooling ecosystem. Includes shared repositories, real-time communication hubs, tracking software, and reporting dashboards.&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;strong class="text-amber-500 block text-lg mb-1"&gt;&amp;#9632; User Persona (State)&lt;/strong&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-slate-600 text-sm"&gt;The psychological and situational state of the human operator. Differentiates between a "Reactive Firefighter" and a "Deep Focus Architect".&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/ul&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;section&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="text-center max-w-3xl mx-auto mb-12"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2 class="section-heading"&gt;Responsibility &amp; Friction Mapping&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="text-lg text-slate-600"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>To prioritize Context Engineering implementation, we analyze tasks across multiple dimensions. This statistical plot maps workflows based on their inherent complexity against their strategic value to the enterprise.</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="text-sm font-bold text-rose-500 mt-4 uppercase tracking-widest bg-rose-50 inline-block px-4 py-2 rounded-full"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>Bubble Size = Detected Cognitive Friction (Stress)</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="card-elevation p-2 md:p-6 mb-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="responsibilityPlot" class="w-full h-[500px]"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="grid grid-cols-1 md:grid-cols-2 gap-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="p-6 border border-slate-200 rounded-xl bg-slate-50"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h4 class="font-bold text-slate-900 mb-2 text-lg"&gt;High Value, High Friction (Top Right)&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-slate-600 text-sm leading-relaxed"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>Workflows like "Crisis Escalation" and "Strategic Modeling" are critical but highly stressful due to fragmented data. These are the primary targets for &lt;strong&gt;Context Injection&lt;/strong&gt; via Knowledge Graphs to synthesize data across systems automatically.</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="p-6 border border-slate-200 rounded-xl bg-slate-50"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h4 class="font-bold text-slate-900 mb-2 text-lg"&gt;Low Value, Low Friction (Bottom Left)&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-slate-600 text-sm leading-relaxed"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>Tasks like "Timesheet Entry" and "Status Updates" have low strategic value and manageable complexity. Rather than heavy context engineering, these should be targeted for &lt;strong&gt;Pure Automation&lt;/strong&gt; to remove the human element entirely.</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;section class="bg-slate-900 text-white rounded-2xl p-8 md:p-12 shadow-2xl relative overflow-hidden"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="absolute top-0 right-0 w-64 h-64 bg-indigo-500 rounded-full filter blur-[100px] opacity-30"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h2 class="text-3xl font-extrabold mb-6 text-white border-b-4 border-emerald-500 inline-block pb-2"&gt;Maturation Projection&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-slate-300 text-lg mb-6 leading-relaxed"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>The journey to a Context-Aware Architecture is phased. As the enterprise Knowledge Graph matures and integrates with LLM logic, we project a dramatic shift in both system accuracy and realized ROI.</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-slate-400 text-sm mb-6 leading-relaxed"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>Phase 1 establishes the baseline graph. Phase 2 introduces semantic reasoning. Phase 3 activates autonomous context switching based on user state detection.</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="grid grid-cols-2 gap-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="bg-slate-800 p-4 rounded-lg border border-slate-700"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="text-2xl font-bold text-emerald-400 mb-1"&gt;+310%&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="text-xs text-slate-400 uppercase tracking-wide"&gt;Projected ROI&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="bg-slate-800 p-4 rounded-lg border border-slate-700"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="text-2xl font-bold text-indigo-400 mb-1"&gt;94%&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="text-xs text-slate-400 uppercase tracking-wide"&gt;Context Accuracy&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="bg-white/5 p-4 rounded-xl border border-white/10 backdrop-blur-sm"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="chart-container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;canvas id="projectionChart"&gt;&lt;/canvas&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;section&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="text-center max-w-3xl mx-auto mb-16"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2 class="section-heading"&gt;The Semantic Architecture Flow&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="text-lg text-slate-600"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>How raw, unstructured enterprise exhaust is transformed into intelligent, context-aware user experiences using Knowledge Graphs and LLMs.</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="flex flex-col md:flex-row justify-center items-center w-full max-w-6xl mx-auto px-4"&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="w-full md:w-1/4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="card-elevation p-6 text-center border-t-4 border-slate-400"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="text-4xl mb-3"&gt;&amp;#128225;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h4 class="font-bold text-slate-900 mb-2"&gt;1. Telemetry Data&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-xs text-slate-500"&gt;API Events, Active Windows, Calendar Status, Comms Logs&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="css-arrow-mobile-down"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="css-arrow"&gt;&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="w-full md:w-1/4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="card-elevation p-6 text-center border-t-4 border-indigo-500"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="text-4xl mb-3"&gt;&amp;#128376;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h4 class="font-bold text-indigo-900 mb-2"&gt;2. Knowledge Graph&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-xs text-slate-500"&gt;Maps entity relationships. Links User State to Active Workflow.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="css-arrow-mobile-down"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="css-arrow"&gt;&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="w-full md:w-1/4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="card-elevation p-6 text-center border-t-4 border-amber-500"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="text-4xl mb-3"&gt;&amp;#129504;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h4 class="font-bold text-amber-900 mb-2"&gt;3. Context LLM&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-xs text-slate-500"&gt;Synthesizes intent. Generates semantic instruction sets.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="css-arrow-mobile-down"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="css-arrow"&gt;&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="w-full md:w-1/4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="bg-emerald-600 text-white p-6 rounded-xl shadow-xl text-center transform transition hover:scale-105"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="text-4xl mb-3"&gt;&amp;#10024;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h4 class="font-bold mb-2"&gt;4. Adaptive UX&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-xs text-emerald-100"&gt;Workspace reconfigures UI, suppresses noise, elevates tools.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/section&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/main&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;footer class="bg-slate-900 text-slate-400 py-12 text-center border-t border-slate-800 mt-12"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="max-w-4xl mx-auto px-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h4 class="text-white font-bold text-lg mb-4"&gt;Conclusion&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p class="text-sm leading-relaxed mb-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>The evolution from manual tool-stitching to an automated, context-aware architecture represents the next major paradigm shift in enterprise productivity. By formalizing business workflows, system capabilities, and user states into a unified Knowledge Graph, organizations can dynamically engineer context, dramatically reducing cognitive load and unlocking unprecedented strategic value.</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p class="text-xs uppercase tracking-widest font-bold text-slate-500"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>Digital Workspace Architecture &amp; Design Resource Library</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/footer&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function wrapLabels(labels) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>return labels.map(label =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (label.length &lt;= 16) return label;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const words = label.split(' ');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>let lines = [];</p>
+<p class="p1"><span class="Apple-converted-space">                </span>let currentLine = words[0];</p>
+<p class="p1"><span class="Apple-converted-space">                </span>for (let i = 1; i &lt; words.length; i++) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>if (currentLine.length + words[i].length + 1 &lt;= 16) {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>currentLine += ' ' + words[i];</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>lines.push(currentLine);</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>currentLine = words[i];</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>lines.push(currentLine);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return lines;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const commonTooltipConfig = {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>tooltip: {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>callbacks: {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>title: function(tooltipItems) {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>const item = tooltipItems[0];</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>let label = item.chart.data.labels[item.dataIndex];</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>if (Array.isArray(label)) {</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>return label.join(' ');</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>return label;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const rawLabelsFrag = ['Strategic Planning &amp; Modeling', 'Cross-Team Synchronization', 'Management Escalations', 'System Maintenance', 'Routine Administrative Deadlines'];</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const wrappedLabelsFrag = wrapLabels(rawLabelsFrag);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const ctxFrag = document.getElementById('fragmentationChart').getContext('2d');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>new Chart(ctxFrag, {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>type: 'bar',</p>
+<p class="p1"><span class="Apple-converted-space">            </span>data: {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>labels: wrappedLabelsFrag,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>datasets: [{</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>label: 'Hours Lost per Week due to Context Switching',</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>data: [14.5, 11.2, 8.5, 5.0, 3.2],</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>backgroundColor: ['#4f46e5', '#818cf8', '#f59e0b', '#10b981', '#94a3b8'],</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>borderRadius: 6</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}]</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>options: {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>responsive: true,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>maintainAspectRatio: false,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>plugins: {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>legend: { display: false },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>...commonTooltipConfig</p>
+<p class="p1"><span class="Apple-converted-space">                </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                </span>scales: {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>y: {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>beginAtZero: true,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>grid: { color: '#f1f5f9' },</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>title: { display: true, text: 'Hours Lost / Week', font: {family: 'Inter', weight: 'bold'} }</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>x: {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>grid: { display: false },</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>ticks: { font: {family: 'Inter', size: 11} }</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const rawLabelsTriad = ['Business Workflows (Demand Layer)', 'Systems &amp; Infrastructure (Supply Layer)', 'User Personas (State Layer)'];</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const wrappedLabelsTriad = wrapLabels(rawLabelsTriad);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const ctxTriad = document.getElementById('triadChart').getContext('2d');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>new Chart(ctxTriad, {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>type: 'doughnut',</p>
+<p class="p1"><span class="Apple-converted-space">            </span>data: {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>labels: wrappedLabelsTriad,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>datasets: [{</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>data: [45, 35, 20],</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>backgroundColor: ['#4f46e5', '#10b981', '#f59e0b'],</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>borderWidth: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>hoverOffset: 15</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}]</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>options: {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>responsive: true,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>maintainAspectRatio: false,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>cutout: '65%',</p>
+<p class="p1"><span class="Apple-converted-space">                </span>plugins: {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>legend: {<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>position: 'bottom',</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>labels: { padding: 20, usePointStyle: true, font: {family: 'Inter'} }</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>...commonTooltipConfig</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const plotlyData = [{</p>
+<p class="p1"><span class="Apple-converted-space">            </span>x: [85, 20, 65, 95, 35, 75, 15, 55],<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>y: [90, 25, 70, 85, 50, 40, 10, 80],<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>text: [</p>
+<p class="p1"><span class="Apple-converted-space">                </span>'Crisis Escalations',<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>'Timesheet Entry',<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>'System Upgrades',<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>'Strategic Modeling',<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>'Email Triage',</p>
+<p class="p1"><span class="Apple-converted-space">                </span>'Legacy Data Migration',</p>
+<p class="p1"><span class="Apple-converted-space">                </span>'Password Resets',</p>
+<p class="p1"><span class="Apple-converted-space">                </span>'Cross-Team Sync'</p>
+<p class="p1"><span class="Apple-converted-space">            </span>],</p>
+<p class="p1"><span class="Apple-converted-space">            </span>mode: 'markers',</p>
+<p class="p1"><span class="Apple-converted-space">            </span>type: 'scattergl',<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>marker: {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>size: [45, 15, 25, 50, 18, 35, 10, 28],<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>color: [90, 25, 70, 85, 50, 40, 10, 80],<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>colorscale: [</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>[0, '#10b981'],<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>[0.5, '#f59e0b'],<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>[1, '#ef4444'] <span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>opacity: 0.85,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>showscale: false,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>line: { width: 1, color: 'white' }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const plotlyLayout = {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>xaxis: { title: 'Contextual Complexity (Difficulty to Model)', range: [0, 100], gridcolor: '#f1f5f9', zeroline: false, fixedrange: true },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>yaxis: { title: 'Strategic Value to Enterprise', range: [0, 100], gridcolor: '#f1f5f9', zeroline: false, fixedrange: true },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>hovermode: 'closest',</p>
+<p class="p1"><span class="Apple-converted-space">            </span>paper_bgcolor: 'rgba(0,0,0,0)',</p>
+<p class="p1"><span class="Apple-converted-space">            </span>plot_bgcolor: 'rgba(0,0,0,0)',</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: { t: 10, b: 40, l: 50, r: 10 },</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font: { family: "'Inter', sans-serif", color: '#475569' }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const plotlyConfig = { responsive: true, displayModeBar: false };</p>
+<p class="p1"><span class="Apple-converted-space">        </span>Plotly.newPlot('responsibilityPlot', plotlyData, plotlyLayout, plotlyConfig);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const rawLabelsProj = ['Baseline (Siloed)', 'Phase 1 (Graph Init)', 'Phase 2 (LLM Integrations)', 'Phase 3 (State Awareness)', 'Phase 4 (Autonomous UX)'];</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const wrappedLabelsProj = wrapLabels(rawLabelsProj);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>const ctxProj = document.getElementById('projectionChart').getContext('2d');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>new Chart(ctxProj, {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>type: 'line',</p>
+<p class="p1"><span class="Apple-converted-space">            </span>data: {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>labels: wrappedLabelsProj,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>datasets: [</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>label: 'Realized ROI (%)',</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>data: [0, 45, 120, 210, 310],</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>borderColor: '#10b981',</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>backgroundColor: 'rgba(16, 185, 129, 0.1)',</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>borderWidth: 3,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>fill: true,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>tension: 0.4</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>label: 'Context Accuracy (%)',</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>data: [15, 40, 75, 88, 94],</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>borderColor: '#818cf8',</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>borderWidth: 3,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>borderDash: [5, 5],</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>fill: false,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>tension: 0.4</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>]</p>
+<p class="p1"><span class="Apple-converted-space">            </span>},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>options: {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>responsive: true,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>maintainAspectRatio: false,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>interaction: { mode: 'index', intersect: false },</p>
+<p class="p1"><span class="Apple-converted-space">                </span>plugins: {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>legend: { labels: { color: '#cbd5e1', font: {family: 'Inter'} } },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>...commonTooltipConfig</p>
+<p class="p1"><span class="Apple-converted-space">                </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                </span>scales: {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>y: {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>grid: { color: 'rgba(255,255,255,0.1)' },</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>ticks: { color: '#94a3b8' }</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>x: {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>grid: { display: false },</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>ticks: { color: '#94a3b8', font: {family: 'Inter', size: 10} }</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
