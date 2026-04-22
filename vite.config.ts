@@ -11,7 +11,7 @@ function cspPlugin() {
       if (ctx.server) return html
       return html.replace(
         '<head>',
-        `<head>\n    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self'; font-src 'self' https://fonts.gstatic.com;">`
+        `<head>\n    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; connect-src 'self' https://context-modeler-api.vercel.app; font-src 'self' https://fonts.gstatic.com;">`
       )
     },
   }

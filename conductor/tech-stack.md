@@ -16,7 +16,7 @@
 | shadcn/ui | latest | Accessible component primitives (Dialog, Tabs, Select, Button, Input, Toast, Card, Tooltip, Badge) |
 | Chart.js | ^4.x | Radar chart (maturity), bubble chart (responsibility mapping) -- tree-shaken imports |
 | DOMPurify | ^3.x | XSS sanitization for all dynamic DOM content |
-| marked | ^17.x | Markdown-to-HTML rendering (Phase 5 AI responses) |
+| marked | ^17.x | Markdown-to-HTML rendering (AI responses) |
 
 ## State Management
 
@@ -24,7 +24,7 @@ React Context + `useReducer` via single `AppContext`. No external state library.
 
 ## Backend
 
-None. Frontend-only SPA. Phase 5 may introduce serverless functions for AI proxy.
+Vercel Functions serverless proxy (`api/` directory) forwarding AI requests to the Claude API. Single POST endpoint at `/api/analyze` accepting three feature types: `node-analyzer`, `friction-resolver`, `prompt-generator`. Rate limited to 20 req/min per IP. API key stored as Vercel environment variable.
 
 ## Database
 

@@ -9,8 +9,8 @@ export function Heatmap() {
   const { workflows, systems, frictionRules } = useOntology()
   const [openCell, setOpenCell] = useState<{ wfIdx: number; sysIdx: number } | null>(null)
 
-  const openWorkflow = openCell ? workflows[openCell.wfIdx] : null
-  const openSystem = openCell ? systems[openCell.sysIdx] : null
+  const openWorkflow = openCell ? (workflows[openCell.wfIdx] ?? null) : null
+  const openSystem = openCell ? (systems[openCell.sysIdx] ?? null) : null
   const openScore =
     openWorkflow && openSystem ? calculateFriction(openWorkflow, openSystem, frictionRules) : 0
 
@@ -77,8 +77,8 @@ export function Heatmap() {
         onOpenChange={(open) => {
           if (!open) setOpenCell(null)
         }}
-        workflowName={openWorkflow?.name ?? ''}
-        systemName={openSystem?.name ?? ''}
+        workflow={openWorkflow}
+        system={openSystem}
         score={openScore}
       />
     </section>
