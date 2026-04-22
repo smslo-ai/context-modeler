@@ -28,7 +28,7 @@ npx vitest -t "builds matrix"                      # Run tests matching name
 
 ## Testing
 
-Vitest config lives inside `vite.config.ts`. Environment is jsdom with globals enabled. Tests are co-located with source files (`*.test.ts` next to `*.ts` in `src/`). 151 tests across 17 files, 90%+ coverage on services/utils.
+Vitest config lives inside `vite.config.ts`. Environment is jsdom with globals enabled. Tests are co-located with source files (`*.test.ts` next to `*.ts` in `src/`). 157 tests across 17 files, 90%+ coverage on services/utils.
 
 ## Key Documents (read before making changes)
 
@@ -62,11 +62,11 @@ Two-view SPA with no router. Views toggle via CSS `hidden` class (not conditiona
 
 **State management:** `useReducer` in `src/context/AppContext.tsx`. `AppProvider` wraps the app; `useApp()` hook exposes state + dispatch. Actions: SET_VIEW, SET_MODE, SELECT_NODE, ADD_NODE, REMOVE_NODE, RESET_DATA, SET_ONTOLOGY_DATA.
 
-**Services layer:** `src/services/` -- storage (localStorage adapter), ontology (CRUD + cascading deletes), friction (heatmap matrix), ai (context assembly + proxy calls). Services are pure functions, not hooks.
+**Services layer:** `src/services/` -- storage (localStorage adapter + debounced save), friction (heatmap matrix), ai (context assembly + proxy calls). Services are pure functions, not hooks. **Cascading deletes live in the reducer** at `src/context/AppContext.tsx` (REMOVE_NODE case), not in a service — an earlier `ontology.service.ts` factory was removed as dead code (see PR #44).
 
 **AI proxy:** `api/` directory -- Vercel Functions project with a single POST endpoint (`/api/analyze`). Accepts `{ feature, context }`, forwards to Claude API via `@anthropic-ai/sdk`. Rate limited 20 req/min per IP. Has its own `package.json` and `tsconfig.json`.
 
-**Hooks:** `src/hooks/` -- useOntology (wraps ontology service + dispatch), useSimulation, useLocalStorage, useAI (wraps AI service with loading/error/result state).
+**Hooks:** `src/hooks/` -- useOntology (exposes ontologyData + typed dispatch wrappers, auto-saves to localStorage on change), useSimulation, useLocalStorage, useAI (wraps AI service with loading/error/result state).
 
 **Data model:** Three parallel arrays (workflows[], systems[], personas[]) in `ontologyData`, cross-referenced by string ID. The `contextMap` (adjacency list) and `frictionRules` (keyed by `workflowId::systemId`) live in `src/data/defaults.ts`. Node IDs are restricted to `[a-z0-9-]`.
 
@@ -109,4 +109,28 @@ Project uses Conductor for track management. Active track: `conductor/tracks/rea
 
 ## Migration Status
 
-Phases 1-7 complete (scaffold + data layer + shell & navigation + dashboard view + input studio + polish + AI features). 168 tests across 18 files, 90%+ coverage. Live: https://smslo-ai.github.io/context-modeler/. AI features: Node Analyzer, Friction Resolver, Prompt Generator -- all graph-aware, powered by Claude API via Vercel Functions proxy. Design spec: `docs/superpowers/specs/2026-04-02-react-migration-design.md`.
+Phases 1-7 complete (scaffold + data layer + shell & navigation + dashboard view + input studio + polish + AI features). 157 tests across 17 files, 90%+ coverage. Live: https://smslo-ai.github.io/context-modeler/. AI features: Node Analyzer, Friction Resolver, Prompt Generator -- all graph-aware, powered by Claude API via Vercel Functions proxy. Design spec: `docs/superpowers/specs/2026-04-02-react-migration-design.md`.
+
+## Situation Report (2026-04-09)
+
+**Recently completed:**
+- Full code review (9 actionable findings, file:line evidence). Review archived in Shane's `~/.claude/plans/` (not repo-tracked).
+- **PR #44** — deleted dead `src/services/ontology.service.ts` + its 11 tests (review finding C1). Same PR marks the conductor `react-migration` track complete (was stuck at `[~]` despite 70/70 tasks done). Targets `feat/phase-7-ai-features`, not `main`.
+
+**Open PRs:**
+- **#33** — Phase 7: AI features via serverless proxy (the original phase-7 branch, still open)
+- **#44** — Code review cleanup (dead service + conductor state). Chained on top of #33.
+
+**Open issues (from code review, prioritized):**
+- **#34 [high]** — Rate limiter uses a module-scoped `Map` on Vercel Functions; not enforced across instances. **Deferred** — low-traffic portfolio site, revisit only if proxy sees abuse.
+- **#35-#39 [medium]** — Storage validator half-validates (`contextMap`/`frictionRules`/`modeRules` unchecked); CSP hardcodes proxy URL vs `VITE_AI_PROXY_URL`; proxy error responses leak Anthropic SDK messages; `resolveNodeType` uses fragile id-prefix matching; onboarding storage key is a magic string.
+- **#40-#43 [low]** — Bare `catch {}` blocks swallow parse errors; DOMPurify strips `target`/`rel` from link tags; Claude model hardcoded in `api/analyze.ts:102`; unnecessary `JSON.parse(JSON.stringify(...))` clones in `src/data/defaults.ts:219-221`.
+
+**Outstanding decisions:**
+- **Merge order** for PRs #33 then #44, or squash #44 into #33 before merge.
+- **Rate limiter (H1)**: Shane chose "defer to issue" rather than install Upstash. Worth revisiting if proxy URL ever leaks or traffic grows.
+- **Init state** for this repo: `api/node_modules` and `.env` / `api/.env` are still missing on Shane's machine (from earlier in the session). AI features won't work locally until those exist.
+
+**Do not touch without reading:**
+- `src/context/AppContext.tsx` REMOVE_NODE case — the single source of truth for cascading deletes. Flagged in Critical Constraints as highest-risk logic.
+- `api/lib/rate-limit.ts` — knowingly imperfect. See #34 for the deferred fix.

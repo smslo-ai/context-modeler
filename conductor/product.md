@@ -29,4 +29,4 @@ Born from a Gemini Canvas prototyping session (Jan-Mar 2026). The prototype was 
 
 ## Current Status
 
-React 19 + TypeScript migration complete (Phases 1-7). 168 tests across 18 files, 90%+ coverage on services/utils. Phase 7 adds AI-powered analysis via a Vercel Functions proxy calling the Claude API: Node Analyzer (graph-aware optimization advice), Friction Resolver (diagnosis + fix for workflow-system friction), and Prompt Generator (structured AI agent spec from graph data). Live at https://smslo-ai.github.io/context-modeler/.
+React 19 + TypeScript migration complete (Phases 1-7). 157 tests across 17 files, 90%+ coverage on services/utils. Phase 7 adds AI-powered analysis via a Vercel Functions proxy calling the Claude API: Node Analyzer (graph-aware optimization advice), Friction Resolver (diagnosis + fix for workflow-system friction), and Prompt Generator (structured AI agent spec from graph data). Live at https://smslo-ai.github.io/context-modeler/.

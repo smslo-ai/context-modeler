@@ -1,0 +1,1081 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.5">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; min-height: 16.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Context-Aware Workplace Modeler &amp; Input Studio&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.jsdelivr.net/npm/chart.js"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* Chosen Palette: Vibrant Professional (Indigo, Emerald, Amber) */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* Background: Slate-50, Surface: White */</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* Custom Scrollbar */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>::-webkit-scrollbar { width: 8px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>::-webkit-scrollbar-track { background: #f1f1f1; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>::-webkit-scrollbar-thumb:hover { background: #94a3b8; }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* Chart Container Utilities */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.chart-container {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>position: relative;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>max-width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 350px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-left: auto;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-right: auto;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>@media (min-width: 768px) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>.chart-container { height: 400px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* Card &amp; Layout Styles */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.card-elevation {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: transform 0.2s ease, box-shadow 0.2s ease;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.card-elevation:hover {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform: translateY(-2px);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* Triad Interaction States */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.triad-item {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-left: 4px solid transparent;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.triad-item:hover {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform: translateX(4px);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #f1f5f9; /* slate-100 */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.triad-item.active {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #e0e7ff; /* indigo-100 */</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-left-color: #4f46e5; /* indigo-600 */</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.triad-item.related {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #ecfdf5; /* emerald-50 */</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-left-color: #10b981; /* emerald-500 */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.triad-item.dimmed {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>opacity: 0.3;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>filter: grayscale(100%);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>pointer-events: none;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.triad-item.pulsing {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>animation: pulse-border 2s infinite;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>@keyframes pulse-border {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); border-left-color: #ef4444; }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>70% { box-shadow: 0 0 0 6px rgba(239, 68, 68, 0); border-left-color: #ef4444; }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); border-left-color: #ef4444; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* Heatmap Grid */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.heatmap-grid {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: grid;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gap: 2px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.heatmap-cell {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: transform 0.2s;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.heatmap-cell:hover {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transform: scale(1.15);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>z-index: 10;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 2px solid #6366f1;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* Loader */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.loader {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 2px solid #e2e8f0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 50%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-top: 2px solid #4f46e5;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 16px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>animation: spin 1s linear infinite;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: inline-block;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-right: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* Navigation &amp; Tabs */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.nav-btn.active {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background-color: #ffffff;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #4f46e5;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 600;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.tab-btn {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-bottom: 3px solid transparent;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: all 0.2s;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.tab-btn.active {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-bottom-color: #4f46e5;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #4f46e5;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-weight: 700;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* Markdown Prose for AI Output */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.markdown-prose ul { list-style-type: disc; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.markdown-prose ol { list-style-type: decimal; padding-left: 1.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.markdown-prose strong { font-weight: 700; color: #312e81; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.markdown-prose p { margin-bottom: 0.5rem; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.markdown-prose code { background-color: #f1f5f9; padding: 0.1rem 0.3rem; border-radius: 0.25rem; font-family: monospace; font-size: 0.9em; color: #db2777; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!--<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>Application Structure Plan:</p>
+<p class="p1"><span class="Apple-converted-space">    </span>1. Navigation: Top bar switching between "Dashboard/Infographic" view and "Input Studio" view.</p>
+<p class="p1"><span class="Apple-converted-space">    </span>2. Input Studio: Dedicated form-based interface to populate the ontology (Workflows, Systems, Users).<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">       </span>- Uses local storage to persist data.</p>
+<p class="p1"><span class="Apple-converted-space">       </span>- Allows explicit linking (checkboxes) to define graph edges.</p>
+<p class="p1"><span class="Apple-converted-space">    </span>3. Dashboard:<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">       </span>- Context Triad: Interactive lists visualizing the graph.</p>
+<p class="p1"><span class="Apple-converted-space">       </span>- Heatmap: Grid visualizing cognitive friction.</p>
+<p class="p1"><span class="Apple-converted-space">       </span>- Charts: Chart.js for Feasibility/Readiness.</p>
+<p class="p1"><span class="Apple-converted-space">       </span>- AI Integration: Placeholders for Gemini calls.</p>
+<p class="p1"><span class="Apple-converted-space">    </span>--&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Chosen Palette: Indigo/Emerald/Amber (Vibrant Professional) --&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body class="bg-slate-50 text-slate-800 font-sans leading-relaxed"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- HEADER --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;header class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="flex flex-col md:flex-row justify-between items-center gap-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="flex items-center gap-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="w-10 h-10 bg-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-xl shadow-lg"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>C</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h1 class="text-xl font-bold text-slate-900 tracking-tight"&gt;Context-Aware Workplace Modeler&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-xs text-slate-500 font-medium"&gt;Ontology Engine &amp; Feasibility Analysis&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="flex items-center gap-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="bg-slate-100 p-1 rounded-lg flex shadow-inner"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;button onclick="switchView('dashboard')" id="nav-dashboard" class="nav-btn px-4 py-2 text-sm font-medium rounded-md text-slate-600 transition active"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>📊 Dashboard</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;button onclick="switchView('input')" id="nav-input" class="nav-btn px-4 py-2 text-sm font-medium rounded-md text-slate-600 transition"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>✏️ Input Studio</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button onclick="clearStorage()" class="text-xs font-semibold text-rose-500 hover:text-rose-700 border border-rose-200 hover:bg-rose-50 px-3 py-2 rounded-md transition"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>Reset Data</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/header&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 min-h-screen"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- VIEW: DASHBOARD (INFOGRAPHIC) --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="view-dashboard" class="space-y-12 animate-fade-in"&gt;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Section 1: Introduction &amp; Context State --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;section class="grid grid-cols-1 lg:grid-cols-3 gap-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="lg:col-span-2 space-y-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h2 class="text-3xl font-extrabold text-slate-900"&gt;Modeling the Context-Aware Enterprise&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-lg text-slate-600"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>Traditional workflows are static. A &lt;strong&gt;Context-Aware Workplace&lt;/strong&gt; dynamically adapts based on the intersection of three dimensions: Business Demand, System Capability, and User State.</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-slate-500 text-sm"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>Use the controls to simulate different environmental states and observe how the Ontology Graph (below) shifts to optimize for cognitive load.</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="bg-white p-6 rounded-xl card-elevation border border-slate-100"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider mb-4"&gt;Simulation Control&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="flex flex-col gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;button onclick="setContextMode('triage')" id="btn-triage" class="context-btn w-full px-4 py-3 rounded-lg text-sm font-bold border border-slate-200 text-slate-600 hover:border-indigo-500 hover:text-indigo-600 transition flex items-center justify-between bg-white active ring-2 ring-indigo-500 ring-offset-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span&gt;☕ Morning Triage&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-xs font-normal text-slate-400"&gt;High Speed / Low Depth&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;button onclick="setContextMode('focus')" id="btn-focus" class="context-btn w-full px-4 py-3 rounded-lg text-sm font-bold border border-slate-200 text-slate-600 hover:border-indigo-500 hover:text-indigo-600 transition flex items-center justify-between bg-white"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span&gt;🧠 Deep Focus&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-xs font-normal text-slate-400"&gt;Low Distraction / High Depth&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;button onclick="setContextMode('fire')" id="btn-fire" class="context-btn w-full px-4 py-3 rounded-lg text-sm font-bold border border-slate-200 text-slate-600 hover:border-indigo-500 hover:text-indigo-600 transition flex items-center justify-between bg-white"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span&gt;🔥 Firefighting&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-xs font-normal text-slate-400"&gt;Critical / Reactive&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/section&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Section 2: Context Triad Explorer --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;section&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="flex items-center justify-between mb-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h3 class="text-2xl font-bold text-slate-900"&gt;Context Ontology Explorer&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-slate-500"&gt;Interactive mapping of your defined Workflows, Systems, and Users.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="text-sm text-indigo-600 font-medium bg-indigo-50 px-3 py-1 rounded-full"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span id="node-count-badge"&gt;0 Nodes Loaded&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="grid grid-cols-1 md:grid-cols-3 gap-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- Column 1: Workflows --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col h-[500px]"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="bg-indigo-50/50 px-5 py-3 border-b border-indigo-100 flex justify-between items-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h4 class="font-bold text-indigo-900"&gt;1. Business Workflows&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-[10px] font-bold bg-white text-indigo-600 px-2 py-0.5 rounded shadow-sm"&gt;DEMAND&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div id="col-workflows" class="p-3 overflow-y-auto flex-1 space-y-2 custom-scrollbar"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- Column 2: Systems --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col h-[500px]"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="bg-emerald-50/50 px-5 py-3 border-b border-emerald-100 flex justify-between items-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h4 class="font-bold text-emerald-900"&gt;2. Systems &amp; Infra&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-[10px] font-bold bg-white text-emerald-600 px-2 py-0.5 rounded shadow-sm"&gt;SUPPLY&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div id="col-systems" class="p-3 overflow-y-auto flex-1 space-y-2 custom-scrollbar"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- Column 3: Users --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="bg-white rounded-xl shadow-sm border border-slate-200 flex flex-col h-[500px]"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="bg-amber-50/50 px-5 py-3 border-b border-amber-100 flex justify-between items-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h4 class="font-bold text-amber-900"&gt;3. Users &amp; Personas&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-[10px] font-bold bg-white text-amber-600 px-2 py-0.5 rounded shadow-sm"&gt;STATE&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div id="col-personas" class="p-3 overflow-y-auto flex-1 space-y-2 custom-scrollbar"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Dynamic Insight Area --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="insight-box" class="mt-6 bg-slate-900 rounded-xl p-6 text-white hidden shadow-2xl transition-all duration-500"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="grid md:grid-cols-3 gap-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="md:col-span-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h4 class="text-indigo-300 font-bold text-sm uppercase tracking-wide mb-2"&gt;Active Context Analysis&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div id="insight-text" class="text-lg leading-relaxed text-slate-100"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div id="ai-result-area" class="mt-4 pt-4 border-t border-slate-700 hidden text-sm text-slate-300 font-mono markdown-prose"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flex flex-col justify-center space-y-3 border-l border-slate-700 pl-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;button onclick="triggerAIAnalysis()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 rounded-lg transition flex items-center justify-center gap-2 shadow-lg"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;span&gt;✨ Analyze Logic&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;button onclick="triggerAIPromptGen()" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold py-3 rounded-lg transition flex items-center justify-center gap-2 border border-slate-700"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;span&gt;📜 Generate Prompt&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/section&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Section 3: Friction Heatmap --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;section class="bg-white rounded-xl card-elevation border border-slate-100 p-6 md:p-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="mb-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h3 class="text-2xl font-bold text-slate-900"&gt;Cognitive Friction Heatmap&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-slate-500 mt-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>Visualizing the compatibility between defined Workflows and Systems.<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="text-rose-500 font-bold"&gt;Red cells&lt;/span&gt; indicate high-friction pairings (e.g., Critical tasks in slow systems) requiring Context Engineering.</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="overflow-x-auto pb-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div id="heatmap-container" class="min-w-[700px]"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="flex justify-end gap-6 mt-2 text-xs font-semibold uppercase tracking-wide text-slate-400"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="flex items-center gap-2"&gt;&lt;div class="w-3 h-3 bg-emerald-200 rounded-sm"&gt;&lt;/div&gt; Low Friction&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="flex items-center gap-2"&gt;&lt;div class="w-3 h-3 bg-amber-200 rounded-sm"&gt;&lt;/div&gt; Moderate&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="flex items-center gap-2"&gt;&lt;div class="w-3 h-3 bg-rose-200 rounded-sm"&gt;&lt;/div&gt; High Friction&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/section&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Section 4: Feasibility Analytics --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;section class="grid grid-cols-1 lg:grid-cols-2 gap-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Radar Chart --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="bg-white p-6 rounded-xl card-elevation border border-slate-100"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="mb-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h3 class="text-lg font-bold text-slate-900"&gt;Ontology Readiness Score&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-xs text-slate-500"&gt;Current maturity of defined dimensions vs. Target&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="chart-container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;canvas id="radarChart"&gt;&lt;/canvas&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Bubble Chart --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="bg-white p-6 rounded-xl card-elevation border border-slate-100"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="mb-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h3 class="text-lg font-bold text-slate-900"&gt;Responsibility Mapping&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-xs text-slate-500"&gt;Prioritization: Complexity vs. Strategic Value&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="chart-container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;canvas id="bubbleChart"&gt;&lt;/canvas&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/section&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- VIEW: INPUT STUDIO --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="view-input" class="hidden animate-fade-in max-w-4xl mx-auto"&gt;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="bg-slate-900 text-white px-8 py-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;h2 class="text-2xl font-bold"&gt;Ontology Input Studio&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;p class="text-indigo-200 mt-1"&gt;Define the nodes of your workplace graph. Explicitly link systems to workflows to build the ontology.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;!-- Tabs --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="flex border-b border-slate-200 bg-slate-50"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button onclick="switchInputTab('workflow')" id="tab-workflow" class="tab-btn flex-1 py-4 text-sm font-bold text-slate-500 hover:bg-white hover:text-indigo-600 active"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>1. Workflows</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button onclick="switchInputTab('system')" id="tab-system" class="tab-btn flex-1 py-4 text-sm font-bold text-slate-500 hover:bg-white hover:text-indigo-600"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>2. Systems &amp; Infra</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button onclick="switchInputTab('user')" id="tab-user" class="tab-btn flex-1 py-4 text-sm font-bold text-slate-500 hover:bg-white hover:text-indigo-600"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>3. Business Users</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="p-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- Workflow Form --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div id="form-workflow" class="space-y-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flex justify-between items-center mb-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h3 class="text-lg font-bold text-slate-800"&gt;Add New Business Workflow&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-xs bg-indigo-100 text-indigo-700 px-2 py-1 rounded font-bold"&gt;DEMAND NODE&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">                        </span></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="grid grid-cols-1 md:grid-cols-2 gap-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;label class="block text-xs font-bold text-slate-500 uppercase mb-2"&gt;Workflow Name&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;input type="text" id="inp-wf-label" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 outline-none transition" placeholder="e.g. Weekly Risk Assessment"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;label class="block text-xs font-bold text-slate-500 uppercase mb-2"&gt;Type / Category&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;select id="inp-wf-type" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;option value="Critical"&gt;Critical (High Urgency)&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;option value="Routine"&gt;Routine (Maintenance)&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;option value="Strategic"&gt;Strategic (Long Term)&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;option value="Collaborative"&gt;Collaborative (Sync)&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/select&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;label class="block text-xs font-bold text-slate-500 uppercase mb-2"&gt;Description&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;textarea id="inp-wf-desc" rows="2" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="What is the goal of this workflow?"&gt;&lt;/textarea&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="grid grid-cols-1 md:grid-cols-2 gap-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;label class="block text-xs font-bold text-slate-500 uppercase mb-2"&gt;Business Owner&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;input type="text" id="inp-wf-owner" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="e.g. VP of Operations"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;label class="block text-xs font-bold text-slate-500 uppercase mb-2"&gt;Frequency&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;select id="inp-wf-freq" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-indigo-500 outline-none"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;option value="Daily"&gt;Daily&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;option value="Weekly"&gt;Weekly&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;option value="Monthly"&gt;Monthly&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;option value="Quarterly"&gt;Quarterly&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;option value="Ad-hoc"&gt;Ad-hoc&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/select&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="bg-slate-50 p-4 rounded-lg border border-slate-200"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;label class="block text-xs font-bold text-slate-500 uppercase mb-3"&gt;Link to Supporting Systems&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div id="list-wf-systems" class="grid grid-cols-1 md:grid-cols-2 gap-2 max-h-48 overflow-y-auto"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;!-- Checkboxes populated via JS --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;p class="text-[10px] text-slate-400 mt-2 italic"&gt;* Select systems that support this workflow to create graph edges.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;button onclick="submitWorkflow()" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-4 rounded-lg shadow-lg shadow-indigo-200 transition transform active:scale-95"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>+ Add Workflow Node</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- System Form --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div id="form-system" class="hidden space-y-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flex justify-between items-center mb-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h3 class="text-lg font-bold text-slate-800"&gt;Add New System / Infrastructure&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-xs bg-emerald-100 text-emerald-700 px-2 py-1 rounded font-bold"&gt;SUPPLY NODE&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="grid grid-cols-1 md:grid-cols-2 gap-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;label class="block text-xs font-bold text-slate-500 uppercase mb-2"&gt;System Name&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;input type="text" id="inp-sys-label" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-emerald-500 outline-none" placeholder="e.g. Q3 Sales PowerBI Report"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;label class="block text-xs font-bold text-slate-500 uppercase mb-2"&gt;Category&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;select id="inp-sys-cat" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-emerald-500 outline-none"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;option value="Reporting"&gt;Power BI / Tableau / Dashboard&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;option value="Storage"&gt;SharePoint List / Drive / SQL&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;option value="Comms"&gt;Slack / Teams / Email&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;option value="Tracking"&gt;Jira / Asana / ServiceNow&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;option value="Intelligence"&gt;AI Model / LLM / Script&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/select&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;label class="block text-xs font-bold text-slate-500 uppercase mb-2"&gt;Description&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;textarea id="inp-sys-desc" rows="2" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-emerald-500 outline-none" placeholder="Technical details or location..."&gt;&lt;/textarea&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="bg-slate-50 p-4 rounded-lg border border-slate-200"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;label class="block text-xs font-bold text-slate-500 uppercase mb-3"&gt;Link to Existing Workflows &amp; Users&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div id="list-sys-links" class="grid grid-cols-1 md:grid-cols-2 gap-2 max-h-48 overflow-y-auto"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;!-- Checkboxes populated via JS --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;button onclick="submitSystem()" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-4 rounded-lg shadow-lg shadow-emerald-200 transition transform active:scale-95"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>+ Add System Node</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;!-- User Form --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div id="form-user" class="hidden space-y-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="flex justify-between items-center mb-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;h3 class="text-lg font-bold text-slate-800"&gt;Add Business User&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;span class="text-xs bg-amber-100 text-amber-700 px-2 py-1 rounded font-bold"&gt;STATE NODE&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="grid grid-cols-1 md:grid-cols-2 gap-6"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;label class="block text-xs font-bold text-slate-500 uppercase mb-2"&gt;Name / Role&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;input type="text" id="inp-usr-label" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-amber-500 outline-none" placeholder="e.g. Sarah (Finance Analyst)"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;label class="block text-xs font-bold text-slate-500 uppercase mb-2"&gt;Primary Persona State&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;select id="inp-usr-state" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-amber-500 outline-none"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;option value="High Load"&gt;Reactive Firefighter (High Stress)&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;option value="Flow"&gt;Deep Focus Architect (Low Distraction)&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;option value="Routine"&gt;Process Admin (Repetitive)&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                    </span>&lt;option value="Social"&gt;Bridge Builder (Collaborative)&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>&lt;/select&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;label class="block text-xs font-bold text-slate-500 uppercase mb-2"&gt;Role Description&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;textarea id="inp-usr-desc" rows="2" class="w-full bg-slate-50 border border-slate-300 rounded-lg p-3 text-sm focus:ring-2 focus:ring-amber-500 outline-none" placeholder="What is their primary responsibility?"&gt;&lt;/textarea&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;button onclick="submitUser()" class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-4 rounded-lg shadow-lg shadow-amber-200 transition transform active:scale-95"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>+ Add User Node</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/main&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- FLOATING MODAL FOR FRICTION RESOLUTION --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="friction-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm hidden flex items-center justify-center z-[100] animate-fade-in"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="bg-white rounded-xl shadow-2xl p-6 w-full max-w-lg mx-4 transform transition-all scale-100"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="flex justify-between items-start mb-4 border-b border-slate-100 pb-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="flex items-center gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="text-2xl"&gt;🚨&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;h3 class="text-lg font-bold text-slate-900"&gt;Friction Detected&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;p class="text-xs text-rose-500 font-bold uppercase tracking-wide"&gt;Context Mismatch&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button onclick="closeFrictionModal()" class="text-slate-400 hover:text-slate-600 w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 transition"&gt;✕&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="friction-content" class="text-sm text-slate-600 mb-4 font-medium"&gt;&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="bg-slate-50 p-5 rounded-lg border border-slate-200 min-h-[120px]"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="friction-ai-response" class="text-sm text-slate-800 markdown-prose"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="flex items-center gap-2 text-slate-400"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span class="loader"&gt;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;span&gt;Waiting for Gemini analysis...&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- API CONFIG ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const apiKey = "";<span class="Apple-converted-space"> </span></p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- GLOBAL STATE ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let state = {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>activeId: null,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>activeCategory: null,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>contextMode: 'triage', // triage, focus, fire</p>
+<p class="p1"><span class="Apple-converted-space">            </span>currentView: 'dashboard'</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- DATA FACTORY ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Prevents object reference pollution on reset</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function getDefaultData() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>return {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>workflows: [</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ id: "wf1", label: "Management Escalations", desc: "Urgent issues requiring immediate decision.", type: "Critical", owner: "Head of Ops", freq: "Ad-hoc" },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ id: "wf2", label: "Admin Deadlines", desc: "Recurring compliance and timesheets.", type: "Routine", owner: "HR", freq: "Weekly" },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ id: "wf3", label: "System Maintenance", desc: "Upkeeping shared sites and infra.", type: "Technical", owner: "IT Lead", freq: "Monthly" },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ id: "wf4", label: "Cross-Team Sync", desc: "Aligning widely distributed teams.", type: "Collaborative", owner: "PMO", freq: "Weekly" },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ id: "wf5", label: "Strategic Planning", desc: "Long-term architecture design.", type: "Strategic", owner: "CTO", freq: "Quarterly" }</p>
+<p class="p1"><span class="Apple-converted-space">                </span>],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>systems: [</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ id: "sys1", label: "Shared Sites (SharePoint)", desc: "Static knowledge repository.", category: "Storage" },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ id: "sys2", label: "Comm Hub (Slack/Teams)", desc: "Real-time context stream.", category: "Comms" },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ id: "sys3", label: "AI Context Engine", desc: "Synthesizing intent layer.", category: "Intelligence" },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ id: "sys4", label: "Project Tracker (Jira)", desc: "Deadline source of truth.", category: "Tracking" },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ id: "sys5", label: "Exec Dashboard", desc: "KPI visualization.", category: "Reporting" }</p>
+<p class="p1"><span class="Apple-converted-space">                </span>],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>personas: [</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ id: "per1", label: "Reactive Firefighter", desc: "High stress, rapid switching.", state: "High Load" },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ id: "per2", label: "Deep Focus Architect", desc: "Prolonged silence needed.", state: "Flow" },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ id: "per3", label: "Process Admin", desc: "Methodical queue clearing.", state: "Routine" },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ id: "per4", label: "Bridge Builder", desc: "Connecting teams.", state: "Social" }</p>
+<p class="p1"><span class="Apple-converted-space">                </span>],</p>
+<p class="p1"><span class="Apple-converted-space">                </span>relationships: [</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ source: "wf1", targets: ["sys2", "sys5", "per1"] },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ source: "wf2", targets: ["sys4", "sys1", "per3"] },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ source: "wf3", targets: ["sys1", "sys4", "per3"] },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ source: "wf4", targets: ["sys2", "sys1", "per4"] },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ source: "wf5", targets: ["sys3", "sys5", "per2"] },</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>{ source: "sys3", targets: ["wf5", "wf1", "per2", "per1"] }</p>
+<p class="p1"><span class="Apple-converted-space">                </span>]</p>
+<p class="p1"><span class="Apple-converted-space">            </span>};</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>let ontologyData = getDefaultData();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- STORAGE &amp; INIT ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function loadStorage() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const saved = localStorage.getItem('workplace_modeler_data');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if(saved) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>try {<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>ontologyData = JSON.parse(saved);<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>// Sanity check</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>if(!ontologyData.workflows) throw new Error("Invalid schema");</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>catch (e) {<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>console.warn("Storage corrupted, resetting.");</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>localStorage.removeItem('workplace_modeler_data');<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                    </span>ontologyData = getDefaultData();<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function saveStorage() { localStorage.setItem('workplace_modeler_data', JSON.stringify(ontologyData)); }</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function clearStorage() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if(confirm("Are you sure you want to delete all custom data and return to defaults?")) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>localStorage.removeItem('workplace_modeler_data');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Soft Reset Logic</p>
+<p class="p1"><span class="Apple-converted-space">                </span>ontologyData = getDefaultData();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>state.activeId = null;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('insight-box').classList.add('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>refreshAllViews();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- VIEW SWITCHING ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function switchView(viewName) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>state.currentView = viewName;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('view-dashboard').classList.add('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('view-input').classList.add('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById(`view-${viewName}`).classList.remove('hidden');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const navDash = document.getElementById('nav-dashboard');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const navInp = document.getElementById('nav-input');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>navDash.classList.remove('active', 'text-indigo-600', 'bg-white', 'shadow-sm');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>navInp.classList.remove('active', 'text-indigo-600', 'bg-white', 'shadow-sm');</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Add inactive base classes</p>
+<p class="p1"><span class="Apple-converted-space">            </span>navDash.classList.add('text-slate-600');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>navInp.classList.add('text-slate-600');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>if(viewName === 'dashboard') {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>navDash.classList.add('active');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>navDash.classList.remove('text-slate-600');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>refreshAllViews();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>navInp.classList.add('active');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>navInp.classList.remove('text-slate-600');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>populateInputLists();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function refreshAllViews() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>renderColumns();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>renderHeatmap();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>updateCharts();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>updateBadge();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function updateBadge() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const count = ontologyData.workflows.length + ontologyData.systems.length + ontologyData.personas.length;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('node-count-badge').innerText = `${count} Nodes Loaded`;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- DASHBOARD: TRIAD EXPLORER ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function renderColumns() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const els = {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>wf: document.getElementById('col-workflows'),</p>
+<p class="p1"><span class="Apple-converted-space">                </span>sys: document.getElementById('col-systems'),</p>
+<p class="p1"><span class="Apple-converted-space">                </span>per: document.getElementById('col-personas')</p>
+<p class="p1"><span class="Apple-converted-space">            </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const createCard = (item, category) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const div = document.createElement('div');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>div.className = 'triad-item p-3 rounded-lg border border-slate-100 text-sm mb-2 relative group';</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>applyContextVisuals(div, item);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (state.activeId) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>if (item.id === state.activeId) div.classList.add('active');</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>else if (isRelated(state.activeId, item.id)) div.classList.add('related');</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>else div.classList.add('dimmed');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>div.classList.add('bg-white');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Metadata rendering</p>
+<p class="p1"><span class="Apple-converted-space">                </span>let subtext = item.desc;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>let badge = '';</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>if(category === 'workflow') {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>badge = `&lt;span class="ml-2 text-[10px] uppercase bg-slate-100 text-slate-500 px-1.5 rounded"&gt;${item.freq}&lt;/span&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>} else if (category === 'system') {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>badge = `&lt;span class="ml-2 text-[10px] uppercase bg-slate-100 text-slate-500 px-1.5 rounded"&gt;${item.category}&lt;/span&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>div.innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="flex justify-between items-start"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="font-bold text-slate-700 leading-tight"&gt;${item.label}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>${badge}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="text-xs text-slate-400 mt-1 truncate group-hover:whitespace-normal"&gt;${subtext}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>div.onclick = () =&gt; handleItemClick(item.id, category);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return div;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>els.wf.innerHTML = '';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>els.sys.innerHTML = '';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>els.per.innerHTML = '';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>ontologyData.workflows.forEach(i =&gt; els.wf.appendChild(createCard(i, 'workflow')));</p>
+<p class="p1"><span class="Apple-converted-space">            </span>ontologyData.systems.forEach(i =&gt; els.sys.appendChild(createCard(i, 'system')));</p>
+<p class="p1"><span class="Apple-converted-space">            </span>ontologyData.personas.forEach(i =&gt; els.per.appendChild(createCard(i, 'persona')));</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function applyContextVisuals(div, item) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const mode = state.contextMode;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (mode === 'focus') {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Dim communicative/distracting items</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (item.label.toLowerCase().includes('slack') || item.label.toLowerCase().includes('teams') || item.label.toLowerCase().includes('email')) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>div.style.opacity = '0.3';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>else if (mode === 'fire') {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Pulse critical items</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (item.type === 'Critical' || item.label.toLowerCase().includes('escalation')) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>div.classList.add('pulsing');</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>div.classList.add('border-rose-200');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Dim routine items</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (item.type === 'Routine' || item.type === 'Strategic') {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>div.style.opacity = '0.4';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function setContextMode(mode) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>state.contextMode = mode;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Reset buttons</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.querySelectorAll('.context-btn').forEach(b =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>b.classList.remove('ring-2', 'ring-indigo-500', 'ring-offset-1', 'border-indigo-500', 'text-indigo-600');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>b.classList.add('border-slate-200', 'text-slate-600');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Activate button</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const btn = document.getElementById(`btn-${mode}`);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>btn.classList.remove('border-slate-200', 'text-slate-600');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>btn.classList.add('ring-2', 'ring-indigo-500', 'ring-offset-1', 'border-indigo-500', 'text-indigo-600');</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>renderColumns();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- DASHBOARD: HEATMAP ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function renderHeatmap() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const wfs = ontologyData.workflows;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const sys = ontologyData.systems;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const container = document.getElementById('heatmap-container');</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>let html = `&lt;div class="heatmap-grid" style="grid-template-columns: 140px repeat(${wfs.length}, 1fr);"&gt;`;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Header</p>
+<p class="p1"><span class="Apple-converted-space">            </span>html += `&lt;div class="p-2 text-xs font-bold text-slate-300 uppercase tracking-widest"&gt;Sys / Wf&lt;/div&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>wfs.forEach(w =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>html += `&lt;div class="p-2 text-xs font-bold text-center text-slate-600 truncate border-b-2 border-slate-100" title="${w.label}"&gt;${w.label.substring(0,10)}..&lt;/div&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>sys.forEach(s =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>html += `&lt;div class="p-2 text-xs font-bold text-slate-600 truncate border-r-2 border-slate-100 pr-2" title="${s.label}"&gt;${s.label}&lt;/div&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>wfs.forEach(w =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const friction = calculateFriction(w, s);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>const color = getFrictionColor(friction);</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>html += `&lt;div onclick="openFrictionModal('${w.id}', '${s.id}', '${friction}')" class="heatmap-cell h-10 ${color} rounded-sm m-0.5" title="Analyze ${w.label} + ${s.label}"&gt;&lt;/div&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>html += `&lt;/div&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>container.innerHTML = html;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function calculateFriction(w, s) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Heuristic Logic for Demo</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (w.type === 'Strategic' &amp;&amp; s.category === 'Comms') return 'high';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (w.type === 'Critical' &amp;&amp; s.category === 'Storage') return 'mod';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (w.type === 'Routine' &amp;&amp; s.category === 'Tracking') return 'low';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Random salt</p>
+<p class="p1"><span class="Apple-converted-space">            </span>return Math.random() &gt; 0.85 ? 'high' : (Math.random() &gt; 0.5 ? 'mod' : 'low');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function getFrictionColor(level) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if(level === 'high') return 'bg-rose-400 hover:bg-rose-500';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if(level === 'mod') return 'bg-amber-300 hover:bg-amber-400';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>return 'bg-emerald-300 hover:bg-emerald-400';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- INPUT STUDIO LOGIC ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function switchInputTab(tab) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>['workflow', 'system', 'user'].forEach(t =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById(`form-${t}`).classList.add('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById(`tab-${t}`).classList.remove('active', 'border-indigo-500', 'text-indigo-600');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById(`tab-${t}`).classList.add('text-slate-500');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById(`form-${tab}`).classList.remove('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const btn = document.getElementById(`tab-${tab}`);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>btn.classList.add('active', 'border-indigo-500', 'text-indigo-600');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>btn.classList.remove('text-slate-500');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function populateInputLists() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Populate System checkboxes for Workflows</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const sysList = document.getElementById('list-wf-systems');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>sysList.innerHTML = ontologyData.systems.map(s =&gt; `</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;label class="flex items-center space-x-3 cursor-pointer hover:bg-indigo-50 p-2 rounded transition border border-transparent hover:border-indigo-100"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;input type="checkbox" value="${s.id}" class="form-checkbox h-4 w-4 text-indigo-600 rounded focus:ring-indigo-500"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="text-sm font-semibold text-slate-700"&gt;${s.label}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="text-xs text-slate-400"&gt;${s.category}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>`).join('');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Populate All Nodes for System Linking</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const linkList = document.getElementById('list-sys-links');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const targets = [...ontologyData.workflows, ...ontologyData.personas];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>linkList.innerHTML = targets.map(t =&gt; `</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;label class="flex items-center space-x-3 cursor-pointer hover:bg-emerald-50 p-2 rounded transition border border-transparent hover:border-emerald-100"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;input type="checkbox" value="${t.id}" class="form-checkbox h-4 w-4 text-emerald-600 rounded focus:ring-emerald-500"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span class="text-sm text-slate-700 truncate"&gt;${t.label}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>`).join('');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function submitWorkflow() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const label = document.getElementById('inp-wf-label').value;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if(!label) return alert("Please name the workflow.");</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const newItem = {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>id: `wf_${Date.now()}`,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>label: label,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>type: document.getElementById('inp-wf-type').value,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>desc: document.getElementById('inp-wf-desc').value || "No description",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>owner: document.getElementById('inp-wf-owner').value || "Unassigned",</p>
+<p class="p1"><span class="Apple-converted-space">                </span>freq: document.getElementById('inp-wf-freq').value</p>
+<p class="p1"><span class="Apple-converted-space">            </span>};</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>ontologyData.workflows.push(newItem);</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Links</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const checked = document.querySelectorAll('#list-wf-systems input:checked');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if(checked.length) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>ontologyData.relationships.push({</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>source: newItem.id,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>targets: Array.from(checked).map(c =&gt; c.value)</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>saveStorage();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>alert(`Workflow "${label}" added to Ontology.`);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Reset</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('inp-wf-label').value = '';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('inp-wf-desc').value = '';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('inp-wf-owner').value = '';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>populateInputLists();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function submitSystem() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const label = document.getElementById('inp-sys-label').value;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if(!label) return alert("Please name the system.");</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const newItem = {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>id: `sys_${Date.now()}`,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>label: label,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>category: document.getElementById('inp-sys-cat').value,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>desc: document.getElementById('inp-sys-desc').value || "No description"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>ontologyData.systems.push(newItem);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Links</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const checked = document.querySelectorAll('#list-sys-links input:checked');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if(checked.length) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>ontologyData.relationships.push({</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>source: newItem.id,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>targets: Array.from(checked).map(c =&gt; c.value)</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>saveStorage();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>alert(`System "${label}" added to Ontology.`);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('inp-sys-label').value = '';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('inp-sys-desc').value = '';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>populateInputLists();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function submitUser() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const label = document.getElementById('inp-usr-label').value;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if(!label) return alert("Please name the user.");</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const newItem = {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>id: `usr_${Date.now()}`,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>label: label,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>state: document.getElementById('inp-usr-state').value,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>desc: document.getElementById('inp-usr-desc').value || "No description"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>ontologyData.personas.push(newItem);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>saveStorage();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>alert(`User "${label}" added to Ontology.`);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('inp-usr-label').value = '';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('inp-usr-desc').value = '';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>populateInputLists();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- AI INTERACTIONS (DASHBOARD) ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function handleItemClick(id, category) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>state.activeId = (state.activeId === id) ? null : id;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>state.activeCategory = category;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const insightBox = document.getElementById('insight-box');</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (!state.activeId) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>insightBox.classList.add('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>renderColumns();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const item = findItem(id);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const related = getRelatedIds(id).length;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>insightBox.classList.remove('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('ai-result-area').classList.add('hidden');</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Static Insight</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('insight-text').innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">                </span>Selected &lt;span class="text-indigo-400 font-bold"&gt;${item.label}&lt;/span&gt;.<span class="Apple-converted-space"> </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;br&gt;Detected &lt;span class="text-white font-bold"&gt;${related} direct connections&lt;/span&gt; in the graph.</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;br&gt;&lt;span class="text-sm text-slate-400"&gt;Context Engine recommends analyzing logic for optimization.&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>`;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>renderColumns();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Scroll to insight if needed</p>
+<p class="p1"><span class="Apple-converted-space">            </span>insightBox.scrollIntoView({ behavior: 'smooth', block: 'center' });</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function openFrictionModal(wId, sId, friction) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const w = findItem(wId);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const s = findItem(sId);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const modal = document.getElementById('friction-modal');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>modal.classList.remove('hidden');</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('friction-content').innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">                </span>Workflow: &lt;strong class="text-slate-800"&gt;${w.label}&lt;/strong&gt;&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>System: &lt;strong class="text-slate-800"&gt;${s.label}&lt;/strong&gt;&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>Friction Score: &lt;span class="uppercase font-bold ${friction === 'high' ? 'text-rose-600' : 'text-amber-500'}"&gt;${friction}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>`;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Auto-trigger AI for friction</p>
+<p class="p1"><span class="Apple-converted-space">            </span>triggerFrictionAnalysis(w, s, friction);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function closeFrictionModal() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>document.getElementById('friction-modal').classList.add('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- GEMINI API CALLS ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>async function callGemini(prompt) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const payload = { contents: [{ parts: [{ text: prompt }] }] };</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const res = await fetch(url, {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>method: 'POST',</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>headers: {'Content-Type': 'application/json'},</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>body: JSON.stringify(payload)</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p1"><span class="Apple-converted-space">                </span>if(!res.ok) throw new Error('API Error');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const data = await res.json();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return data.candidates[0].content.parts[0].text;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} catch (e) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>console.error(e);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return "⚠️ AI Service Unavailable. Please check API Key.";</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>async function triggerAIAnalysis() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if(!state.activeId) return;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const item = findItem(state.activeId);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const div = document.getElementById('ai-result-area');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>div.classList.remove('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>div.innerHTML = '&lt;span class="loader"&gt;&lt;/span&gt; Analying Ontology Node...';</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const prompt = `Analyze this workplace node: "${item.label}" (${item.desc}). Context Mode: ${state.contextMode}. Suggest 3 specific optimizations for a Digital Workplace Architect.`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const text = await callGemini(prompt);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>div.innerHTML = marked.parse(text);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>async function triggerAIPromptGen() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if(!state.activeId) return;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const item = findItem(state.activeId);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const div = document.getElementById('ai-result-area');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>div.classList.remove('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>div.innerHTML = '&lt;span class="loader"&gt;&lt;/span&gt; Designing System Prompt...';</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const prompt = `Write a JSON System Prompt for an AI Agent responsible for managing the "${item.label}" workflow. The agent should be aware of the user's state: ${state.contextMode}.`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const text = await callGemini(prompt);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>div.innerHTML = marked.parse(text);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>async function triggerFrictionAnalysis(w, s, f) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const div = document.getElementById('friction-ai-response');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>div.innerHTML = '&lt;div class="flex items-center gap-2 text-slate-400"&gt;&lt;span class="loader"&gt;&lt;/span&gt;&lt;span&gt;Gemini is solving friction...&lt;/span&gt;&lt;/div&gt;';</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const prompt = `The workflow "${w.label}" is experiencing ${f} friction when using "${s.label}". Explain why in 1 sentence, then provide 1 concrete technical fix (e.g. automation, integration, UI change).`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const text = await callGemini(prompt);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>div.innerHTML = marked.parse(text);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- CHARTS &amp; HELPERS ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function findItem(id) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>return [...ontologyData.workflows, ...ontologyData.systems, ...ontologyData.personas].find(x =&gt; x.id === id);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function getRelatedIds(sourceId) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const direct = ontologyData.relationships.filter(r =&gt; r.source === sourceId).flatMap(r =&gt; r.targets);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const inverse = ontologyData.relationships.filter(r =&gt; r.targets.includes(sourceId)).map(r =&gt; r.source);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>return [...new Set([...direct, ...inverse])];</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function isRelated(id1, id2) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>return getRelatedIds(id1).includes(id2);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>let radarChartInstance = null;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let bubbleChartInstance = null;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function updateCharts() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Placeholder logic - normally this would calculate real stats from ontologyData</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Just re-rendering for visual consistency</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function initCharts() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Radar</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const ctxR = document.getElementById('radarChart');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if(ctxR) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>radarChartInstance = new Chart(ctxR, {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>type: 'radar',</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>data: {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>labels: ['Definition', 'Integration', 'Awareness', 'Data', 'Auto'],</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>datasets: [{</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>label: 'Current Maturity',</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>data: [65, 59, 90, 81, 56],</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>fill: true,</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>backgroundColor: 'rgba(79, 70, 229, 0.2)', // Indigo</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>borderColor: 'rgb(79, 70, 229)',</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>pointBackgroundColor: 'rgb(79, 70, 229)',</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>pointBorderColor: '#fff',</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>pointHoverBackgroundColor: '#fff',</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>pointHoverBorderColor: 'rgb(79, 70, 229)'</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>}]</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>options: {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>maintainAspectRatio: false,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>elements: { line: { borderWidth: 3 } },</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>scales: { r: { ticks: { display: false } } }</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Bubble</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const ctxB = document.getElementById('bubbleChart');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if(ctxB) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>bubbleChartInstance = new Chart(ctxB, {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>type: 'bubble',</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>data: {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>datasets: [{</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>label: 'Workflow Matrix',</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>data: [</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>{ x: 20, y: 30, r: 15 },</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>{ x: 40, y: 10, r: 10 },</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>{ x: 30, y: 80, r: 20 },</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>{ x: 90, y: 50, r: 12 },</p>
+<p class="p1"><span class="Apple-converted-space">                                </span>{ x: 60, y: 60, r: 8 }</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>],</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>backgroundColor: 'rgba(16, 185, 129, 0.6)' // Emerald</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>}]</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>options: {</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>maintainAspectRatio: false,</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>plugins: { legend: { display: false } },</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>scales: {</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>x: { title: { display: true, text: 'Complexity' } },</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>y: { title: { display: true, text: 'Business Value' } }</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// --- INIT ON LOAD ---</p>
+<p class="p1"><span class="Apple-converted-space">        </span>window.addEventListener('DOMContentLoaded', () =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>loadStorage();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>refreshAllViews();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>initCharts();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Default to input link population</p>
+<p class="p1"><span class="Apple-converted-space">            </span>populateInputLists();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
